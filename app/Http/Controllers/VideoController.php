@@ -17,6 +17,7 @@ class VideoController extends Controller
         $itemsPerPage = 12; // Puede ser 12, 24, 36, etc.
 
         // Obtén todos los videos, independientemente de si están en una lista o no
+        // ordenados por ID de manera descendente y paginados
         $videos = Video::orderBy('id', 'desc')->paginate($itemsPerPage);
 
         return view('videos.index', compact('videos'));
@@ -35,8 +36,8 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         // Validación de los datos del formulario
+        // Aquí se definen las reglas de validación para los campos del formulario
         $request->validate([
             'titulo' => 'required',
             'descripcion' => 'nullable',
@@ -48,7 +49,7 @@ class VideoController extends Controller
             'categoria_id.*' => 'exists:categorias,id', // Cada elemento debe existir en la tabla 'categorias'
         ]);
 
-        // Creación del nuevo Video
+        // Creación y guardado del nuevo Video en la base de datos
         $video = new Video;
         $video->titulo = $request->titulo;
         $video->descripcion = $request->descripcion;
@@ -56,10 +57,9 @@ class VideoController extends Controller
         $video->thumbnail = $request->thumbnail; // Ahora simplemente guarda la URL proporcionada
         $video->lista_id = $request->lista_id;
         $video->tipo_id = $request->tipo_id;
-
         $video->save();
 
-        // Asignar categorías al video
+        // Asignar categorías al video si están presentes
         if ($request->has('categoria_id')) {
             $video->categorias()->sync($request->categoria_id);
         }
@@ -70,16 +70,16 @@ class VideoController extends Controller
 
 
 
-
     public function show(Video $video)
     {
-        // Cargar la lista relacionada
+        // Carga la relación 'lista' del video
         $video->load('lista');
 
         // Encuentra el anterior y siguiente video en la lista
         $prevVideo = null;
         $nextVideo = null;
-
+        
+        // Lógica para encontrar el video anterior y siguiente en la lista
         if ($video->lista) {
             $videosEnLista = $video->lista->videos()->orderBy('id')->get();
 
@@ -90,7 +90,7 @@ class VideoController extends Controller
             $prevVideo = $videosEnLista->get($currentKey - 1);
             $nextVideo = $videosEnLista->get($currentKey + 1);
         }
-
+        // Devuelve la vista 'videos.show', pasando las variables 'video', 'prevVideo', 'nextVideo'
         return view('videos.show', compact('video', 'prevVideo', 'nextVideo'));
     }
 }
