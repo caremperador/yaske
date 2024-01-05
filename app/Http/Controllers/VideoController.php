@@ -23,9 +23,6 @@ class VideoController extends Controller
         return view('videos.index', compact('videos'));
     }
 
-
-
-
     public function create()
     {
         $listas = Lista::all(); // Obtén todas las listas
@@ -72,13 +69,13 @@ class VideoController extends Controller
 
     public function show(Video $video)
     {
-        // Carga la relación 'lista' del video
-        $video->load('lista');
+        // Carga las relaciones 'lista' y 'comentarios' del video
+        $video->load('lista', 'comentarios.user');
 
         // Encuentra el anterior y siguiente video en la lista
         $prevVideo = null;
         $nextVideo = null;
-        
+
         // Lógica para encontrar el video anterior y siguiente en la lista
         if ($video->lista) {
             $videosEnLista = $video->lista->videos()->orderBy('id')->get();

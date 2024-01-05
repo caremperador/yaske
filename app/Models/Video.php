@@ -25,4 +25,8 @@ class Video extends Model
     {
         return $this->belongsTo(Lista::class);
     }
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class);
+    }
 }

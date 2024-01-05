@@ -8,6 +8,7 @@ use App\Http\Controllers\TipoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ComentarioController;
 
 
 /*
@@ -54,6 +55,11 @@ Route::controller(TipoController::class)->group(function () {
     Route::get('/tipos/video/{tipoSlug}', 'show')->name('tipos.show')->middleware('auth');
     Route::get('/tipos/lista/{tipoSlug}', 'show_con_listas')->name('tipos.show_con_listas')->middleware('auth');
 });
+
+
+Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
+Route::get('/comentarios/{comentario}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
+Route::put('/comentarios/{comentario}', [ComentarioController::class, 'update'])->name('comentarios.update');
 
 
 Route::middleware([
