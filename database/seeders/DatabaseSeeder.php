@@ -16,37 +16,42 @@ use Database\Seeders\RoleAssignSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-
-
         // Crear categorías
-        Categoria::factory()->count(40)->create();
+        Categoria::factory(40)->create();
 
         // Crear tipos específicos
-        $nombresTipos = ['peliculas', 'series', 'animes', 'doramas', 'documentales', 'cursos', 'hentai'];
+        $nombresTipos = ['series', 'animes', 'doramas', 'documentales', 'cursos', 'hentai', 'novelas'];
         foreach ($nombresTipos as $nombreTipo) {
             Tipo::firstOrCreate(['name' => $nombreTipo]);
         }
 
-        // Crear listas
-        // Suponiendo que quieres asignar aleatoriamente tipos a las listas
-        $tipos = Tipo::all();
-        Lista::factory()->count(20)->create()->each(function ($lista) use ($tipos) {
-            $lista->tipo_id = $tipos->random()->id;
-            $lista->save();
+        // Asegurarse de que el tipo 'peliculas' existe para asignarlo a videos sin lista
+        $tipoPeliculas = Tipo::firstOrCreate(['name' => 'peliculas']);
+
+        // Crear listas sin asignar el tipo 'peliculas'
+        $tiposExcluyendoPeliculas = Tipo::where('name', '<>', 'peliculas')->get();
+        Lista::factory(70)->create()->each(function ($lista) use ($tiposExcluyendoPeliculas) {
+            $lista->tipo()->associate($tiposExcluyendoPeliculas->random())->save();
         });
 
-        // Crear videos
-        Video::factory()->count(30)->create();
+        // Crear videos y asignar tipo 'peliculas' solo a los que no están en una lista
+        Video::factory(300)->make()->each(function ($video) use ($tipoPeliculas, $tiposExcluyendoPeliculas) {
+            if (is_null($video->lista_id)) {
+                // Asignar tipo 'peliculas' si el video no está en una lista
+                $video->tipo()->associate($tipoPeliculas);
+            } else {
+                // Asegurar que los videos en una lista no tengan el tipo 'peliculas'
+                $video->tipo()->associate($tiposExcluyendoPeliculas->random());
+            }
+            $video->save();
+        });
 
-         // Crear una cantidad determinada de usuarios aleatorios
-        User::factory()->count(10)->create(); // Cambia el número 10 por la cantidad de usuarios que quieras crear
-       
-        // Llama al seeder de roles y usuarios
+        // Crear usuarios
+        User::factory(10)->create();
+
+        // Llamar a otro seeder específico para la asignación de roles
         $this->call(RoleAssignSeeder::class);
     }
 }

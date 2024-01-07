@@ -14,8 +14,8 @@ class Video extends Model
 {
     use HasFactory;
     /*  protected $fillable = ['titulo', 'descripcion', 'url_video', 'thumbnail', 'lista_id', 'categoria_id'];
-    // o
-    protected $guarded = []; */
+    // o */
+    protected $guarded = []; 
     public function categorias()
     {
         return $this->belongsToMany(Categoria::class, 'video_categoria', 'video_id', 'categoria_id');
