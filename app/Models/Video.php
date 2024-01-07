@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Models\Tipo;
+use App\Models\Lista;
 use App\Models\Categoria;
+use App\Models\Comentario;
+use App\Models\Puntuacion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,5 +31,17 @@ class Video extends Model
     public function comentarios()
     {
         return $this->hasMany(Comentario::class);
+    }
+    public function puntuaciones()
+    {
+        return $this->hasMany(Puntuacion::class);
+    }
+    public function puntuacionUsuario($user)
+    {
+        return $this->puntuaciones()->where('user_id', $user->id)->value('puntuacion');
+    }
+    public function puntuacionPromedio()
+    {
+        return $this->puntuaciones()->avg('puntuacion');
     }
 }

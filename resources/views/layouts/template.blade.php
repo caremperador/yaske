@@ -24,7 +24,7 @@
         <div class="flex gap-4">
             <div class="flex gap-4">
 
-              
+
 
                 @if (Route::has('login'))
                     @auth
@@ -70,13 +70,17 @@
                 auth()->user()->hasRole('premium'))
             <p>Texto a mostrar para rol premium</p>
         @elseif (auth()->check())
-        <p>Texto a mostrar para registrados</p>
+            <p>Texto a mostrar para registrados</p>
         @else
             <p>Texto a mostrar para público</p>
         @endif
 
         @yield('footer')
     </footer>
+
+   <!-- Scripts Section -->
+   @stack('scripts')
+
 
 </body>
 

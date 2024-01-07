@@ -12,6 +12,7 @@ use App\Models\Video;
 use App\Models\Categoria;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Database\Seeders\RoleAssignSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,16 +43,10 @@ class DatabaseSeeder extends Seeder
         // Crear videos
         Video::factory()->count(30)->create();
 
-        /*  // Crear una cantidad determinada de usuarios aleatorios
-        User::factory()->count(10)->create(); // Cambia el número 10 por la cantidad de usuarios que quieras crear */
-
-        User::where('email', 'filtrosperu@gmail.com')->delete();
+         // Crear una cantidad determinada de usuarios aleatorios
+        User::factory()->count(10)->create(); // Cambia el número 10 por la cantidad de usuarios que quieras crear
        
-        // Crear usuario específico
-        User::factory()->create([
-            'name' => 'edu',
-            'email' => 'filtrosperu@gmail.com',
-            'password' => Hash::make('14e30s15b'),
-        ]);
+        // Llama al seeder de roles y usuarios
+        $this->call(RoleAssignSeeder::class);
     }
 }

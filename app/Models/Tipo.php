@@ -11,7 +11,6 @@ class Tipo extends Model
 {
     use HasFactory;
 
-
     public function videos()
     {
 

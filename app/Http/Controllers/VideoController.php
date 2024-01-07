@@ -8,6 +8,7 @@ use App\Models\Lista;
 use App\Models\Video;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -70,7 +71,20 @@ class VideoController extends Controller
     public function show(Video $video)
     {
         // Carga las relaciones 'lista' y 'comentarios' del video
-        $video->load('lista', 'comentarios.user');
+        $video->load('lista', 'comentarios.user', 'puntuaciones');
+
+        $usuarioHaVotado = $video->puntuaciones()->where('user_id', Auth::id())->exists();
+
+        // Esto te da la puntuación promedio
+        $puntuacionPromedio = $video->puntuaciones()->avg('puntuacion') ?? 0;
+
+        // Calcular el total de opiniones
+        $totalOpiniones = $video->puntuaciones()->count();
+        // Calcular las opiniones por puntuación
+        $opinionesPorPuntuacion = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $opinionesPorPuntuacion[$i] = $video->puntuaciones()->where('puntuacion', $i)->count();
+        }
 
         // Encuentra el anterior y siguiente video en la lista
         $prevVideo = null;
@@ -88,6 +102,14 @@ class VideoController extends Controller
             $nextVideo = $videosEnLista->get($currentKey + 1);
         }
         // Devuelve la vista 'videos.show', pasando las variables 'video', 'prevVideo', 'nextVideo'
-        return view('videos.show', compact('video', 'prevVideo', 'nextVideo'));
+        return view('videos.show', compact(
+            'video',
+            'prevVideo',
+            'nextVideo',
+            'puntuacionPromedio',
+            'totalOpiniones',
+            'opinionesPorPuntuacion',
+            'usuarioHaVotado'
+        ));
     }
 }

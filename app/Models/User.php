@@ -65,4 +65,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comentario::class);
     }
+    public function puntuaciones()
+    {
+        return $this->hasMany(Puntuacion::class);
+    }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ListaController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\PuntuacionController;
 
 
 /*
@@ -22,7 +23,7 @@ use App\Http\Controllers\ComentarioController;
 |
 */
 
-Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');
@@ -56,11 +57,16 @@ Route::controller(TipoController::class)->group(function () {
     Route::get('/tipos/lista/{tipoSlug}', 'show_con_listas')->name('tipos.show_con_listas')->middleware('auth');
 });
 
+//criticas
+Route::post('/criticas', [ComentarioController::class, 'store'])->name('comentarios.store');
+Route::get('/criticas/{comentario}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
+Route::put('/criticas/{comentario}', [ComentarioController::class, 'update'])->name('comentarios.update');
 
-Route::post('/comentarios', [ComentarioController::class, 'store'])->name('comentarios.store');
-Route::get('/comentarios/{comentario}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
-Route::put('/comentarios/{comentario}', [ComentarioController::class, 'update'])->name('comentarios.update');
-
+//puntuaciones
+// Ruta para puntuar un video.
+Route::post('/videos/{video}/puntuar', [PuntuacionController::class, 'store'])
+    ->name('videos.puntuar')
+    ->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
