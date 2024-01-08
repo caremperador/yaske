@@ -12,7 +12,7 @@ class HomeController extends Controller
     public function index()
     {
         // Tipos específicos
-        $tipos = ['peliculas', 'series', 'animes', 'doramas', 'documentales', 'cursos', 'hentai']; // Ejemplo de tipos
+        $tipos = ['peliculas', 'series', 'animes', 'doramas', 'documentales', 'cursos', 'hentai', 'novelas']; // Ejemplo de tipos
 
         $secciones = [];
 

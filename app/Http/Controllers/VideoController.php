@@ -55,6 +55,7 @@ class VideoController extends Controller
         $video->thumbnail = $request->thumbnail; // Ahora simplemente guarda la URL proporcionada
         $video->lista_id = $request->lista_id;
         $video->tipo_id = $request->tipo_id;
+        $video->estado = $request->estado;
         $video->save();
 
         // Asignar categorías al video si están presentes
@@ -72,6 +73,12 @@ class VideoController extends Controller
     {
         // Carga las relaciones 'lista' y 'comentarios' del video
         $video->load('lista', 'comentarios.user', 'puntuaciones');
+
+        /* // Verificar el estado del video y el rol del usuario
+        if ($video->estado == 0 && !Auth::user()->hasRole('premium')) {
+            // Redirigir al usuario o mostrar una vista de error
+            return redirect()->route('home')->with('error', 'No tienes acceso a este video.');
+        } */
 
         $usuarioHaVotado = $video->puntuaciones()->where('user_id', Auth::id())->exists();
 

@@ -8,17 +8,22 @@
         <div class="w-full lg:w-8/12 xl:w-9/12">
 
             <div class="aspect-w-16 aspect-h-9 bg-gray-900">
-
-                <!-- Responsive Video Container -->
+                <!-- Contenedor de Video o Imagen -->
                 <div class="relative" style="padding-top: 56.25%;">
-                    <!-- YouTube Video Embed -->
-                    <iframe class="absolute top-0 left-0 w-full h-full" src="{{ $video->url_video }}"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
+                    @if($video->estado == 1 || Auth::user()->hasRole('premium'))
+                        <!-- Mostrar Video -->
+                        <iframe class="absolute top-0 left-0 w-full h-full" src="{{ $video->url_video }}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    @else
+                        <!-- Mostrar Imagen de Marcador de Posición -->
+                        <img src="https://via.placeholder.com/300x250" alt="Contenido Premium" class="absolute top-0 left-0 w-full h-full">
+                    @endif
                 </div>
             </div>
+            <!-- ... (resto del código de la vista) ... -->
 
 
             <div class="mt-4">

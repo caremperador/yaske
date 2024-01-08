@@ -42,7 +42,7 @@ class TipoController extends Controller
         $videos = Video::where('tipo_id', $tipo->id)
             ->whereNull('lista_id')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(32);
 
         return view('tipos.show', compact('tipo', 'videos'));
     }

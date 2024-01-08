@@ -61,17 +61,28 @@
 
 
                             <div>
-                                <label for="categoria_id" class="block text-sm font-medium text-gray-700">Categorías</label>
+                                <label for="categoria_id"
+                                    class="block text-sm font-medium text-gray-700">Categorías</label>
                                 <select name="categoria_id[]" id="categoria_id" multiple
-                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <option value="">Seleccione categorías</option>
                                     @foreach ($categorias as $categoria)
                                         <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
                                     @endforeach
                                 </select>
-                                <p class="mt-2 text-sm text-gray-500">Mantén presionada la tecla 'Ctrl' (Windows/Linux) o 'Command' (Mac) para seleccionar múltiples opciones.</p>
+                                <p class="mt-2 text-sm text-gray-500">Mantén presionada la tecla 'Ctrl' (Windows/Linux)
+                                    o 'Command' (Mac) para seleccionar múltiples opciones.</p>
                             </div>
 
+                            <div>
+                                <label for="estado" class="block text-sm font-medium text-gray-700">Estado del
+                                    Video</label>
+                                <select name="estado" id="estado"
+                                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
+                                    <option value="0" selected>0 - No Premium</option>
+                                    <option value="1">1 - Premium</option>
+                                </select>
+                            </div>
 
 
                             <div class="flex justify-center">
