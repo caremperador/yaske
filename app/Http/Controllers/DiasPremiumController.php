@@ -11,16 +11,12 @@ use Carbon\Carbon;
 
 class DiasPremiumController extends Controller
 {
-    public function showForm()
+    public function index_comprar_dias_revendedor()
     {
         return view('diaspremium.buy_dias_revendedor');
     }
-    public function showSellForm()
-    {
-        return view('diaspremium.sell_dias_revendedor');
-    }
 
-    public function comprarDiasRevendedor(Request $request)
+    public function store_comprar_dias_revendedor(Request $request)
     {
         // Validación de formulario
         $request->validate([
@@ -48,8 +44,11 @@ class DiasPremiumController extends Controller
 
     // funcion vender dias
 
-
-    public function venderDiasPremium(Request $request)
+    public function index_vender_dias_directo()
+    {
+        return view('diaspremium.sell_dias_revendedor');
+    }
+    public function store_vender_dias_directo(Request $request)
     {
         // Validación de formulario
         $request->validate([

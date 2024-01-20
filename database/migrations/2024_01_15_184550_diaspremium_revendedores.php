@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('diaspremium_revendedores', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->integer('dias_revendedor_premium');
+            $table->integer('dias_revendedor_premium')->nullable();
             $table->timestamps();
         });
     }

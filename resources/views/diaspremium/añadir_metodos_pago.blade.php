@@ -25,14 +25,17 @@
             </ul>
         </div>
     @else
-        <p>No tienes métodos de pago añadidos.</p>
+        
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            No tienes métodos de pago añadidos.
+        </div>
     @endif
 
 
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Añadir Métodos de Pago</h3>
 
-        <form action="{{ route('metodosPago.guardar') }}" method="POST" class="mt-4">
+        <form action="{{ route('metodos_pago.store') }}" method="POST" class="mt-4">
             @csrf
 
             {{-- Método de Pago - Nombre y Detalle --}}

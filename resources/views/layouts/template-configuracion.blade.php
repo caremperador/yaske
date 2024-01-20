@@ -19,35 +19,44 @@
 
             <div class="flex flex-col space-y-4 bg-black p-8">
                 <div class="flex flex-col items-center">
-                    <img src="https://via.placeholder.com/32x32" alt="Profile"
-                        class="rounded-full w-32 h-32 mx-auto md:mx-0">
-                        <p class="text-sm mt-3">ID del Usuario: {{ $userId ?? 'No Disponible' }}</p>
+                    @php
+                        $user = auth()->user();
+                        $diasPremiumRevendedor = $user->diasPremiumRevendedor;
+                        $fotoPerfil = $diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil ? Storage::url($diasPremiumRevendedor->foto_perfil) : null;
+                    @endphp
+
+                    @if ($fotoPerfil)
+                        <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-32 h-32 mx-auto md:mx-0">
+                    @else
+                        <i class="fas fa-user-circle fa-10x text-gray-400"></i>
+                    @endif
+                    <p class="text-sm mt-3">ID del Usuario: {{ $userId ?? 'No Disponible' }}</p>
                 </div>
                 @yield('botones')
-                
 
-                <a href="{{ route('revendedor.configuracion') }}"
+
+                <a href="{{ route('configuracion_revendedor.index') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-cog mr-1"></i> Configuracion
                 </a>
-                <a href="#"
+                <a href="{{ route('perfil_revendedor.index') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-user-circle mr-1"></i> Perfil
                 </a>
 
-                <a href="{{ route('metodosPago') }}"
+                <a href="{{ route('metodos_pago.index') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-credit-card mr-1"></i> Metodos de pago
                 </a>
-                <a href="{{ route('revisarComprobante') }}"
+                <a href="{{ route('transacciones.show') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias
                 </a>
-                <a href="{{ route('diaspremium.showSellForm') }}"
+                <a href="{{ route('vender_dias_directo.index') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias directo
                 </a>
-                <a href="{{ route('diaspremium.showForm') }}"
+                <a href="{{ route('comprar_dias_revendedor.index') }}"
                     class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                     <i class="fas fa-shopping-cart mr-1"></i> Comprar dias
                 </a>

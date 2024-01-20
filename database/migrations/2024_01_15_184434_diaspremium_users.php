@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_activated')->default(false);
-            $table->integer('dias_usuario_premium');
+            $table->integer('dias_usuario_premium')->nullable();
             $table->dateTime('inicio_fecha_dias_usuario_premium')->nullable();
             $table->dateTime('fin_fecha_dias_usuario_premium')->nullable();
             $table->timestamps();

@@ -49,7 +49,7 @@
                     <div class="flex justify-center md:justify-start mt-4">
                         @auth
                             <!-- Botón visible solo para usuarios logueados -->
-                            <a href="{{ route('photo.form', ['seller_id' => $revendedor->user_id]) }}"
+                            <a href="{{ route('envio_comprobante.index', ['seller_id' => $revendedor->user_id]) }}"
                                class="inline-block bg-gradient-to-r mb-3 from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-6 rounded-full shadow-lg transition duration-300 ease-in-out hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
                                 Comprame días
                             </a>

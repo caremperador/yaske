@@ -15,7 +15,7 @@
             </div>
         @endif
 
-        <form action="{{ route('enviarComprobante.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('envio_comprobante.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             {{-- Coloca esto dentro de tu formulario, preferiblemente justo encima del botón de envío --}}
 
@@ -72,7 +72,7 @@
 
         @if (session('transactionId'))
             <div id="cancelTransactionContainer" class="mt-4">
-                <form action="{{ route('cancelarComprobante.destroy', session('transactionId')) }}" method="post">
+                <form action="{{ route('transacciones.cancelar', session('transactionId')) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <button type="submit"

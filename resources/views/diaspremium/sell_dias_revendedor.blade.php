@@ -15,7 +15,7 @@
         <div class="bg-[#1F2937] p-6 rounded-lg shadow-lg">
             <h3 class="font-semibold text-white text-xl border-b border-gray-700 pb-2">Vender Días Directo</h3>
             <div class="mt-4">
-                <form method="POST" action="{{ route('diaspremium.venderDiasPremium') }}" class="space-y-4">
+                <form method="POST" action="{{ route('vender_dias_directo.store') }}" class="space-y-4">
                     @csrf
 
                     <div>
