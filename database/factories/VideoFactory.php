@@ -32,7 +32,11 @@ class VideoFactory extends Factory
         return [
             'titulo' => $this->faker->sentence,
             'descripcion' => $this->faker->paragraph,
-            'url_video' => 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds),
+            'url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,
+            'es_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,
+            'lat_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,
+            'sub_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,  
+            'estado' => $this->faker->boolean(50) ? 1 : 0,
             'thumbnail' => 'https://via.placeholder.com/210x118',
             'lista_id' => $perteneceALista ? Lista::inRandomOrder()->first()->id ?? Lista::factory()->create()->id : null,
             'tipo_id' => $perteneceALista ? $otroTipo->id : $tipoPeliculas->id,

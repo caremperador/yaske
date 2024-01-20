@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         });
 
         // Crear videos y asignar tipo 'peliculas' solo a los que no están en una lista
-        Video::factory(300)->make()->each(function ($video) use ($tipoPeliculas, $tiposExcluyendoPeliculas) {
+        Video::factory(100)->make()->each(function ($video) use ($tipoPeliculas, $tiposExcluyendoPeliculas) {
             if (is_null($video->lista_id)) {
                 // Asignar tipo 'peliculas' si el video no está en una lista
                 $video->tipo()->associate($tipoPeliculas);

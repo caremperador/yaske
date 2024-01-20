@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('descripcion')->nullable();
-            $table->string('url_video');
+            $table->string('url_video')->nullable(); // Si quieres que la columna acepte valores nulos
             $table->string('thumbnail');
             $table->foreignId('lista_id')->nullable()->constrained();
             $table->foreignId('tipo_id')->constrained();

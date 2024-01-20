@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('videos', function (Blueprint $table) {
-            $table->boolean('estado')->default(0); // 0: inactivo, 1: activo
+            $table->boolean('estado'); // 0: inactivo, 1: activo
         });
     }
 

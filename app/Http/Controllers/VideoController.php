@@ -7,6 +7,7 @@ use App\Models\Tipo;
 use App\Models\Lista;
 use App\Models\Video;
 use App\Models\Categoria;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,38 +35,40 @@ class VideoController extends Controller
 
     public function store(Request $request)
     {
-        // Validación de los datos del formulario
-        // Aquí se definen las reglas de validación para los campos del formulario
-        $request->validate([
+        $validatedData = $request->validate([
             'titulo' => 'required',
             'descripcion' => 'nullable',
-            'url_video' => 'required|url', // Asegúrate de que sea una URL válida
-            'thumbnail' => 'required|url', // Cambiado para validar una URL
-            'lista_id' => 'nullable|exists:listas,id', // Asegúrate de que el lista_id exista en la tabla 'listas'
-            'tipo_id' => 'required|exists:tipos,id', // Asegúrate de que el tipo_id exista en la tabla 'tipos'
-            'categoria_id' => 'nullable|array', // Asegúrate de que sea un array
-            'categoria_id.*' => 'exists:categorias,id', // Cada elemento debe existir en la tabla 'categorias'
+            'estado' =>'required',
+            'url_video' => 'nullable|url',
+            'es_url_video' => 'nullable|url',
+            'lat_url_video' => 'nullable|url',
+            'sub_url_video' => 'nullable|url',
+            'thumbnail' => 'required|url',
+            'lista_id' => 'nullable|exists:listas,id',
+            'tipo_id' => 'required|exists:tipos,id',
+            'categoria_id' => 'required|array', // Asegúrate de que al menos una categoría esté seleccionada
+            'categoria_id.*' => 'exists:categorias,id', // Cada ID de categoría debe existir
         ]);
-
-        // Creación y guardado del nuevo Video en la base de datos
-        $video = new Video;
-        $video->titulo = $request->titulo;
-        $video->descripcion = $request->descripcion;
-        $video->url_video = $request->url_video; // Guarda la URL directa proporcionada
-        $video->thumbnail = $request->thumbnail; // Ahora simplemente guarda la URL proporcionada
-        $video->lista_id = $request->lista_id;
-        $video->tipo_id = $request->tipo_id;
-        $video->estado = $request->estado;
-        $video->save();
-
-        // Asignar categorías al video si están presentes
-        if ($request->has('categoria_id')) {
-            $video->categorias()->sync($request->categoria_id);
+    
+        // Asegúrate de que al menos una URL de video esté presente
+        if (empty($validatedData['url_video']) && empty($validatedData['es_url_video']) && empty($validatedData['lat_url_video']) && empty($validatedData['sub_url_video'])) {
+            return back()->withErrors('Por favor, proporciona al menos una URL de video.');
         }
-
+    
+        // Crear el video sin la información de categorías
+        $videoData = Arr::except($validatedData, ['categoria_id']);
+        $video = Video::create($videoData);
+    
+        // Asignar categorías al video si están presentes
+        if (!empty($validatedData['categoria_id'])) {
+            $video->categorias()->sync($validatedData['categoria_id']);
+        }
+    
         // Redirección con mensaje de éxito
         return redirect()->route('dashboard')->with('success', 'Video uploaded successfully.');
     }
+    
+
 
 
 
@@ -118,5 +121,16 @@ class VideoController extends Controller
             'opinionesPorPuntuacion',
             'usuarioHaVotado'
         ));
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Buscar en todos los videos
+        $videos = Video::where('titulo', 'LIKE', '%' . $query . '%')
+            ->orWhere('descripcion', 'LIKE', '%' . $query . '%')
+            ->paginate(10); // Puedes ajustar la cantidad por página
+
+        return view('videos.resultados', compact('videos'));
     }
 }

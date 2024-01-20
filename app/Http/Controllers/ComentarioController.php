@@ -46,7 +46,7 @@ class ComentarioController extends Controller
     public function update(Request $request, Comentario $comentario)
     {
         $request->validate([
-            'contenido' => 'required|min:200',
+            'contenido' => 'required|min:200|max:750',
         ]);
 
         // Verificar que el usuario es el autor del comentario

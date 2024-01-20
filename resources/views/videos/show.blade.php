@@ -1,31 +1,116 @@
+@inject('diasPremiumController', 'App\Http\Controllers\DiasPremiumController')
+@php
+    use Carbon\Carbon;
+@endphp
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
+@section('js_cabecera')
+    <script>
+        function changeVideo(url) {
+            document.getElementById('videoFrame').src = url;
+        }
+    </script>
+@endsection
 @section('content')
-
-
     <!-- ... (contenedor video) ... -->
     <div class="mt-8p-6 rounded-lg shadow-lg">
-        <div class="aspect-w-16  rounded-lg aspect-h-9 bg-gray-900">
-            <!-- Contenedor de Video o Imagen -->
+
+
+        <div class="aspect-w-16 rounded-lg aspect-h-9 bg-gray-900">
             <div class="relative" style="padding-top: 56.25%;">
-                @if ($video->estado == 1 || Auth::user()->hasRole('premium'))
-                    <!-- Mostrar Video -->
-                    <iframe class="absolute top-0 left-0 w-full h-full" src="{{ $video->url_video }}"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                @else
-                    <!-- Mostrar Imagen de Marcador de Posición -->
-                    <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
-                        class="absolute top-0 left-0 w-full h-full">
+                @php
+                    $usuarioPremium = Auth::check() && Auth::user()->hasRole('premium');
+                    $diasPremiumUsuario = $usuarioPremium
+                        ? Auth::user()
+                            ->diasPremiumUsuario()
+                            ->first()
+                        : null;
+                    $videoUrl = $video->sub_url_video ?? ($video->es_url_video ?? ($video->lat_url_video ?? $video->url_video));
+                    $fechaFinPasada = $diasPremiumUsuario && $diasPremiumUsuario->fin_fecha_dias_usuario_premium ? Carbon::parse($diasPremiumUsuario->fin_fecha_dias_usuario_premium)->isPast() : true;
+                @endphp
+
+                @if ($video->estado == 1)
+                    @if ($usuarioPremium && ($diasPremiumUsuario->inicio_fecha_dias_usuario_premium == null || $fechaFinPasada))
+                        <!-- Mostrar Botón para activar día premium -->
+                        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+                            <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                                    <i class="fas fa-gem mr-1" aria-hidden="true"></i>
+                                    Gastar un día premium para ver este video
+                                </button>
+                            </form>
+                        </div>
+                    @elseif ($usuarioPremium)
+                        <!-- Mostrar Video -->
+                        @if ($videoUrl)
+                            <iframe id="videoFrame" class="absolute top-0 left-0 w-full h-full" src="{{ $videoUrl }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        @else
+                            {{-- Mostrar alternativa si no hay enlaces de video --}}
+                            <p>No hay video disponible</p>
+                        @endif
+                    @else
+                        <!-- Mostrar Imagen de Marcador de Posición para usuarios no premium -->
+                        <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
+                            class="absolute top-0 left-0 w-full h-full">
+                    @endif
+                @elseif ($video->estado == 0)
+                    <!-- Mostrar Video para videos gratis -->
+                    @if ($videoUrl)
+                        <iframe id="videoFrame" class="absolute top-0 left-0 w-full h-full" src="{{ $videoUrl }}"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    @else
+                        {{-- Mostrar alternativa si no hay enlaces de video --}}
+                        <p>No hay video disponible</p>
+                    @endif
                 @endif
             </div>
         </div>
 
+
+
+
+
         <!-- ... empieza contenedor de informacion del video ... -->
         <div class="mt-4">
-            <h2 class="text-2xl font-bold">{{ $video->titulo }}</h2>
+            <div class="flex flex-col sm:flex-row">
+                
+                    @if ($video->sub_url_video)
+                        <button onclick="changeVideo('{{ $video->sub_url_video }}')"
+                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
+                        </button>
+                    @endif
+                    @if ($video->es_url_video)
+                        <button onclick="changeVideo('{{ $video->es_url_video }}')"
+                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fa fa-volume-up pr-1"></i>Español (España)
+                        </button>
+                    @endif
+                    @if ($video->lat_url_video)
+                        <button onclick="changeVideo('{{ $video->lat_url_video }}')"
+                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
+                        </button>
+                    @endif
+                    @if ($video->url_video)
+                        <button onclick="changeVideo('{{ $video->url_video }}')"
+                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            <i class="fa fa-volume-up pr-1"></i>Inglés
+                        </button>
+                    @endif
+                
+
+            </div>
+
+            <h2 class="text-3xl font-bold pt-4">{{ $video->titulo }}</h2>
             <p class="text-gray-400 text-sm mt-1">{{ $video->name }} </p>
             <!-- Video description -->
             <p class="text-gray-400 text-sm mt-4">{{ $video->descripcion }}</p>
@@ -35,7 +120,7 @@
                     @if ($video->lista)
                         <a href="{{ route('listas.show', $video->lista->id) }}"
                             class="text-white bg-blue-600 hover:bg-blue-700 font-semibold py-2 px-4 rounded shadow mr-5">
-                            Ir a la Lista de Videos
+                            <i class="fas fa-list-ul pr-1"></i> Ir a la Lista
                         </a>
                     @endif
 
@@ -43,13 +128,13 @@
                         @if ($prevVideo)
                             <a href="{{ route('videos.show', $prevVideo->id) }}"
                                 class="text-white bg-gray-600 hover:bg-gray-700 font-semibold py-2 px-4 rounded shadow">
-                                << Anterior </a>
+                                <i class="fa fa-backward pr-1"></i>Anterior video</a>
                         @endif
 
                         @if ($nextVideo)
                             <a href="{{ route('videos.show', $nextVideo->id) }}"
                                 class="text-white bg-gray-600 hover:bg-gray-700 font-semibold py-2 px-4 rounded shadow">
-                                Siguiente >>
+                                Siguiente video<i class="fa fa-forward pl-1"></i>
                             </a>
                         @endif
                     </div>
@@ -166,11 +251,7 @@
         @foreach ($video->comentarios as $comentario)
             <div class="bg-gray-700 text-white mt-4 p-4 rounded shadow">
                 <div class="flex items-center mb-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5.121 14.474l-1.05 1.05a9 9 0 1012.728 0l-1.05-1.05m-10.606 0h10.606" />
-                    </svg>
+                    <i class="fas fa-user pr-2"></i>
                     <strong>{{ $comentario->user->name }}</strong>
                     @php
                         $puntuacionUsuario = $comentario->user
@@ -188,7 +269,9 @@
                         <a href="{{ route('comentarios.edit', $comentario) }}" class="ml-auto text-blue-500">Editar</a>
                     @endif
                 </div>
-                <p>{{ $comentario->contenido }}</p>
+                <div class="break-words"> <!-- Asegura que las palabras se rompan correctamente -->
+                    <p>{{ $comentario->contenido }}</p>
+                </div>
             </div>
         @endforeach
 

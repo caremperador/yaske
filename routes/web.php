@@ -10,6 +10,9 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\PuntuacionController;
+use App\Http\Controllers\TokenPremiumController;
+use App\Http\Controllers\DiasPremiumController;
+use App\Http\Controllers\TransaccionesP2pController;
 
 
 /*
@@ -61,6 +64,64 @@ Route::controller(TipoController::class)->group(function () {
 Route::post('/criticas', [ComentarioController::class, 'store'])->name('comentarios.store');
 Route::get('/criticas/{comentario}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
 Route::put('/criticas/{comentario}', [ComentarioController::class, 'update'])->name('comentarios.update');
+
+Route::get('/videos/search', [VideoController::class, 'search'])->name('videos.search');
+
+// token premium
+Route::get('/generar-token', [TokenPremiumController::class, 'index'])->name('generar.token')->middleware('isRevendedor');
+Route::post('/generar-token', [TokenPremiumController::class, 'store'])->name('generar.token')->middleware('isRevendedor');
+
+
+
+// Rutas para comprar y vender días premium
+Route::get('/comprar-dias-revendedor', [DiasPremiumController::class, 'showForm'])->name('diaspremium.showForm');
+
+// Ruta para procesar la compra de días premium para revendedores
+Route::post('/comprar-dias-revendedor', [DiasPremiumController::class, 'comprarDiasRevendedor'])->name('diaspremium.comprarDiasRevendedor');
+
+// Ruta para mostrar el formulario de venta de días premium
+Route::get('/vender-dias-premium', [DiasPremiumController::class, 'showSellForm'])->name('diaspremium.showSellForm');
+
+// Ruta para procesar la venta de días premium
+Route::post('/vender-dias-premium', [DiasPremiumController::class, 'venderDiasPremium'])->name('diaspremium.venderDiasPremium');
+
+// activar gasto de dias premium
+Route::post('/videos/{video_id}/activar-dia-premium', [DiasPremiumController::class, 'gastarDiaPremium'])->name('activar-dia-premium');
+
+
+// transacciones p2p
+
+Route::get('/seleccionar-revendedor', [TransaccionesP2pController::class, 'seleccionarRevendedor'])
+    ->name('seleccionarRevendedor');
+
+Route::get('/enviar-comprobante/{seller_id?}', [TransaccionesP2pController::class, 'index'])->name('photo.form');
+
+Route::post('/enviar-comprobante', [TransaccionesP2pController::class, 'uploadPhotoUsuario'])->name('enviarComprobante.store');
+
+Route::get('/revisar-comprobante', [TransaccionesP2pController::class, 'showTransaccionesVendedor'])->name('revisarComprobante');
+
+Route::delete('/cancelar-comprobante/{transaction}', [TransaccionesP2pController::class, 'cancelarTransaccion'])
+    ->name('cancelarComprobante.destroy');
+
+Route::get('/perfil/{slug}', [TransaccionesP2pController::class, 'mostrarPerfil'])
+    ->name('perfilRevendedor');
+
+
+Route::get('/configuracion-revendedor', [TransaccionesP2pController::class, 'mostrarConfiguracion'])
+    ->name('revendedor.configuracion');
+Route::post('/configuracion-revendedor', [TransaccionesP2pController::class, 'guardarConfiguracion'])
+    ->name('revendedor.configuracion.guardar');
+
+// Mostrar formulario de métodos de pago
+Route::get('/revendedor-metodos-pago', [TransaccionesP2pController::class, 'mostrarFormularioMetodosPago'])
+    ->name('metodosPago')
+    ->middleware('auth'); // Asegúrate de que solo los usuarios autenticados puedan acceder
+
+// Procesar y guardar los métodos de pago
+Route::post('/revendedor-metodos-pago', [TransaccionesP2pController::class, 'metodosPagoRevendedor'])
+    ->name('metodosPago.guardar')
+    ->middleware('auth');
+
 
 //puntuaciones
 // Ruta para puntuar un video.

@@ -23,6 +23,7 @@ class RoleAssignSeeder extends Seeder
          */
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $premiumRole = Role::firstOrCreate(['name' => 'premium']);
+        $revendedorRole = Role::firstOrCreate(['name' => 'revendedor']);
 
         /**
          * Definimos una matriz (array) de usuarios. Cada elemento del array es un array asociativo
@@ -40,6 +41,12 @@ class RoleAssignSeeder extends Seeder
                 'name' => 'admin',
                 'password' => bcrypt('123456'), // Encriptación de la contraseña
                 'role' => $adminRole
+            ],
+            [
+                'email' => 'revendedor@gmail.com',
+                'name' => 'revendedor',
+                'password' => bcrypt('123456'), // Encriptación de la contraseña
+                'role' => $revendedorRole
             ],
             [
                 'email' => 'Jannet.rivero.pedemonte@gmail.com',
