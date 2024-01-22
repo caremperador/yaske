@@ -36,14 +36,33 @@
 
                 @if (Route::has('login'))
                     @auth
-                        @if (auth()->user()->hasRole('admin'))
-                            <a href="/mi-panel-admin" class="bg-gray-800 px-3 py-1 rounded text-white"><i
-                                    class="fas fa-user-shield mr-1"></i>
-                                Administracion</a>
-                        @endif
-                        <a href="{{ url('/dashboard') }}" class="bg-gray-800 px-3 py-1 rounded text-white"><i
-                                class="fas fa-tachometer-alt mr-1"></i>
-                            Dashboard</a>
+                      
+
+                        @php
+                            $user = auth()->user();
+                            $diasPremiumRevendedor = $user->diasPremiumRevendedor;
+                            $fotoPerfil = null;
+
+                            // Si el usuario es un revendedor, utiliza su foto de perfil
+                            if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
+                                $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
+                            } elseif ($user->foto_perfil) {
+                                // Si el usuario no es un revendedor, pero tiene una foto de perfil en la tabla users
+                                $fotoPerfil = Storage::url($user->foto_perfil);
+                            }
+                        @endphp
+
+                        <a href="{{ route('dashboard-profil.index') }}"
+                            class="bg-gray-800 px-3 py-1 rounded text-white flex items-center">
+                            @if ($fotoPerfil)
+                                <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-2">
+                            @else
+                                <i class="fas fa-user-circle mr-1"></i>
+                            @endif
+                            Dashboard
+                        </a>
+
+
                         <a href="{{ url('/comprar-diaspremium') }}" class="bg-gray-800 px-3 py-1 rounded text-white">
                             <i class="fas fa-gem mr-1 text-yellow-200"></i>
                             @if (auth()->check())
@@ -125,10 +144,10 @@
 
     <!-- Incluir app.js al final del body -->
     @vite('resources/js/app.js')
-    
+
     <!-- Scripts Section -->
     @stack('scripts')
-   
+
 </body>
 
 </html>

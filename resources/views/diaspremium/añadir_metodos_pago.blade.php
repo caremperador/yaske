@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+
     {{-- Mostrar métodos de pago existentes --}}
     @if (is_array($metodosPagoExistentes) && !empty($metodosPagoExistentes))
         <div class="bg-gray-800 p-4 rounded-lg shadow-lg mb-4">
@@ -14,18 +15,14 @@
 
             <ul>
                 @foreach ($metodosPagoExistentes as $metodo)
-                   
-
                     <div class="flex items-center justify-between bg-gray-700 p-3 rounded-lg mt-2 shadow">
-                        <span
-                            class="text-white text-lg">{{ $metodo['nombre'] ?? 'Nombre no disponible' }}</span>
+                        <span class="text-white text-lg">{{ $metodo['nombre'] ?? 'Nombre no disponible' }}</span>
                         <span class="text-white">{{ $metodo['detalle'] ?? 'Detalle no disponible' }}</span>
                     </div>
                 @endforeach
             </ul>
         </div>
     @else
-        
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
             No tienes métodos de pago añadidos.
         </div>

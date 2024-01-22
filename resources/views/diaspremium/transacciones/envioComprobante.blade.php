@@ -1,19 +1,13 @@
 {{-- resources/views/diaspremium/transacciones/envio_comprobante_comprador.blade.php --}}
 
-@extends('layouts.template')
+@extends('layouts.template-configuracion')
 
 @section('title', 'Subir Foto de Pago')
 
 @section('content')
 
-    <div class="container mx-auto p-4">
-        <h2 class="text-xl font-bold mb-4">Subir Foto de Pago</h2>
-
-        @if (session('success'))
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
+    <div class="bg-gray-800 p-4 rounded-lg">
+        <h3 class="font-semibold border-b border-gray-700 pb-2">ENVIAR COMPROBANTE DE PAGO</h3>
 
         <form action="{{ route('envio_comprobante.store') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -22,7 +16,7 @@
 
             <div class="mb-4" id="imagePreviewContainer"
                 style="{{ session('transactionImagePath') ? '' : 'display: none;' }}">
-                <label class="block text-gray-700 text-sm font-bold mb-2">Previsualización de la Imagen:</label>
+                <label class="block text-gray-300 text-sm font-bold mb-2">Previsualización de la Imagen:</label>
                 <img id="imagePreview"
                     src="{{ session('transactionImagePath') ? Storage::url(session('transactionImagePath')) : '#' }}"
                     alt="Previsualización de la Imagen" style="max-width: 100%; height: auto;" />
@@ -30,29 +24,37 @@
 
 
             <div class="mb-4">
-                <label for="photo" class="block text-gray-700 text-sm font-bold mb-2">Selecciona una Foto:</label>
+                <label for="photo" class="block text-gray-300 text-sm font-bold mb-2">Selecciona una Foto:</label>
                 <input type="file" id="photo" name="photo" accept="image/*"
-                    class="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    class="shadow border rounded py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline">
                 @error('photo')
                     <span class="text-red-500 text-xs italic">{{ $message }}</span>
                 @enderror
             </div>
 
-            <!-- Opcional: Selector de Método de Pago -->
-            <div class="mb-4">
-                <label for="metodo_pago" class="block text-gray-700 text-sm font-bold mb-2">Método de Pago:</label>
-                <select name="metodo_pago" id="metodo_pago"
-                    class="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="opcion1">Opción 1</option>
-                    <option value="opcion2">Opción 2</option>
-                    <!-- Añade más opciones según tus necesidades -->
-                </select>
-            </div>
+            {{-- Opcional: Selector de Método de Pago --}}
+            {{-- Opcional: Selector de Método de Pago --}}
+            @if (is_array($metodosPago) && count($metodosPago) > 0)
+                <div class="mb-4">
+                    <label for="metodo_pago" class="block text-gray-300 text-sm font-bold mb-2">Método de Pago:</label>
+                    <select name="metodo_pago" id="metodo_pago"
+                        class="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        @foreach ($metodosPago as $metodo)
+                            <option value="{{ $metodo['nombre'] }}">{{ $metodo['nombre'] }} - {{ $metodo['detalle'] }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            @else
+                <p>No hay métodos de pago disponibles.</p>
+            @endif
+
+
 
             {{-- Añade esto en tu formulario en la vista del comprador --}}
 
             <div class="mb-4">
-                <label for="seller_id" class="block text-gray-700 text-sm font-bold mb-2">ID del Vendedor:
+                <label for="seller_id" class="block text-gray-300 text-sm font-bold mb-2">ID del Vendedor:
                     {{ $seller_id ?? '' }} </label>
                 <input type="hidden" id="seller_id" name="seller_id" value="{{ $seller_id ?? '' }}">
             </div>
@@ -63,6 +65,7 @@
                 </div>
             @endif
 
+            
             <button type="submit"
                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Enviar
                 comprobante</button>

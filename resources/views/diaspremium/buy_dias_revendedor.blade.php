@@ -4,14 +4,7 @@
 
 @section('content')
     <div class="container mx-auto p-4">
-        @if (session('success'))
-            <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
-                Éxito
-            </div>
-            <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
-                {{ session('success') }}
-            </div>
-        @endif
+        
         <div class="bg-[#1F2937] p-6 rounded-lg shadow-lg">
             <h3 class="font-semibold text-white text-xl border-b border-gray-700 pb-2">Comprar Días Como Revendedor</h3>
             <div class="mt-4">

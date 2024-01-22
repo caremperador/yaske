@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\NewTransaction;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 use App\Events\TransactionCancelled;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DiasPremiumRevendedor;
+use App\Models\AdminConfiguracionPais;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+
 
 class TransaccionesP2pController extends Controller
 {
@@ -25,21 +30,75 @@ class TransaccionesP2pController extends Controller
 
     public function seleccionarRevendedor()
     {
-        // Asume que tienes una relación en tu modelo User para obtener los días premium
-        $revendedores = User::role('revendedor')->with('diasPremiumRevendedor')->get();
+        $revendedores = User::role('revendedor')
+            ->select('users.*', 'diaspremium_revendedores.moneda', 'diaspremium_revendedores.precio')
+            ->join('diaspremium_revendedores', 'users.id', '=', 'diaspremium_revendedores.user_id')
+            ->where('diaspremium_revendedores.estado_conectado', true)
+            ->orderBy('diaspremium_revendedores.moneda') // Ordenar primero por moneda
+            ->orderBy('diaspremium_revendedores.precio') // Luego por precio
+            ->with('diasPremiumRevendedor')
+            ->paginate(10);
+
+        // Conversión manual para 'ultimo_conexion' a Carbon
+        foreach ($revendedores as $revendedor) {
+            if ($revendedor->diasPremiumRevendedor && $revendedor->diasPremiumRevendedor->ultimo_conexion) {
+                $revendedor->diasPremiumRevendedor->ultimo_conexion = Carbon::parse($revendedor->diasPremiumRevendedor->ultimo_conexion)->locale('es');
+            }
+        }
 
         return view('diaspremium.transacciones.seleccionarRevendedor', compact('revendedores'));
     }
 
-    public function index_envio_comprobante($seller_id = null)
+
+    public function seleccionarRevendedorFiltrado(Request $request)
     {
-        $revendedor = null;
-        if ($seller_id) {
-            $revendedor = User::with('diasPremiumRevendedor')->find($seller_id);
+        $paisSeleccionado = $request->input('pais');
+
+        $query = User::role('revendedor')
+            ->select('users.*')
+            ->join('diaspremium_revendedores', 'users.id', '=', 'diaspremium_revendedores.user_id')
+            ->where('diaspremium_revendedores.estado_conectado', true)
+            ->with('diasPremiumRevendedor');
+
+        if ($paisSeleccionado) {
+            $query->where('diaspremium_revendedores.pais', $paisSeleccionado);
         }
 
-        return view('diaspremium.transacciones.envioComprobante', compact('seller_id', 'revendedor'));
+        // Ordenar por precio de menor a mayor
+        $query->orderBy('diaspremium_revendedores.precio');
+
+        $revendedores = $query->paginate(10);
+
+        // Conversión manual para 'ultimo_conexion' a Carbon
+        foreach ($revendedores as $revendedor) {
+            if ($revendedor->diasPremiumRevendedor && $revendedor->diasPremiumRevendedor->ultimo_conexion) {
+                $revendedor->diasPremiumRevendedor->ultimo_conexion = Carbon::parse($revendedor->diasPremiumRevendedor->ultimo_conexion)->locale('es');
+            }
+        }
+
+        return view('diaspremium.transacciones.seleccionarRevendedor', compact('revendedores'));
     }
+
+
+
+
+
+    public function index_envio_comprobante($seller_id = null)
+{
+    $revendedor = null;
+    $metodosPago = [];
+    if ($seller_id) {
+        $revendedor = User::with('diasPremiumRevendedor')->find($seller_id);
+        if ($revendedor && $revendedor->diasPremiumRevendedor && $revendedor->diasPremiumRevendedor->metodos_pago) {
+            $metodosPago = json_decode($revendedor->diasPremiumRevendedor->metodos_pago, true);
+            if (!is_array($metodosPago)) {
+                $metodosPago = []; // Asegúrate de que sea un array vacío si no es válido
+            }
+        }
+    }
+    return view('diaspremium.transacciones.envioComprobante', compact('seller_id', 'revendedor', 'metodosPago'));
+}
+
 
     public function store_envio_comprobante(Request $request)
     {
@@ -65,6 +124,45 @@ class TransaccionesP2pController extends Controller
 
         return back()->with('success', 'Foto subida con éxito. Ruta del archivo: ' . $path);
     }
+
+    public function conectarDesconectar()
+    {
+        $revendedor = Auth::user()->diasPremiumRevendedor;
+
+        if (!$revendedor) {
+            return redirect()->route('configuracion_revendedor.index')
+                ->with('error', 'Por favor, completa tu configuración de revendedor primero.');
+        }
+
+        // Verificar si el revendedor tiene métodos de pago y días premium
+        $metodosPago = json_decode($revendedor->metodos_pago, true);
+        $tieneMetodosPago = !empty($metodosPago);
+        $tieneDiasPremium = $revendedor->dias_revendedor_premium > 0;
+
+        if ($tieneMetodosPago && $tieneDiasPremium) {
+            // Cambiar estado de conexión y actualizar último momento de conexión
+            $revendedor->estado_conectado = !$revendedor->estado_conectado;
+            if ($revendedor->estado_conectado) {
+                $revendedor->ultimo_conexion = now(); // Actualizar solo si se está conectando
+            }
+            $revendedor->save();
+
+            return back()->with('success', $revendedor->estado_conectado ? 'Conectado' : 'Desconectado');
+        } else {
+            // Mensaje de error si no cumple los requisitos
+            $mensajeError = '';
+            if (!$tieneMetodosPago) {
+                $mensajeError = 'Debes añadir al menos un método de pago. ';
+            }
+            if (!$tieneDiasPremium) {
+                $mensajeError .= 'Debes tener días premium disponibles.';
+            }
+
+            return back()->with('error', $mensajeError);
+        }
+    }
+
+
 
 
     public function show_transacciones()
@@ -112,14 +210,31 @@ class TransaccionesP2pController extends Controller
 
     public function index_configuracion_revendedor()
     {
-        return view('diaspremium.revendedor_configuracion');
+        $user = auth()->user();
+        $diasPremiumRevendedor = $user->diasPremiumRevendedor ?? new DiasPremiumRevendedor(['user_id' => $user->id]);
+
+        $preciosPaises = AdminConfiguracionPais::all();
+
+        return view('diaspremium.revendedor_configuracion', compact('diasPremiumRevendedor', 'preciosPaises'));
     }
 
     public function store_configuracion_revendedor(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombres_beneficiario' => 'sometimes|required|string|max:255',
-            'apellidos_beneficiario' => 'sometimes|required|string|max:255',
+            'nombres_beneficiario' => [
+                'sometimes',
+                'required',
+                'string',
+                'max:100',
+                'regex:/^[a-zA-Z\s]+$/'
+            ],
+            'apellidos_beneficiario' => [
+                'sometimes',
+                'required',
+                'string',
+                'max:255',
+                'regex:/^[a-zA-Z\s]+$/'
+            ],
             'pais' => 'required|string',
             'moneda' => 'required|string',
             'prefijo_telefonico' => 'required|string',
@@ -130,17 +245,44 @@ class TransaccionesP2pController extends Controller
         ]);
 
         if ($validator->fails()) {
+            Session::flash('error', 'Hay errores en el formulario. Por favor, revisa los datos ingresados.');
             return back()->withErrors($validator)->withInput();
         }
-
         $user = auth()->user();
         $diasPremiumRevendedor = $user->diasPremiumRevendedor ?? new DiasPremiumRevendedor(['user_id' => $user->id]);
 
-        // Actualiza los campos solo si el slug no ha sido generado
         if (empty($diasPremiumRevendedor->slug)) {
-            $diasPremiumRevendedor->nombres_beneficiario = $request->nombres_beneficiario;
-            $diasPremiumRevendedor->apellidos_beneficiario = $request->apellidos_beneficiario;
-            $diasPremiumRevendedor->slug = Str::slug($request->nombres_beneficiario . ' ' . $request->apellidos_beneficiario, '-');
+            $nombres = $request->input('nombres_beneficiario');
+            $apellidos = $request->input('apellidos_beneficiario');
+            $slugPropuesto = Str::slug($nombres . ' ' . $apellidos, '-');
+
+            $existeSlug = DiasPremiumRevendedor::where('slug', $slugPropuesto)->exists();
+            if ($existeSlug) {
+                return redirect()->back()
+                    ->with('error', 'El nombre y apellido ingresado ya está en uso. Por favor, elige otro.')
+                    ->withInput();
+            }
+
+
+            $diasPremiumRevendedor->nombres_beneficiario = $nombres;
+            $diasPremiumRevendedor->apellidos_beneficiario = $apellidos;
+            $diasPremiumRevendedor->slug = $slugPropuesto;
+        }
+
+        // Obtener la configuración del país seleccionado
+        $configuracionPais = AdminConfiguracionPais::where('pais', $request->pais)->first();
+
+        // Validar el precio dentro del rango permitido
+        if ($configuracionPais) {
+            $request->validate([
+                'precio' => 'required|numeric|min:' . $configuracionPais->precio_minimo . '|max:' . $configuracionPais->precio_maximo,
+            ]);
+        } else {
+            // Si no hay configuración para ese país, puedes decidir si permites cualquier precio
+            // o si aplicas una validación genérica
+            $request->validate([
+                'precio' => 'required|numeric',
+            ]);
         }
 
         $diasPremiumRevendedor->pais = $request->pais;
@@ -149,9 +291,14 @@ class TransaccionesP2pController extends Controller
         $diasPremiumRevendedor->numero_telefono = $request->numero_telefono;
         $diasPremiumRevendedor->cantidad_minima = $request->cantidad_minima;
         $diasPremiumRevendedor->precio = $request->precio;
-        $diasPremiumRevendedor->save();
 
-        return back()->with('success', 'Información actualizada correctamente.');
+        try {
+            $diasPremiumRevendedor->save();
+            return back()->with('success', 'Información actualizada correctamente.');
+        } catch (\Exception $e) {
+            \Log::error('Error al guardar configuración de revendedor: ' . $e->getMessage());
+            return back()->with('error', 'Ocurrió un error al guardar la configuración. Por favor, inténtalo de nuevo.');
+        }
     }
 
 
@@ -173,34 +320,40 @@ class TransaccionesP2pController extends Controller
 
     public function store_metodos_pago(Request $request)
     {
-        $request->validate([
-            'metodo_pago_nombre.*' => 'required|string|max:255',
-            'metodo_pago_detalle.*' => 'required|string|max:255',
-            // Agrega otras reglas de validación según sea necesario
-        ]);
+        try {
+            $request->validate([
+                'metodo_pago_nombre.*' => 'required|string|max:255',
+                'metodo_pago_detalle.*' => 'required|string|max:255',
+                // Agrega otras reglas de validación según sea necesario
+            ]);
 
-        $user = auth()->user();
-        $revendedor = DiasPremiumRevendedor::where('user_id', $user->id)->firstOrFail();
+            $user = auth()->user();
+            $revendedor = DiasPremiumRevendedor::where('user_id', $user->id)->firstOrFail();
 
-        // Obtener los métodos de pago actuales y convertirlos en un array
-        $metodosPagoExistentes = json_decode($revendedor->metodos_pago, true) ?? [];
+            // Depuración: Ver los datos enviados
+            Log::info('Datos del formulario:', $request->all());
 
-        // Agregar los nuevos métodos al array existente
-        foreach ($request->metodo_pago_nombre as $index => $nombre) {
-            if (!empty($nombre) && isset($request->metodo_pago_detalle[$index])) {
-                $metodosPagoExistentes[] = [
-                    'nombre' => $nombre,
-                    'detalle' => $request->metodo_pago_detalle[$index],
-                ];
+            $metodosPagoExistentes = json_decode($revendedor->metodos_pago, true) ?? [];
+
+            foreach ($request->metodo_pago_nombre as $index => $nombre) {
+                if (!empty($nombre) && isset($request->metodo_pago_detalle[$index])) {
+                    $metodosPagoExistentes[] = [
+                        'nombre' => $nombre,
+                        'detalle' => $request->metodo_pago_detalle[$index],
+                    ];
+                }
             }
+
+            $revendedor->metodos_pago = $metodosPagoExistentes;
+            $revendedor->save();
+
+            return back()->with('success', 'Métodos de pago actualizados correctamente.');
+        } catch (\Exception $e) {
+            \Log::error('Error al guardar métodos de pago:', ['error' => $e->getMessage()]);
+            return back()->with('error', 'Hubo un error al guardar los métodos de pago.');
         }
-
-        // Guardar el array actualizado en la base de datos
-        $revendedor->metodos_pago = $metodosPagoExistentes;
-        $revendedor->save();
-
-        return back()->with('success', 'Métodos de pago actualizados correctamente.');
     }
+
 
     /*
    ##########################################################
@@ -210,6 +363,7 @@ class TransaccionesP2pController extends Controller
     public function index_perfil_revendedor()
     {
         $revendedor = Auth::user()->diasPremiumRevendedor;
+
 
         return view('diaspremium.form_perfil_revendedor', compact('revendedor'));
     }

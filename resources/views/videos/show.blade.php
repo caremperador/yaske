@@ -81,32 +81,32 @@
         <!-- ... empieza contenedor de informacion del video ... -->
         <div class="mt-4">
             <div class="flex flex-col sm:flex-row">
-                
-                    @if ($video->sub_url_video)
-                        <button onclick="changeVideo('{{ $video->sub_url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
-                        </button>
-                    @endif
-                    @if ($video->es_url_video)
-                        <button onclick="changeVideo('{{ $video->es_url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <i class="fa fa-volume-up pr-1"></i>Español (España)
-                        </button>
-                    @endif
-                    @if ($video->lat_url_video)
-                        <button onclick="changeVideo('{{ $video->lat_url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
-                        </button>
-                    @endif
-                    @if ($video->url_video)
-                        <button onclick="changeVideo('{{ $video->url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            <i class="fa fa-volume-up pr-1"></i>Inglés
-                        </button>
-                    @endif
-                
+
+                @if ($video->sub_url_video)
+                    <button onclick="changeVideo('{{ $video->sub_url_video }}')"
+                        class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
+                    </button>
+                @endif
+                @if ($video->es_url_video)
+                    <button onclick="changeVideo('{{ $video->es_url_video }}')"
+                        class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <i class="fa fa-volume-up pr-1"></i>Español (España)
+                    </button>
+                @endif
+                @if ($video->lat_url_video)
+                    <button onclick="changeVideo('{{ $video->lat_url_video }}')"
+                        class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
+                    </button>
+                @endif
+                @if ($video->url_video)
+                    <button onclick="changeVideo('{{ $video->url_video }}')"
+                        class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <i class="fa fa-volume-up pr-1"></i>Inglés
+                    </button>
+                @endif
+
 
             </div>
 
@@ -251,8 +251,45 @@
         @foreach ($video->comentarios as $comentario)
             <div class="bg-gray-700 text-white mt-4 p-4 rounded shadow">
                 <div class="flex items-center mb-2">
-                    <i class="fas fa-user pr-2"></i>
-                    <strong>{{ $comentario->user->name }}</strong>
+
+                    @php
+                        $user = $comentario->user;
+                        $diasPremiumRevendedor = $user->diasPremiumRevendedor;
+                        $fotoPerfil = null;
+                        $esRevendedor = false;
+
+                        if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
+                            $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
+                            $esRevendedor = true;
+                        } elseif ($user->foto_perfil) {
+                            $fotoPerfil = Storage::url($user->foto_perfil);
+                        }
+                    @endphp
+
+                    @if ($fotoPerfil)
+                        @if ($esRevendedor && $diasPremiumRevendedor->slug)
+                            <a href="{{ route('perfilRevendedor', $diasPremiumRevendedor->slug) }}">
+                                <img src="{{ $fotoPerfil }}" alt="Profile"
+                                    class="rounded-full w-8 h-8 mr-2 border border-red-500">
+                            </a>
+                        @else
+                            <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-2">
+                        @endif
+                    @else
+                        <i class="fas fa-user pr-2"></i>
+                    @endif
+
+
+                    @if ($esRevendedor && $diasPremiumRevendedor->slug)
+                        <a href="{{ route('perfilRevendedor', $diasPremiumRevendedor->slug) }}">
+                            <strong class="text-blue-600 hover:text-blue-800">Revendedor:
+                            </strong><strong>{{ $comentario->user->name }}</strong>
+                        </a>
+                    @else
+                        <strong>{{ $comentario->user->name }}</strong>
+                    @endif
+
+
                     @php
                         $puntuacionUsuario = $comentario->user
                             ->puntuaciones()

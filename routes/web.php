@@ -10,9 +10,12 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\PuntuacionController;
-use App\Http\Controllers\TokenPremiumController;
 use App\Http\Controllers\DiasPremiumController;
+use App\Http\Controllers\TokenPremiumController;
+use App\Http\Controllers\EstructuraWebController;
 use App\Http\Controllers\TransaccionesP2pController;
+use App\Http\Controllers\UsuariosCompradoresController;
+use App\Http\Controllers\AdminConfiguracionPaisController;
 
 
 
@@ -82,16 +85,21 @@ Route::post('/vender-dias-premium', [DiasPremiumController::class, 'store_vender
 // transacciones p2p
 
 Route::get('/seleccionar-revendedor', [TransaccionesP2pController::class, 'seleccionarRevendedor'])
-    ->name('seleccionarRevendedor');
+    ->name('seleccionarRevendedor')->middleware('auth');
 
-Route::get('/enviar-comprobante/{seller_id?}', [TransaccionesP2pController::class, 'index_envio_comprobante'])->name('envio_comprobante.index');
+Route::get('/seleccionar-revendedor/filtrar', [TransaccionesP2pController::class, 'seleccionarRevendedorFiltrado'])->name('seleccionarRevendedorFiltrado');
+Route::get('/enviar-comprobante/{seller_id?}', [TransaccionesP2pController::class, 'index_envio_comprobante'])->name('envio_comprobante.index')->middleware('auth');
 
-Route::post('/enviar-comprobante', [TransaccionesP2pController::class, 'store_envio_comprobante'])->name('envio_comprobante.store');
+Route::post('/enviar-comprobante', [TransaccionesP2pController::class, 'store_envio_comprobante'])->name('envio_comprobante.store')->middleware('auth');
 
-Route::get('/revisar-comprobante', [TransaccionesP2pController::class, 'show_transacciones'])->name('transacciones.show');
+Route::get('/revisar-comprobante', [TransaccionesP2pController::class, 'show_transacciones'])->name('transacciones.show')->middleware('isRevendedor');
 
 Route::delete('/cancelar-comprobante/{transaction}', [TransaccionesP2pController::class, 'cancelar_transacciones'])
-    ->name('transacciones.cancelar');
+    ->name('transacciones.cancelar')->middleware('auth');
+
+Route::post('/conectar-desconectar', [TransaccionesP2pController::class, 'conectarDesconectar'])
+    ->name('conectar.desconectar')
+    ->middleware('isRevendedor');
 
 
 
@@ -101,23 +109,39 @@ Route::get('/perfil/{slug}', [TransaccionesP2pController::class, 'mostrarPerfil'
 
 //configuracion revendedor
 Route::get('/configuracion-revendedor', [TransaccionesP2pController::class, 'index_configuracion_revendedor'])
-    ->name('configuracion_revendedor.index');
+    ->name('configuracion_revendedor.index')->middleware('isRevendedor');
 Route::post('/configuracion-revendedor', [TransaccionesP2pController::class, 'store_configuracion_revendedor'])
-    ->name('configuracion_revendedor.store');
+    ->name('configuracion_revendedor.store')->middleware('isRevendedor');
 
 
 // Mostrar formulario de métodos de pago
 Route::get('/revendedor-metodos-pago', [TransaccionesP2pController::class, 'index_metodos_pago'])
     ->name('metodos_pago.index')
-    ->middleware('auth'); 
+    ->middleware('isRevendedor');
 
 Route::post('/revendedor-metodos-pago', [TransaccionesP2pController::class, 'store_metodos_pago'])
     ->name('metodos_pago.store')
-    ->middleware('auth');
+    ->middleware('isRevendedor');
 
 // editar perfil de revendedor
-Route::post('/actualizar-perfil-revendedor', [TransaccionesP2pController::class, 'store_perfil_revendedor'])->name('perfil_revendedor.store');
-Route::get('/actualizar-perfil-revendedor', [TransaccionesP2pController::class, 'index_perfil_revendedor'])->name('perfil_revendedor.index');
+Route::post('/actualizar-perfil-revendedor', [TransaccionesP2pController::class, 'store_perfil_revendedor'])->name('perfil_revendedor.store')->middleware('isRevendedor');
+Route::get('/actualizar-perfil-revendedor', [TransaccionesP2pController::class, 'index_perfil_revendedor'])->name('perfil_revendedor.index')->middleware('isRevendedor');
+
+
+Route::get('/actualizar-foto-perfil', [UsuariosCompradoresController::class, 'index_cambiar_foto_perfil'])
+    ->name('cambiar_foto_perfil.index')
+    ->middleware('auth');
+Route::post('/actualizar-foto-perfil', [UsuariosCompradoresController::class, 'store_cambiar_foto_perfil'])
+    ->name('cambiar_foto_perfil.store')
+    ->middleware('auth');
+Route::get('/dashboard-profil', [EstructuraWebController::class, 'index'])
+    ->name('dashboard-profil.index')
+    ->middleware('auth');
+
+// Rutas para la configuración de precios por país por parte del administrador
+
+Route::get('/configuracion-pais', [AdminConfiguracionPaisController::class, 'index'])->name('admin.configuracion.pais');
+Route::post('/configuracion-pais', [AdminConfiguracionPaisController::class, 'store'])->name('admin.configuracion.pais.store');
 
 
 //puntuaciones

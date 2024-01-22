@@ -38,7 +38,7 @@ class DiasPremiumController extends Controller
         $diasPremiumRevendedor->save();
 
         // Redirige de vuelta al formulario con un mensaje de éxito
-        return redirect()->route('diaspremium.showForm')->with('success', 'Días premium comprados con éxito.');
+        return redirect()->route('comprar_dias_revendedor.index')->with('success', 'Días premium comprados con éxito.');
     }
 
 
@@ -86,14 +86,14 @@ class DiasPremiumController extends Controller
                 }
 
                 // Redirigir con mensaje de éxito
-                return redirect()->route('diaspremium.showSellForm')->with('success', 'Días premium vendidos con éxito.');
+                return redirect()->route('vender_dias_directo.index')->with('success', 'Días premium vendidos con éxito.');
             } else {
                 // El usuario comprador no existe, muestra un mensaje de error
-                return redirect()->route('diaspremium.showSellForm')->with('error', 'El usuario comprador no existe.');
+                return redirect()->route('vender_dias_directo.index')->with('error', 'El usuario comprador no existe.');
             }
         } else {
             // El revendedor no tiene suficientes días premium para vender, muestra un mensaje de error
-            return redirect()->route('diaspremium.showSellForm')->with('error', 'No tienes suficientes días premium para vender.');
+            return redirect()->route('vender_dias_directo.index')->with('error', 'No tienes suficientes días premium para vender.');
         }
     }
 
