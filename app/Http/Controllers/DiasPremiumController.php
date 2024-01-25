@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Spatie\Permission\Models\Role;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
+use App\Models\DiasPremiumUser;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use App\Models\DiasPremiumRevendedor;
 
 
 class DiasPremiumController extends Controller
@@ -175,5 +178,38 @@ class DiasPremiumController extends Controller
     public function obtenerDiasPremiumUsuario($userId)
     {
         return User::find($userId)->diasPremiumUsuario()->first();
+    }
+
+    public function aprobarTransaccion($transactionId)
+    {
+        $transaction = Transaction::find($transactionId);
+
+        // Verifica si la transacción existe y si el usuario autenticado es el vendedor.
+        if ($transaction && $transaction->seller_id == auth()->id()) {
+            $revendedor = DiasPremiumRevendedor::where('user_id', $transaction->seller_id)->first();
+            $comprador = DiasPremiumUser::where('user_id', $transaction->buyer_id)->firstOrCreate(['user_id' => $transaction->buyer_id]);
+
+            // Calcula los nuevos días premium
+            $diasPremiumTransferidos = $transaction->cantidad_dias;
+            $revendedor->dias_revendedor_premium -= $diasPremiumTransferidos;
+            $comprador->dias_usuario_premium += $diasPremiumTransferidos;
+
+            // Guarda los cambios en la base de datos
+            try {
+                $revendedor->save();
+                $comprador->save();
+                
+
+                // Elimina la transacción después de la aprobación
+                $transaction->delete();
+
+                return back()->with('success', 'Transacción aprobada y días premium transferidos correctamente.');
+            } catch (\Exception $e) {
+                \Log::error('Error al aprobar la transacción: ' . $e->getMessage());
+                return back()->with('error', 'Ocurrió un error al aprobar la transacción. Por favor, inténtalo de nuevo.');
+            }
+        }
+
+        return back()->with('error', 'No se pudo aprobar la transacción.');
     }
 }

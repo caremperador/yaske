@@ -48,6 +48,18 @@
                             Foto de Pago
                         </th>
                         <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Metodo de pago
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Cantidad
+                        </th>
+                        <th
+                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                            Monto total
+                        </th>
+                        <th
                             class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Rechazar
                         </th>
@@ -70,15 +82,30 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <a href="{{ Storage::url($transaction->photo_path) }}" target="_blank">Ver Foto</a>
                             </td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                <button class="text-red-500 hover:text-red-700 focus:outline-none">
-                                    <i class="fas fa-times"></i>
-                                </button>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $transaction->metodo_pago }}
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                {{ $transaction->cantidad_dias }}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $transaction->monto_total }}
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                                <button class="text-green-500 hover:text-green-700 focus:outline-none">
-                                    <i class="fas fa-check"></i>
-                                </button>
+                                {{-- Botón Aprobar --}}
+                                <form action="{{ route('transacciones.aprobar', $transaction->id) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="text-green-500 hover:text-green-700 focus:outline-none">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
+                                {{-- Botón Rechazar --}}
+                                <form action="{{ route('transacciones.rechazar', $transaction->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-700 focus:outline-none">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -103,20 +130,30 @@
                         newTransactionRow.id = `transaction_${data.transaction.id}`;
                         newTransactionRow.innerHTML = `
                         <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.id}</td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.buyer_name}</td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.buyer_name}</td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                 <a href="/storage/${data.transaction.photo_path}" target="_blank">Ver Foto</a>
             </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                <button class="text-red-500 hover:text-red-700 focus:outline-none">
-                    <i class="fas fa-times"></i>
-                </button>
-            </td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">
-                <button class="text-green-500 hover:text-green-700 focus:outline-none">
-                    <i class="fas fa-check"></i>
-                </button>
-            </td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.metodo_pago}</td>
+            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.cantidad_dias}</td>
+ <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.monto_total}</td>
+ <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">      
+                                <form action="{{ route('transacciones.aprobar', $transaction->id) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="text-green-500 hover:text-green-700 focus:outline-none">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">  
+                                <form action="{{ route('transacciones.rechazar', $transaction->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-500 hover:text-red-700 focus:outline-none">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </form>
+                            </td>
                 `;
 
                         // Añadir la nueva fila al principio del cuerpo de la tabla

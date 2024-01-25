@@ -21,6 +21,11 @@ class NewTransaction implements ShouldBroadcast
     public function __construct($transaction)
     {
         $this->transaction = $transaction;
+        $this->transaction->load('buyer'); // Carga la relación del comprador
+        // Asegúrate de que la transacción tenga los detalles necesarios
+        $this->transaction->metodo_pago = $transaction->metodo_pago;
+        $this->transaction->cantidad_dias = $transaction->cantidad_dias;
+        $this->transaction->monto_total = $transaction->monto_total;
     }
 
     /**
@@ -44,6 +49,9 @@ class NewTransaction implements ShouldBroadcast
                 'photo_path' => $this->transaction->photo_path,
                 'created_at' => $this->transaction->created_at,
                 'updated_at' => $this->transaction->updated_at,
+                'metodo_pago' => $this->transaction->metodo_pago,
+                'cantidad_dias' => $this->transaction->cantidad_dias,
+                'monto_total' => $this->transaction->monto_total,
             ],
         ];
     }

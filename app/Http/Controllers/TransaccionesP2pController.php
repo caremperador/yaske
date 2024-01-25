@@ -82,29 +82,47 @@ class TransaccionesP2pController extends Controller
 
 
 
-
     public function index_envio_comprobante($seller_id = null)
-{
-    $revendedor = null;
-    $metodosPago = [];
-    if ($seller_id) {
-        $revendedor = User::with('diasPremiumRevendedor')->find($seller_id);
-        if ($revendedor && $revendedor->diasPremiumRevendedor && $revendedor->diasPremiumRevendedor->metodos_pago) {
-            $metodosPago = json_decode($revendedor->diasPremiumRevendedor->metodos_pago, true);
-            if (!is_array($metodosPago)) {
-                $metodosPago = []; // Asegúrate de que sea un array vacío si no es válido
+    {
+        $user = auth()->user();
+        $ultimaTransaccion = Transaction::where('buyer_id', $user->id)
+            ->latest()
+            ->first();
+
+        $transaccionAprobada = $ultimaTransaccion ? $ultimaTransaccion->aprobada : false;
+
+        $revendedor = null;
+        $metodosPago = [];
+        $cantidadMinima = 0;
+        $precioPorDia = 0;
+        $moneda = '';
+        $pais = '';
+
+        if ($seller_id) {
+            $revendedor = User::with('diasPremiumRevendedor')->find($seller_id);
+            if ($revendedor && $revendedor->diasPremiumRevendedor) {
+                $metodosPago = json_decode($revendedor->diasPremiumRevendedor->metodos_pago, true) ?? [];
+                $cantidadMinima = $revendedor->diasPremiumRevendedor->cantidad_minima;
+                $precioPorDia = $revendedor->diasPremiumRevendedor->precio;
+                $moneda = $revendedor->diasPremiumRevendedor->moneda;
+                $pais = $revendedor->diasPremiumRevendedor->pais;
             }
         }
+
+        return view('diaspremium.transacciones.envioComprobante', compact('seller_id', 'revendedor', 'metodosPago', 'cantidadMinima', 'precioPorDia', 'moneda', 'pais', 'transaccionAprobada'));
     }
-    return view('diaspremium.transacciones.envioComprobante', compact('seller_id', 'revendedor', 'metodosPago'));
-}
+
 
 
     public function store_envio_comprobante(Request $request)
     {
+        // Obtener el revendedor y su cantidad mínima
+        $revendedor = User::find($request->seller_id)->diasPremiumRevendedor;
+        $cantidadMinima = $revendedor->cantidad_minima;
         $request->validate([
             'photo' => 'required|image|max:2048',
             'seller_id' => 'required|exists:users,id', // Asegúrate de que el ID del vendedor existe
+            'cantidad_dias' => 'required|integer|min:' . $cantidadMinima,
         ]);
 
         $path = $request->file('photo')->store('photos', 'public');
@@ -113,10 +131,15 @@ class TransaccionesP2pController extends Controller
         $transaction->buyer_id = auth()->id(); // ID del comprador
         $transaction->seller_id = $request->seller_id; // ID del vendedor del formulario
         $transaction->photo_path = $path;
+        $transaction->metodo_pago = $request->input('metodo_pago');
+        $transaction->cantidad_dias = $request->input('cantidad_dias'); // Asegúrate de que este campo se envíe desde el formulario
+        $transaction->monto_total = $request->input('monto_total'); // Este valor deberías calcularlo basado en el precio por día y la cantidad de días
         $transaction->save();
 
         // Guardar la ruta de la imagen y el ID de la transacción en la sesión
         session(['transactionImagePath' => $path, 'transactionId' => $transaction->id]);
+        session()->forget(['transactionImagePath', 'transactionId']);
+
 
 
         // Dispara el evento después de guardar la transacción

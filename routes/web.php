@@ -16,8 +16,7 @@ use App\Http\Controllers\EstructuraWebController;
 use App\Http\Controllers\TransaccionesP2pController;
 use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
-
-
+use App\Models\DiasPremiumUser;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -144,6 +143,11 @@ Route::get('/configuracion-pais', [AdminConfiguracionPaisController::class, 'ind
 Route::post('/configuracion-pais', [AdminConfiguracionPaisController::class, 'store'])->name('admin.configuracion.pais.store');
 
 
+// Ruta para aprobar una transacción
+Route::post('/transacciones/aprobar/{transaction}', [DiasPremiumController::class, 'aprobarTransaccion'])->name('transacciones.aprobar');
+
+// Ruta para rechazar una transacción
+Route::delete('/transacciones/rechazar/{transaction}', [DiasPremiumController::class, 'rechazarTransaccion'])->name('transacciones.rechazar');
 //puntuaciones
 // Ruta para puntuar un video.
 Route::post('/videos/{video}/puntuar', [PuntuacionController::class, 'store'])

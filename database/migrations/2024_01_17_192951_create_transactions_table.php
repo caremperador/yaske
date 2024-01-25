@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('buyer_id'); // ID del comprador
             $table->unsignedBigInteger('seller_id'); // ID del vendedor
             $table->string('photo_path'); // Ruta de la foto subida
+            $table->string('metodo_pago')->nullable();
+            $table->integer('cantidad_dias')->nullable();
+            $table->decimal('monto_total', 8, 2)->nullable();
             $table->timestamps();
 
             // Foreign keys y otras restricciones según sea necesario
