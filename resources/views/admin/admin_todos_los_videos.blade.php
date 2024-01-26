@@ -1,45 +1,60 @@
 @extends('layouts.template-configuracion')
+
 @section('title', 'Resultados de Búsqueda')
+
 @section('content')
 
-    <div class="bg-gray-800">
-
-
-        <h2 class="text-xl font-bold mb-4 px-4 pt-4">Resultados de Búsqueda</h2>
+    <div class="bg-gray-800 min-h-screen p-4">
+        <h2 class="text-2xl font-bold text-white mb-6">Todos los videos</h2>
 
         <!-- Formulario de Búsqueda -->
-        <div class="flex justify-center my-4">
-            <form action="{{ route('admin.todos_los_videos') }}" method="GET" class="w-full max-w-md">
-                <div class="flex items-center border-b border-black py-2">
+        <div class="flex justify-center mb-6">
+            <form action="{{ route('admin.todos_los_videos') }}" method="GET" class="w-full max-w-lg">
+                <div class="flex items-center border-b border-teal-500 py-2">
                     <input type="search" name="query" placeholder="Buscar videos..."
-                        class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none">
+                        class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                        value="{{ request('query') }}">
                     <button type="submit"
-                        class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded">
-                        <i class="fa fa-search pr-1"></i>Buscar
+                        class="flex-shrink-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Buscar
                     </button>
                 </div>
             </form>
         </div>
 
-        <ul>
+        <!-- Lista de Videos -->
+        <div class="space-y-4">
             @forelse ($videos as $video)
-                <li>
-                    {{ $video->titulo }}
-                    <form action="{{ route('admin.video_delete', $video->id) }}" method="POST">
+                <div class="bg-gray-700 rounded-lg overflow-hidden shadow-lg p-4 flex items-center">
+                    <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"
+                        class="w-32 h-20 object-cover rounded mr-4">
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-bold text-white">
+                            <a href="{{ route('videos.show', $video->id) }}">{{ $video->titulo }}</a>
+                        </h3>
+                        <div class="flex space-x-2 mt-2">
+                            <!-- Idiomas disponibles -->
+                            <!-- ... Tus etiquetas de idiomas aquí ... -->
+                        </div>
+                    </div>
+                    <form action="{{ route('admin.video_delete', $video->id) }}" method="POST" class="ml-4 mr-2">
                         @csrf
                         <input type="hidden" name="id" value="{{ $video->id }}">
-                        <button type="submit">Eliminar</button>
+                        <button type="submit" class="text-red-500 hover:text-red-700">Eliminar</button>
                     </form>
-                </li>
+
+                    <a href="{{ route('videos.edit', $video->id) }}" class="text-orange-500 hover:text-orange-700">Editar</a>
+
+                </div>
             @empty
-                <li class="px-4 py-2">
+                <div class="text-white text-center">
                     <p>No se encontraron videos.</p>
-                </li>
+                </div>
             @endforelse
-        </ul>
+        </div>
 
         <!-- Paginación -->
-        <div class="px-4 py-3">
+        <div class="mt-6">
             {{ $videos->links() }}
         </div>
     </div>

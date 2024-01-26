@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -40,7 +41,7 @@ class VideoController extends Controller
             'es_titulo' => 'nullable',
             'lat_titulo' => 'nullable',
             'descripcion' => 'nullable',
-            'estado' =>'required',
+            'estado' => 'required',
             'url_video' => 'nullable|url',
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
@@ -52,26 +53,26 @@ class VideoController extends Controller
             'categoria_id.*' => 'exists:categorias,id', // Cada ID de categoría debe existir
         ]);
         $path = $request->file('thumbnail')->store('thumbnail', 'public');
-    
+
         // Asegúrate de que al menos una URL de video esté presente
         if (empty($validatedData['url_video']) && empty($validatedData['es_url_video']) && empty($validatedData['lat_url_video']) && empty($validatedData['sub_url_video'])) {
             return back()->withErrors('Por favor, proporciona al menos una URL de video.');
         }
-    
+
         // Crear el video sin la información de categorías
         $videoData = Arr::except($validatedData, ['categoria_id']);
         $videoData['thumbnail'] = $path; // Aquí asignas la ruta de la imagen
         $video = Video::create($videoData);
-    
+
         // Asignar categorías al video si están presentes
         if (!empty($validatedData['categoria_id'])) {
             $video->categorias()->sync($validatedData['categoria_id']);
         }
-    
+
         // Redirección con mensaje de éxito
         return redirect()->route('videos.create')->with('success', 'Video uploaded successfully.');
     }
-    
+
 
 
 
@@ -153,7 +154,69 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         $video->delete();
+        // eliminar la imagen guardada tambien  en el storage
+        Storage::disk('public')->delete($video->thumbnail);
 
         return redirect()->route('admin.todos_los_videos')->with('success', 'Video eliminado correctamente.');
+    }
+    public function edit(Video $video)
+    {
+        $video = Video::findOrFail($video->id);
+        $listas = Lista::all(); // Obtiene todas las listas
+        $tipos = Tipo::all(); // Obtiene todos los tipos (asegúrate de que esto se defina en tu controlador)
+        $categorias = Categoria::all(); // Obtiene todas las categorías (asegúrate de que esto se defina en tu controlador)
+
+        // Pasar a la vista el video a editar
+        return view('videos.edit', compact('video', 'listas', 'tipos', 'categorias'));
+    }
+
+    public function update(Request $request, Video $video)
+    {
+        $validatedData = $request->validate([
+            'titulo' => 'required',
+            'es_titulo' => 'nullable',
+            'lat_titulo' => 'nullable',
+            'descripcion' => 'nullable',
+            'estado' => 'required',
+            'url_video' => 'nullable|url',
+            'es_url_video' => 'nullable|url',
+            'lat_url_video' => 'nullable|url',
+            'sub_url_video' => 'nullable|url',
+            'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
+            'lista_id' => 'nullable|exists:listas,id',
+            'tipo_id' => 'required|exists:tipos,id',
+            'categoria_id' => 'required|array',
+            'categoria_id.*' => 'exists:categorias,id',
+        ]);
+
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails', 'public');
+            $video->thumbnail = $path;
+        }
+
+        // Actualizar los otros campos del video
+        $video->titulo = $validatedData['titulo'];
+        $video->es_titulo = $validatedData['es_titulo'];
+        $video->lat_titulo = $validatedData['lat_titulo'];
+        $video->descripcion = $validatedData['descripcion'];
+        $video->estado = $validatedData['estado'];
+        $video->url_video = $validatedData['url_video'];
+        $video->es_url_video = $validatedData['es_url_video'];
+        $video->lat_url_video = $validatedData['lat_url_video'];
+        $video->sub_url_video = $validatedData['sub_url_video'];
+        $video->tipo_id = $validatedData['tipo_id'];
+
+        if (isset($validatedData['lista_id'])) {
+            $video->lista_id = $validatedData['lista_id'];
+        }
+
+        $video->save();
+
+        // Actualizar relaciones de categorías
+        if (isset($validatedData['categoria_id'])) {
+            $video->categorias()->sync($validatedData['categoria_id']);
+        }
+
+        return redirect()->route('admin.todos_los_videos')->with('success', 'Video actualizado con éxito.');
     }
 }
