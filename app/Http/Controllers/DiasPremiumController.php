@@ -8,8 +8,12 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\DiasPremiumUser;
 use Spatie\Permission\Models\Role;
+use App\Events\TransactionApproved;
+use App\Events\TransactionRejected;
+use App\Events\TransactionCancelled;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DiasPremiumRevendedor;
+use Illuminate\Support\Facades\Storage;
 
 
 class DiasPremiumController extends Controller
@@ -198,11 +202,13 @@ class DiasPremiumController extends Controller
             try {
                 $revendedor->save();
                 $comprador->save();
-                
 
+                // Elimina la foto del almacenamiento
+                Storage::delete('public/' . $transaction->photo_path);
                 // Elimina la transacción después de la aprobación
                 $transaction->delete();
-
+                // Disparar el evento cuando una transacción es aprobada
+                event(new TransactionApproved($transactionId));
                 return back()->with('success', 'Transacción aprobada y días premium transferidos correctamente.');
             } catch (\Exception $e) {
                 \Log::error('Error al aprobar la transacción: ' . $e->getMessage());
@@ -211,5 +217,53 @@ class DiasPremiumController extends Controller
         }
 
         return back()->with('error', 'No se pudo aprobar la transacción.');
+    }
+
+    public function cancelarTransaccionCliente($transactionId)
+    {
+        $transaction = Transaction::find($transactionId);
+
+        // Verifica si la transacción existe y si el usuario autenticado es el comprador.
+        if ($transaction && $transaction->buyer_id == auth()->id()) {
+
+            // Guarda el ID del vendedor antes de eliminar la transacción
+            $sellerId = $transaction->seller_id;
+            // Elimina la foto del almacenamiento
+            Storage::delete('public/' . $transaction->photo_path);
+
+            // Elimina la transacción de la base de datos
+            $transaction->delete();
+
+            // Eliminar la imagen y el ID de la transacción de la sesión
+            session()->forget(['transactionImagePath', 'transactionId']);
+
+            event(new TransactionCancelled($transactionId, $sellerId));
+            return redirect()->route('envio_comprobante.index', $transaction->seller_id)->with('success', 'Transacción cancelada con éxito.');
+        }
+
+        return back()->with('error', 'No se pudo cancelar la transacción.');
+    }
+
+
+    public function rechazarTransaccion($transactionId)
+    {
+        $transaction = Transaction::find($transactionId);
+        // ... Lógica para manejar el rechazo de la transacción ...
+        event(new TransactionRejected($transactionId));
+        // ... Resto de la lógica del controlador ...
+    }
+
+
+    public function estadoTransaccion($transactionId)
+    {
+        $transaction = Transaction::with('buyer')->find($transactionId);
+        $sellerId = $transaction->seller_id;
+        $transactionId = $transaction->id;
+        $buyerId = $transaction->buyer_id;
+        if (!$transaction || $transaction->buyer_id != auth()->id()) {
+            return redirect()->route('transacciones.envio')->with('error', 'Transacción no encontrada.');
+        }
+
+        return view('diaspremium.transacciones.estado_transaccion', compact('transaction', 'sellerId', 'transactionId', 'buyerId'));
     }
 }

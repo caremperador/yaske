@@ -34,6 +34,7 @@ class TransaccionesP2pController extends Controller
             ->select('users.*', 'diaspremium_revendedores.moneda', 'diaspremium_revendedores.precio')
             ->join('diaspremium_revendedores', 'users.id', '=', 'diaspremium_revendedores.user_id')
             ->where('diaspremium_revendedores.estado_conectado', true)
+            ->where('diaspremium_revendedores.dias_revendedor_premium', '>', 0) // Añadir esta línea
             ->orderBy('diaspremium_revendedores.moneda') // Ordenar primero por moneda
             ->orderBy('diaspremium_revendedores.precio') // Luego por precio
             ->with('diasPremiumRevendedor')
@@ -58,6 +59,7 @@ class TransaccionesP2pController extends Controller
             ->select('users.*')
             ->join('diaspremium_revendedores', 'users.id', '=', 'diaspremium_revendedores.user_id')
             ->where('diaspremium_revendedores.estado_conectado', true)
+            ->where('diaspremium_revendedores.dias_revendedor_premium', '>', 0) // Añadir esta línea
             ->with('diasPremiumRevendedor');
 
         if ($paisSeleccionado) {
@@ -136,16 +138,14 @@ class TransaccionesP2pController extends Controller
         $transaction->monto_total = $request->input('monto_total'); // Este valor deberías calcularlo basado en el precio por día y la cantidad de días
         $transaction->save();
 
-        // Guardar la ruta de la imagen y el ID de la transacción en la sesión
-        session(['transactionImagePath' => $path, 'transactionId' => $transaction->id]);
-        session()->forget(['transactionImagePath', 'transactionId']);
+
 
 
 
         // Dispara el evento después de guardar la transacción
         event(new NewTransaction($transaction));
 
-        return back()->with('success', 'Foto subida con éxito. Ruta del archivo: ' . $path);
+        return redirect()->route('transacciones.estado', $transaction->id);
     }
 
     public function conectarDesconectar()
@@ -168,6 +168,7 @@ class TransaccionesP2pController extends Controller
             if ($revendedor->estado_conectado) {
                 $revendedor->ultimo_conexion = now(); // Actualizar solo si se está conectando
             }
+            
             $revendedor->save();
 
             return back()->with('success', $revendedor->estado_conectado ? 'Conectado' : 'Desconectado');
@@ -191,39 +192,25 @@ class TransaccionesP2pController extends Controller
     public function show_transacciones()
     {
         $sellerId = auth()->id(); // Obtiene el ID del vendedor autenticado
-        $transactions = Transaction::where('seller_id', $sellerId)
-            ->orderBy('created_at', 'desc')
-            ->get();
+
+        // Obtener información de días premium del revendedor
+        $revendedor = DiasPremiumRevendedor::where('user_id', $sellerId)->first();
+
+        // Comprueba si el revendedor tiene días premium y que no sean negativos
+        if ($revendedor && $revendedor->dias_revendedor_premium > 0) {
+            // Obtiene las transacciones si cumple con las condiciones
+            $transactions = Transaction::where('seller_id', $sellerId)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            // Si no cumple con las condiciones, establece las transacciones como un array vacío
+            $transactions = collect();
+        }
 
         return view('diaspremium.transacciones.recibirComprobante', compact('transactions', 'sellerId'));
     }
-    public function cancelar_transacciones($transactionId)
-    {
-        $transaction = Transaction::find($transactionId);
 
-        // Verifica si la transacción existe y si el usuario autenticado es el comprador.
-        if ($transaction && $transaction->buyer_id == auth()->id()) {
 
-            // Guarda el ID del vendedor antes de eliminar la transacción
-            $sellerId = $transaction->seller_id;
-
-            // Elimina la foto del almacenamiento
-            Storage::delete('public/' . $transaction->photo_path);
-
-            // Elimina la transacción de la base de datos
-            $transaction->delete();
-
-            // Eliminar la imagen de la sesión
-            session()->forget(['transactionImagePath', 'transactionId']);
-
-            // Dispara el evento de transacción cancelada
-            event(new TransactionCancelled($transactionId, $sellerId));
-
-            return back()->with('success', 'Transacción cancelada con éxito.');
-        }
-
-        return back()->with('error', 'No se pudo cancelar la transacción.');
-    }
 
     /*
    ##########################################################

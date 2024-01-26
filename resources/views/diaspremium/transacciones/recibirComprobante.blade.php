@@ -101,7 +101,6 @@
                                 {{-- Botón Rechazar --}}
                                 <form action="{{ route('transacciones.rechazar', $transaction->id) }}" method="post">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 focus:outline-none">
                                         <i class="fas fa-times"></i>
                                     </button>
@@ -138,7 +137,7 @@
             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.cantidad_dias}</td>
  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${data.transaction.monto_total}</td>
  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">      
-                                <form action="{{ route('transacciones.aprobar', $transaction->id) }}" method="post">
+                                <form action="/transacciones/aprobar/${data.transaction.id}" method="post">
                                     @csrf
                                     <button type="submit" class="text-green-500 hover:text-green-700 focus:outline-none">
                                         <i class="fas fa-check"></i>
@@ -146,9 +145,8 @@
                                 </form>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-center">  
-                                <form action="{{ route('transacciones.rechazar', $transaction->id) }}" method="post">
+                                <form action="/transacciones/rechazar/${data.transaction.id}" method="post">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" class="text-red-500 hover:text-red-700 focus:outline-none">
                                         <i class="fas fa-times"></i>
                                     </button>

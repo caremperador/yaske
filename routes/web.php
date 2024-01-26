@@ -93,8 +93,6 @@ Route::post('/enviar-comprobante', [TransaccionesP2pController::class, 'store_en
 
 Route::get('/revisar-comprobante', [TransaccionesP2pController::class, 'show_transacciones'])->name('transacciones.show')->middleware('isRevendedor');
 
-Route::delete('/cancelar-comprobante/{transaction}', [TransaccionesP2pController::class, 'cancelar_transacciones'])
-    ->name('transacciones.cancelar')->middleware('auth');
 
 Route::post('/conectar-desconectar', [TransaccionesP2pController::class, 'conectarDesconectar'])
     ->name('conectar.desconectar')
@@ -144,11 +142,19 @@ Route::post('/configuracion-pais', [AdminConfiguracionPaisController::class, 'st
 
 
 // Ruta para aprobar una transacción
-Route::post('/transacciones/aprobar/{transaction}', [DiasPremiumController::class, 'aprobarTransaccion'])->name('transacciones.aprobar');
+Route::post('/transacciones/aprobar/{transaction}', [DiasPremiumController::class, 'aprobarTransaccion'])->name('transacciones.aprobar')->middleware('isRevendedor');
+
+Route::post('/transacciones/cancelar/{transaction}', [DiasPremiumController::class, 'cancelarTransaccionCliente'])->name('transacciones.cancelar');
+Route::post('/transacciones/rechazar/{transaction}', [DiasPremiumController::class, 'rechazarTransaccion'])->name('transacciones.rechazar')->middleware('isRevendedor');
 
 // Ruta para rechazar una transacción
-Route::delete('/transacciones/rechazar/{transaction}', [DiasPremiumController::class, 'rechazarTransaccion'])->name('transacciones.rechazar');
+Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::class, 'estadoTransaccion'])->name('transacciones.estado');
+
 //puntuaciones
+Route::get('/transaccion-aprobada', function () {
+    return view('diaspremium.transacciones.estado_aprobado');
+})->name('transaccion.aprobada');
+
 // Ruta para puntuar un video.
 Route::post('/videos/{video}/puntuar', [PuntuacionController::class, 'store'])
     ->name('videos.puntuar')

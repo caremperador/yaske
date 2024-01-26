@@ -12,6 +12,14 @@ class IsRevendedor
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check() && auth()->user()->hasRole('revendedor')) {
+            $diasPremiumRevendedor = auth()->user()->diasPremiumRevendedor;
+
+            // Verificar y actualizar el estado si es necesario
+            if ($diasPremiumRevendedor && $diasPremiumRevendedor->dias_revendedor_premium <= 0) {
+                $diasPremiumRevendedor->estado_conectado = false;
+                $diasPremiumRevendedor->save();
+            }
+
             return $next($request);
         }
 

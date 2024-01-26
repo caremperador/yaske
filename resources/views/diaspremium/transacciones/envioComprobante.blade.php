@@ -86,22 +86,6 @@
                 comprobante</button>
         </form>
 
-        {{-- ... resto del código de tu vista ... --}}
-
-        @if (session('transactionId'))
-            <div id="cancelTransactionContainer" class="mt-4">
-                <form action="{{ route('transacciones.cancelar', session('transactionId')) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit"
-                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Cancelar Orden
-                    </button>
-                </form>
-            </div>
-        @endif
-
-        {{-- ... resto del código ... --}}
 
     </div>
 

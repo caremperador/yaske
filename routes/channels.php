@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -18,5 +19,10 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 });
 Broadcast::channel('transactions.{sellerId}', function ($user, $sellerId) {
     return (int) $user->id === (int) $sellerId;
+});
+
+Broadcast::channel('transacciones.comprador.{transactionId}', function ($user, $transactionId) {
+    $transaction = Transaction::find($transactionId);
+    return $transaction && (int) $user->id === (int) $transaction->buyer_id;
 });
 
