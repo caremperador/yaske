@@ -58,6 +58,8 @@ Route::get('/criticas/{comentario}/edit', [ComentarioController::class, 'edit'])
 Route::put('/criticas/{comentario}', [ComentarioController::class, 'update'])->name('comentarios.update');
 
 Route::get('/videos/search', [VideoController::class, 'search'])->name('videos.search');
+Route::get('/todos-los-videos', [VideoController::class, 'admin_todos_los_videos'])->name('admin.todos_los_videos');
+Route::post('/video/{video}', [VideoController::class, 'destroy'])->name('admin.video_delete');
 
 // token premium
 Route::get('/generar-token', [TokenPremiumController::class, 'index'])->name('generar.token')->middleware('isRevendedor');

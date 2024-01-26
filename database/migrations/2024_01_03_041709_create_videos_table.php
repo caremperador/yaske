@@ -13,12 +13,18 @@ return new class extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->id();
-            $table->string('titulo');
+            $table->string('titulo')->nullable();
+            $table->string('es_titulo')->nullable();
+            $table->string('lat_titulo')->nullable();
             $table->text('descripcion')->nullable();
-            $table->string('url_video')->nullable(); // Si quieres que la columna acepte valores nulos
             $table->string('thumbnail');
             $table->foreignId('lista_id')->nullable()->constrained();
             $table->foreignId('tipo_id')->constrained();
+            $table->string('url_video')->nullable(); 
+            $table->string('es_url_video')->nullable();
+            $table->string('lat_url_video')->nullable();
+            $table->string('sub_url_video')->nullable();
+            $table->boolean('estado'); // 0: inactivo, 1: activo
             $table->timestamps();
         });
     }

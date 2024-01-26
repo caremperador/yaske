@@ -5,15 +5,40 @@
 @section('content')
 
 
-<div class="bg-gray-800 p-4 rounded-lg shadow-lg">
-    <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Crear Video</h3>
-    <form action="{{ route('videos.store') }}" method="post" class="space-y-4">
-        @csrf
+    <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Crear Video</h3>
+        <form action="{{ route('videos.store') }}" method="post" class="space-y-4" enctype="multipart/form-data">
+            @csrf
             <div>
-                <input style="color:black;" type="text" name="titulo" id="titulo" placeholder="Title" required
+
+                <label for="photo" class="block text-gray-300 text-sm font-bold mb-2">Selecciona una Foto:</label>
+                <input type="file" id="thumbnail" name="thumbnail" accept="image/*"
+                    class="shadow border rounded py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div>
+                <input style="color:black;" type="text" name="titulo" id="titulo" placeholder="Titulo original"
+                    required
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('titulo') }}">
                 @error('titulo')
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
+                <input style="color:black;" type="text" name="es_titulo" id="es titulo" placeholder="Titulo en español"
+                    
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('es_titulo') }}">
+                @error('es_titulo')
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
+                <input style="color:black;" type="text" name="lat_titulo" id="lat_titulo"
+                    placeholder="Titutlo en latino America" 
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('lat_titulo') }}">
+                @error('lat_titulo')
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                 @enderror
             </div>
@@ -31,27 +56,24 @@
                     value="{{ old('url_video') }}">
             </div>
             <div>
-                <input style="color:black;" type="url" id="es_url_video" name="es_url_video" placeholder="URL Video (Español)"
+                <input style="color:black;" type="url" id="es_url_video" name="es_url_video"
+                    placeholder="URL Video (Español)"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('es_url_video') }}">
             </div>
             <div>
-                <input style="color:black;" type="url" id="lat_url_video" name="lat_url_video" placeholder="URL Video (Latino)"
+                <input style="color:black;" type="url" id="lat_url_video" name="lat_url_video"
+                    placeholder="URL Video (Latino)"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('lat_url_video') }}">
             </div>
             <div>
-                <input style="color:black;" type="url" id="sub_url_video" name="sub_url_video" placeholder="URL Video (Subtitulado)"
+                <input style="color:black;" type="url" id="sub_url_video" name="sub_url_video"
+                    placeholder="URL Video (Subtitulado)"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('sub_url_video') }}">
             </div>
             {{-- aqui terminan los links de url de idiomas --}}
-            <div>
-                <input type="url" id="thumbnail" name="thumbnail" placeholder="https://via.placeholder.com/210x118"
-                    required
-                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
-                    value="{{ old('thumbnail') }}">
-            </div>
             <div>
                 <select style="color:black;" name="lista_id" id="lista_id"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
@@ -119,7 +141,7 @@
 
             <div class="flex justify-center mt-6">
                 <button type="submit"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Crear Video
                 </button>
             </div>

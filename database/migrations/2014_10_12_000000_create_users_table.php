@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('token_referido')->nullable();
             $table->string('token_referido_expires_at')->nullable();
             $table->boolean('token_referido_used')->default(false);
+            $table->string('foto_perfil')->nullable();
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();

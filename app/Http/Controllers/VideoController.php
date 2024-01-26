@@ -37,18 +37,21 @@ class VideoController extends Controller
     {
         $validatedData = $request->validate([
             'titulo' => 'required',
+            'es_titulo' => 'nullable',
+            'lat_titulo' => 'nullable',
             'descripcion' => 'nullable',
             'estado' =>'required',
             'url_video' => 'nullable|url',
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
-            'thumbnail' => 'required|url',
+            'thumbnail' => 'required|image|max:2048',
             'lista_id' => 'nullable|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
             'categoria_id' => 'required|array', // Asegúrate de que al menos una categoría esté seleccionada
             'categoria_id.*' => 'exists:categorias,id', // Cada ID de categoría debe existir
         ]);
+        $path = $request->file('thumbnail')->store('thumbnail', 'public');
     
         // Asegúrate de que al menos una URL de video esté presente
         if (empty($validatedData['url_video']) && empty($validatedData['es_url_video']) && empty($validatedData['lat_url_video']) && empty($validatedData['sub_url_video'])) {
@@ -57,6 +60,7 @@ class VideoController extends Controller
     
         // Crear el video sin la información de categorías
         $videoData = Arr::except($validatedData, ['categoria_id']);
+        $videoData['thumbnail'] = $path; // Aquí asignas la ruta de la imagen
         $video = Video::create($videoData);
     
         // Asignar categorías al video si están presentes
@@ -65,7 +69,7 @@ class VideoController extends Controller
         }
     
         // Redirección con mensaje de éxito
-        return redirect()->route('dashboard')->with('success', 'Video uploaded successfully.');
+        return redirect()->route('videos.create')->with('success', 'Video uploaded successfully.');
     }
     
 
@@ -128,9 +132,28 @@ class VideoController extends Controller
 
         // Buscar en todos los videos
         $videos = Video::where('titulo', 'LIKE', '%' . $query . '%')
-            ->orWhere('descripcion', 'LIKE', '%' . $query . '%')
+            ->orWhere('es_titulo', 'LIKE', '%' . $query . '%')
+            ->orWhere('lat_titulo', 'LIKE', '%' . $query . '%')
             ->paginate(10); // Puedes ajustar la cantidad por página
 
         return view('videos.resultados', compact('videos'));
+    }
+    public function admin_todos_los_videos(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Buscar en todos los videos
+        $videos = Video::where('titulo', 'LIKE', '%' . $query . '%')
+            ->orWhere('es_titulo', 'LIKE', '%' . $query . '%')
+            ->orWhere('lat_titulo', 'LIKE', '%' . $query . '%')
+            ->paginate(10); // Puedes ajustar la cantidad por página
+
+        return view('admin.admin_todos_los_videos', compact('videos'));
+    }
+    public function destroy(Video $video)
+    {
+        $video->delete();
+
+        return redirect()->route('admin.todos_los_videos')->with('success', 'Video eliminado correctamente.');
     }
 }

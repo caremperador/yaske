@@ -31,6 +31,8 @@ class VideoFactory extends Factory
 
         return [
             'titulo' => $this->faker->sentence,
+            'es_titulo' => $this->faker->sentence,
+            'lat_titulo' => $this->faker->sentence,
             'descripcion' => $this->faker->paragraph,
             'url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,
             'es_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,

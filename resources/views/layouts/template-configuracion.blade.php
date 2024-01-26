@@ -144,7 +144,7 @@
                         class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                         <i class="fas fa-tags mr-1"></i> Crear categorias
                     </a>
-                    <a href="{{ route('videos.create') }}"
+                    <a href="{{ route('admin.todos_los_videos') }}"
                         class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                         <i class="fas fa-film mr-1"></i> Todos videos
                     </a>
