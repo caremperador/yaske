@@ -17,7 +17,7 @@ use Database\Seeders\RoleAssignSeeder;
 class DatabaseSeeder extends Seeder
 {
     public function run()
-    {
+    {/* 
         // Crear categorías
         Categoria::factory(40)->create();
 
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
                 $video->tipo()->associate($tiposExcluyendoPeliculas->random());
             }
             $video->save();
-        });
+        }); */
 
         // Crear usuarios
         User::factory(10)->create();

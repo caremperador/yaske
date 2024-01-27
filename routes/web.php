@@ -54,6 +54,9 @@ Route::controller(TipoController::class)->group(function () {
     Route::get('/tipos/lista/{tipoSlug}', 'show_con_listas')->name('tipos.show_con_listas')->middleware('auth');
 });
 
+
+Route::get('/estrenos-gratis', [VideoController::class, 'estrenosGratis'])->name('videos.estrenos_gratis');
+
 //criticas
 Route::post('/criticas', [ComentarioController::class, 'store'])->name('comentarios.store');
 Route::get('/criticas/{comentario}/edit', [ComentarioController::class, 'edit'])->name('comentarios.edit');
@@ -158,6 +161,11 @@ Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::c
 Route::get('/transaccion-aprobada', function () {
     return view('diaspremium.transacciones.estado_aprobado');
 })->name('transaccion.aprobada');
+
+//puntuaciones
+Route::get('/carusel', function () {
+    return view('carusel');
+})->name('carusel');
 
 // Ruta para puntuar un video.
 Route::post('/videos/{video}/puntuar', [PuntuacionController::class, 'store'])

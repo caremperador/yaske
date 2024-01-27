@@ -14,7 +14,7 @@
                     <!-- Video card -->
                     <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
                         <a href="{{ route('videos.show', $video->id) }}" class="block">
-                            <img src="{{ $video->thumbnail }}" alt="{{ $video->titulo }}" class="w-full h-36 object-cover">
+                            <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}" class="w-full h-36 object-cover">
                             <div class="p-4">
                                 <h3 class="font-bold text-white">{{ $video->titulo }}</h3>
                                 <!-- Información del video -->

@@ -39,7 +39,7 @@ class VideoFactory extends Factory
             'lat_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,
             'sub_url_video' => $this->faker->boolean(80) ? 'https://www.youtube.com/embed/' . $this->faker->randomElement($youtubeVideoIds) : null,  
             'estado' => $this->faker->boolean(50) ? 1 : 0,
-            'thumbnail' => 'https://via.placeholder.com/210x118',
+            'thumbnail' => 'https://via.placeholder.com/341x192',
             'lista_id' => $perteneceALista ? Lista::inRandomOrder()->first()->id ?? Lista::factory()->create()->id : null,
             'tipo_id' => $perteneceALista ? $otroTipo->id : $tipoPeliculas->id,
         ];

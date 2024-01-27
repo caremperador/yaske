@@ -18,20 +18,20 @@ class HomeController extends Controller
 
         foreach ($tipos as $tipoNombre) {
             $tipo = Tipo::where('name', $tipoNombre)->first();
-            
+
             if ($tipo) {
                 // Videos que no están en ninguna lista
                 $videosSinLista = Video::where('tipo_id', $tipo->id)
-                                       ->whereNull('lista_id')
-                                       ->orderBy('created_at', 'desc')
-                                       ->take(4)
-                                       ->get();
+                    ->whereNull('lista_id')
+                    ->orderBy('created_at', 'desc')
+                    ->take(4)
+                    ->get();
 
                 // Listas que pertenecen a este tipo
                 $listas = Lista::where('tipo_id', $tipo->id)
-                                ->orderBy('created_at', 'desc')
-                                ->take(4)
-                                ->get();
+                    ->orderBy('created_at', 'desc')
+                    ->take(4)
+                    ->get();
 
                 $secciones[] = [
                     'tipo' => $tipo,
@@ -43,4 +43,7 @@ class HomeController extends Controller
 
         return view('home.index', compact('secciones'));
     }
+    // En tu VideoController
+
+    
 }

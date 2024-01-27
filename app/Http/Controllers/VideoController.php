@@ -31,6 +31,7 @@ class VideoController extends Controller
         $listas = Lista::all(); // Obtén todas las listas
         $tipos = Tipo::all();
         $categorias = Categoria::all();
+
         return view('videos.create', compact('listas', 'tipos', 'categorias')); // Pasa los datos a la vista
     }
 
@@ -42,6 +43,7 @@ class VideoController extends Controller
             'lat_titulo' => 'nullable',
             'descripcion' => 'nullable',
             'estado' => 'required',
+            'es_calidad_cam' => 'nullable',
             'url_video' => 'nullable|url',
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
@@ -153,6 +155,11 @@ class VideoController extends Controller
     }
     public function destroy(Video $video)
     {
+
+        // Eliminar relaciones en video_categoria
+        $video->categorias()->detach();
+
+
         $video->delete();
         // eliminar la imagen guardada tambien  en el storage
         Storage::disk('public')->delete($video->thumbnail);
@@ -178,6 +185,7 @@ class VideoController extends Controller
             'lat_titulo' => 'nullable',
             'descripcion' => 'nullable',
             'estado' => 'required',
+            'es_calidad_cam' => 'nullable',
             'url_video' => 'nullable|url',
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
@@ -197,6 +205,7 @@ class VideoController extends Controller
         // Actualizar los otros campos del video
         $video->titulo = $validatedData['titulo'];
         $video->es_titulo = $validatedData['es_titulo'];
+        $video->es_calidad_cam = $request->input('es_calidad_cam', false);
         $video->lat_titulo = $validatedData['lat_titulo'];
         $video->descripcion = $validatedData['descripcion'];
         $video->estado = $validatedData['estado'];
@@ -218,5 +227,12 @@ class VideoController extends Controller
         }
 
         return redirect()->route('admin.todos_los_videos')->with('success', 'Video actualizado con éxito.');
+    }
+    public function estrenosGratis()
+    {
+        // Obtener todos los videos donde es_calidad_cam es true
+        $videos = Video::where('es_calidad_cam', true)->paginate(10); // Ajusta la paginación según necesites
+
+        return view('estrenos.estrenos_gratis', compact('videos'));
     }
 }

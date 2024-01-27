@@ -26,7 +26,6 @@
             </div>
             <div>
                 <input style="color:black;" type="text" name="es_titulo" id="es titulo" placeholder="Titulo en español"
-                    
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('es_titulo') }}">
                 @error('es_titulo')
@@ -35,7 +34,7 @@
             </div>
             <div>
                 <input style="color:black;" type="text" name="lat_titulo" id="lat_titulo"
-                    placeholder="Titutlo en latino America" 
+                    placeholder="Titutlo en latino America"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('lat_titulo') }}">
                 @error('lat_titulo')
@@ -138,6 +137,14 @@
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            {{-- Checkbox para calidad "cam" en la vista de creación --}}
+            <div>
+                <label for="es_calidad_cam" class="block text-sm font-medium text-gray-300">Calidad CAM</label>
+                <input type="checkbox" id="es_calidad_cam" name="es_calidad_cam" value="1" class="mt-1">
+            </div>
+
+
 
             <div class="flex justify-center mt-6">
                 <button type="submit"

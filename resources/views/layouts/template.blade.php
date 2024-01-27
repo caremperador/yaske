@@ -36,7 +36,7 @@
 
                 @if (Route::has('login'))
                     @auth
-                      
+
 
                         @php
                             $user = auth()->user();
@@ -51,7 +51,8 @@
                                 $fotoPerfil = Storage::url($user->foto_perfil);
                             }
                         @endphp
-
+                        <a href="{{ route('videos.estrenos_gratis') }}"
+                            class="bg-gray-800 px-3 py-1 rounded text-white">Estrenos cam</a>
                         <a href="{{ route('dashboard-profil.index') }}"
                             class="bg-gray-800 px-3 py-1 rounded text-white flex items-center">
                             @if ($fotoPerfil)
@@ -84,7 +85,6 @@
                             @endif
                         </a>
                     @else
-                        <a href="/planes-premium" class="bg-gray-800 px-3 py-1 rounded text-white">Planes Premium</a>
                         <a href="{{ route('login') }}" class="bg-gray-800 px-3 py-1 rounded text-white">Login</a>
 
                         @if (Route::has('register'))

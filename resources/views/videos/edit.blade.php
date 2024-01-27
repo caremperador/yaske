@@ -125,6 +125,12 @@
                     <option value="1" {{ $video->estado == '1' ? 'selected' : '' }}>Gratis</option>
                 </select>
             </div>
+            {{-- Checkbox para calidad "cam" --}}
+            <div>
+                <label for="es_calidad_cam" class="block text-sm font-medium text-gray-300">Calidad CAM</label>
+                <input type="checkbox" id="es_calidad_cam" name="es_calidad_cam" value="1"
+                    {{ $video->es_calidad_cam ? 'checked' : '' }} class="mt-1">
+            </div>
 
             <div class="flex justify-center mt-6">
                 <button type="submit"

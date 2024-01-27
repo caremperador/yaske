@@ -31,14 +31,14 @@ class RoleAssignSeeder extends Seeder
          */
         $usuarios = [
             [
-                'email' => 'filtrosperu@gmail.com',
-                'name' => 'Edu Aranguri',
+                'email' => 'admin@admin.com',
+                'name' => 'admin',
                 'password' => bcrypt('14e30s15b'), // Usamos bcrypt para encriptar la contraseña
                 'role' => $adminRole
             ],
             [
-                'email' => 'admin@admin.com',
-                'name' => 'admin',
+                'email' => 'admin2@admin.com',
+                'name' => 'admin2',
                 'password' => bcrypt('123456'), // Encriptación de la contraseña
                 'role' => $adminRole
             ],
@@ -49,8 +49,8 @@ class RoleAssignSeeder extends Seeder
                 'role' => $revendedorRole
             ],
             [
-                'email' => 'Jannet.rivero.pedemonte@gmail.com',
-                'name' => 'admin',
+                'email' => 'premium@gmail.com',
+                'name' => 'premium',
                 'password' => bcrypt('14e30s15b'), // Encriptación de la contraseña
                 'role' => $premiumRole
             ]
