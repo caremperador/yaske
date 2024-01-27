@@ -36,6 +36,6 @@ class CategoriaController extends Controller
     $categoria->save();
 
     // Redirección con mensaje de éxito
-    return redirect()->route('dashboard')->with('success', 'Categoría creada con éxito.');
+    return redirect()->route('categorias.create')->with('success', 'Categoría creada con éxito.');
 }
 }

@@ -47,7 +47,7 @@ class ListaController extends Controller
         $lista->save();
 
         // Redirige a alguna parte con un mensaje
-        return redirect()->route('dashboard')->with('success', 'Lista creada con éxito');
+        return redirect()->route('listas.create')->with('success', 'Lista creada con éxito');
     }
 
     public function show($id)

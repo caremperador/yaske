@@ -55,8 +55,16 @@
                         @endif
                     @else
                         <!-- Mostrar Imagen de Marcador de Posición para usuarios no premium -->
-                        <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
-                            class="absolute top-0 left-0 w-full h-full">
+                        {{-- <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
+                            class="absolute top-0 left-0 w-full h-full"> --}}
+                        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+
+                            <a href="{{ route('seleccionarRevendedor') }}" class="bg-red-500 text-white font-bold py-2 px-4 rounded">
+                                <i class="fas fa-gem mr-1" aria-hidden="true"></i>
+                                este video es premium, haz click aquí para comprar un día premium
+                            </a>
+                           
+                        </div>
                     @endif
                 @elseif ($video->estado == 0)
                     <!-- Mostrar Video para videos gratis -->

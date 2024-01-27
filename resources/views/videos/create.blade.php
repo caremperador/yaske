@@ -130,8 +130,8 @@
                     Video</label>
                 <select style="color:black;" name="estado" id="estado"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                    <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Premium</option>
-                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Gratis</option>
+                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Premium</option>
+                    <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Gratis</option>
                 </select>
                 @error('estado')
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>

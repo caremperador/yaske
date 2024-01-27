@@ -30,7 +30,7 @@ class TipoController extends Controller
         $tipo->name = Str::slug($validatedData['name'], '-');
         $tipo->save();
 
-        return redirect()->route('dashboard')->with('success', 'Tipo creado con éxito.');
+        return redirect()->route('tipos.create')->with('success', 'Tipo creado con éxito.');
     }
 
     public function show($tipoSlug)
