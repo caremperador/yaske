@@ -115,24 +115,6 @@
 
     <!-- Main Content -->
     <div class="w-2/3 mx-auto px-4 py-6">
-        <!-- mensajes de exito o error en formularios -->
-        @if (session('success'))
-            <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
-                Éxito
-            </div>
-            <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                Error
-            </div>
-            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-                {{ session('error') }}
-            </div>
-        @endif
         @yield('content')
     </div>
 
