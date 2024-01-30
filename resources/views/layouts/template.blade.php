@@ -16,7 +16,7 @@
             <div class="flex lg:flex-1 mr-6 text-white">
                 <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">Yaske</span>
-                    <img class="h-8 w-auto" src="/images/logo/logo-yaske.png" alt="">
+                    <img class="h-8 w-auto" src="/images/logo/logo-yaske.png" alt="yaske">
                 </a>
             </div>
             <!-- Menú de navegación pantalla mediana-->
