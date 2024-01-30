@@ -33,7 +33,7 @@
                         @if ($video->estado == 1)
                             @if ($usuarioPremium && ($diasPremiumUsuario->inicio_fecha_dias_usuario_premium == null || $fechaFinPasada))
                                 <!-- Mostrar Botón para activar día premium -->
-                                <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+                                <div class="bg-custom-gray rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center">
                                     <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}"
                                         method="POST">
                                         @csrf
@@ -59,7 +59,7 @@
                                 <!-- Mostrar Imagen de Marcador de Posición para usuarios no premium -->
                                 {{-- <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
                             class="absolute top-0 left-0 w-full h-full"> --}}
-                                <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+                                <div class="bg-custom-gray rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center">
 
                                     <a href="{{ route('seleccionarRevendedor') }}"
                                         class="bg-red-500 text-white font-bold py-2 px-4 rounded">
