@@ -24,11 +24,13 @@
                 <!-- Campo de búsqueda  pantalla pequeña-->
                 <div class="flex-grow">
                     <div class="relative w-full">
-                        <input type="search" name="q" placeholder="Buscar..."
-                            class="w-full pl-4 pr-10 rounded-full text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 py-2 focus:outline-none" />
-                        <button type="submit" class="absolute right-0 mr-4 text-white p-2 text-xs">
-                            <i class="fas fa-search"></i>
-                        </button>
+                        <form action="{{ route('videos.search') }}" method="GET">
+                            <input type="search"name="query" placeholder="Buscar videos..."
+                                class="w-full pl-4 pr-10 rounded-full text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 py-2 focus:outline-none" />
+                            <button type="submit" class="absolute right-0 mr-4 text-white p-2 text-xs">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
 
