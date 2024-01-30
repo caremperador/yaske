@@ -223,214 +223,214 @@
 
 
             </div>
-            @if (Route::has('login'))
-                @auth
-                    @php
-                        $user = auth()->user();
-                        $diasPremiumRevendedor = $user->diasPremiumRevendedor;
-                        $fotoPerfil = null;
+            @if (auth()->check())
+                @php
+                    $user = auth()->user();
+                    $diasPremiumRevendedor = $user->diasPremiumRevendedor;
+                    $fotoPerfil = null;
 
-                        // Si el usuario es un revendedor, utiliza su foto de perfil
-                        if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
-                            $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
-                        } elseif ($user->foto_perfil) {
-                            // Si el usuario no es un revendedor, pero tiene una foto de perfil en la tabla users
-                            $fotoPerfil = Storage::url($user->foto_perfil);
-                        }
-                    @endphp
+                    // Si el usuario es un revendedor, utiliza su foto de perfil
+                    if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
+                        $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
+                    } elseif ($user->foto_perfil) {
+                        // Si el usuario no es un revendedor, pero tiene una foto de perfil en la tabla users
+                        $fotoPerfil = Storage::url($user->foto_perfil);
+                    }
+                @endphp
 
-                    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                        <a href="{{ route('dashboard-profil.index') }}"
-                            class="text-3xl font-semibold leading-6 text-white mr-1">
-                            @if ($fotoPerfil)
-                                <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-2">
-                            @else
-                                <i class="fas fa-user-circle mr-1"></i>
-                            @endif
-                        </a>
-                @endif
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                    <a href="{{ route('dashboard-profil.index') }}"
+                        class="text-3xl font-semibold leading-6 text-white mr-1">
+                        @if ($fotoPerfil)
+                            <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-2">
+                        @else
+                            <i class="fas fa-user-circle mr-1"></i>
+                        @endif
+                    </a>
                 </div>
-            </nav>
+            @endif
 
-            <!-- Mobile menu, show/hide based on menu open state. -->
-            <div id="navbar-search" class="hidden lg:hidden" role="dialog" aria-modal="true">
-                <!-- Background backdrop, show/hide based on slide-over state. -->
-                <div class="fixed inset-0 z-10"></div>
-                <div
-                    class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
-                    <div class="flex items-center justify-between">
-                        <a href="#" class="-m-1.5 p-1.5">
-                            <span class="sr-only">Your Company</span>
-                            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                                alt="">
-                        </a>
-                        <!-- Para el botón de cerrar, si es necesario -->
-                        <button type="button" class="close-button -m-2.5 rounded-md p-2.5 text-gray-400">
-                            <span class="sr-only">Close menu</span>
-                            <i class="fa fa-times"></i> <!-- Ícono de FontAwesome para cerrar -->
-                        </button>
-                    </div>
-                    <div class="mt-6 flow-root">
-                        <div class="-my-6 divide-y divide-gray-500/25">
-                            <div class="space-y-2 py-6">
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Product</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Features</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Marketplace</a>
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Company</a>
+        </nav>
+
+        <!-- Mobile menu, show/hide based on menu open state. -->
+        <div id="navbar-search" class="hidden lg:hidden" role="dialog" aria-modal="true">
+            <!-- Background backdrop, show/hide based on slide-over state. -->
+            <div class="fixed inset-0 z-10"></div>
+            <div
+                class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
+                <div class="flex items-center justify-between">
+                    <a href="#" class="-m-1.5 p-1.5">
+                        <span class="sr-only">Your Company</span>
+                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                            alt="">
+                    </a>
+                    <!-- Para el botón de cerrar, si es necesario -->
+                    <button type="button" class="close-button -m-2.5 rounded-md p-2.5 text-gray-400">
+                        <span class="sr-only">Close menu</span>
+                        <i class="fa fa-times"></i> <!-- Ícono de FontAwesome para cerrar -->
+                    </button>
+                </div>
+                <div class="mt-6 flow-root">
+                    <div class="-my-6 divide-y divide-gray-500/25">
+                        <div class="space-y-2 py-6">
+                            <a href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Product</a>
+                            <a href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Features</a>
+                            <a href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Marketplace</a>
+                            <a href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Company</a>
+                        </div>
+
+
+                        <div class="py-6">
+                            <!-- Botón del menú desplegable -->
+                            <button
+                                class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
+                                Menú
+                                <i class="fas fa-angle-down ml-1 text-xxs"></i>
+                            </button>
+
+                            <!-- Menú desplegable -->
+                            <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
+                                <!-- Ítems del submenú aquí -->
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    1 43gge grge</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    2</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    3</a>
+                                <!-- ... más ítems del submenú ... -->
                             </div>
+                        </div>
+                        <div class="py-6">
+                            <!-- Botón del menú desplegable -->
+                            <button
+                                class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
+                                Menú
+                                <i class="fas fa-angle-down ml-1 text-xxs"></i>
+                            </button>
 
-
-                            <div class="py-6">
-                                <!-- Botón del menú desplegable -->
-                                <button
-                                    class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
-                                    Menú
-                                    <i class="fas fa-angle-down ml-1 text-xxs"></i>
-                                </button>
-
-                                <!-- Menú desplegable -->
-                                <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
-                                    <!-- Ítems del submenú aquí -->
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        1 43gge grge</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        2</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        3</a>
-                                    <!-- ... más ítems del submenú ... -->
-                                </div>
+                            <!-- Menú desplegable -->
+                            <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
+                                <!-- Ítems del submenú aquí -->
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    1</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    2</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
+                                    3</a>
+                                <!-- ... más ítems del submenú ... -->
                             </div>
-                            <div class="py-6">
-                                <!-- Botón del menú desplegable -->
-                                <button
-                                    class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
-                                    Menú
-                                    <i class="fas fa-angle-down ml-1 text-xxs"></i>
-                                </button>
+                        </div>
 
-                                <!-- Menú desplegable -->
-                                <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
-                                    <!-- Ítems del submenú aquí -->
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        1</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        2</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                        3</a>
-                                    <!-- ... más ítems del submenú ... -->
-                                </div>
-                            </div>
-
-                            <div class="py-6">
-                                <a href="#"
-                                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">Log
-                                    in</a>
-                            </div>
+                        <div class="py-6">
+                            <a href="#"
+                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">Log
+                                in</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
 
-        @yield('content')
-
-
-
-
+    @yield('content')
 
 
 
 
 
 
-        <!-- Footer -->
-        <footer class="bg-custom-gray p-4 text-center">
-            @yield('footer')
-        </footer>
 
-        <!-- Incluir app.js al final del body -->
-        @vite('resources/js/app.js')
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const mainMenuToggle = document.getElementById('navbar-toggle');
-                const closeButton = document.querySelector(
-                    '.close-button'); // Asegúrate de agregar una clase específica al botón de cierre
-                const mainMenu = document.getElementById('navbar-search');
 
-                // Controlador para el botón de hamburguesa
-                mainMenuToggle.addEventListener('click', function() {
-                    mainMenu.classList.toggle('hidden');
+
+    <!-- Footer -->
+    <footer class="bg-custom-gray p-4 text-center">
+        @yield('footer')
+    </footer>
+
+    <!-- Incluir app.js al final del body -->
+    @vite('resources/js/app.js')
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainMenuToggle = document.getElementById('navbar-toggle');
+            const closeButton = document.querySelector(
+                '.close-button'); // Asegúrate de agregar una clase específica al botón de cierre
+            const mainMenu = document.getElementById('navbar-search');
+
+            // Controlador para el botón de hamburguesa
+            mainMenuToggle.addEventListener('click', function() {
+                mainMenu.classList.toggle('hidden');
+            });
+
+            // Controlador para el botón de cierre
+            if (closeButton) {
+                closeButton.addEventListener('click', function() {
+                    mainMenu.classList.add('hidden');
+                });
+            }
+        });
+
+        // Manejo de menus desplegables en navbar y sus submenus en vista lg full
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén todos los botones que activan submenús
+            const submenuButtons = document.querySelectorAll('.submenu-btn');
+
+            submenuButtons.forEach(button => {
+                // Encuentra el submenú asociado con el botón. Asume que el submenú está directamente después del botón.
+                const submenu = button.nextElementSibling;
+
+                button.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    // Alterna la visibilidad del submenú específico
+                    submenu.classList.toggle('hidden');
                 });
 
-                // Controlador para el botón de cierre
-                if (closeButton) {
-                    closeButton.addEventListener('click', function() {
-                        mainMenu.classList.add('hidden');
+                // Opcional: Cerrar el submenú al hacer clic fuera de él
+                document.addEventListener('click', function(event) {
+                        if (!button.contains(event.target) && !submenu.contains(event.target)) {
+                            submenu.classList.add('hidden');
+                        }
+                    },
+                    true
+                ); // El tercer parámetro 'true' indica que el evento se captura durante la fase de captura.
+            });
+        });
+        // Manejo de menus desplegables en navbar y sus submenus en vista md xs
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+
+            dropdownToggles.forEach((dropdownToggle, index) => {
+                // Asegúrate de que cada botón de menú desplegable tenga un menú correspondiente
+                if (dropdownMenus[index]) {
+                    dropdownToggle.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        // Alterna la visibilidad del menú correspondiente
+                        dropdownMenus[index].classList.toggle('hidden');
                     });
                 }
             });
 
-            // Manejo de menus desplegables en navbar y sus submenus en vista lg full
-            document.addEventListener('DOMContentLoaded', function() {
-                // Obtén todos los botones que activan submenús
-                const submenuButtons = document.querySelectorAll('.submenu-btn');
-
-                submenuButtons.forEach(button => {
-                    // Encuentra el submenú asociado con el botón. Asume que el submenú está directamente después del botón.
-                    const submenu = button.nextElementSibling;
-
-                    button.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        // Alterna la visibilidad del submenú específico
-                        submenu.classList.toggle('hidden');
-                    });
-
-                    // Opcional: Cerrar el submenú al hacer clic fuera de él
-                    document.addEventListener('click', function(event) {
-                            if (!button.contains(event.target) && !submenu.contains(event.target)) {
-                                submenu.classList.add('hidden');
-                            }
-                        },
-                        true
-                    ); // El tercer parámetro 'true' indica que el evento se captura durante la fase de captura.
-                });
-            });
-            // Manejo de menus desplegables en navbar y sus submenus en vista md xs
-            document.addEventListener('DOMContentLoaded', function() {
-                const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-                const dropdownMenus = document.querySelectorAll('.dropdown-menu');
-
-                dropdownToggles.forEach((dropdownToggle, index) => {
-                    // Asegúrate de que cada botón de menú desplegable tenga un menú correspondiente
-                    if (dropdownMenus[index]) {
-                        dropdownToggle.addEventListener('click', function(event) {
-                            event.stopPropagation();
-                            // Alterna la visibilidad del menú correspondiente
-                            dropdownMenus[index].classList.toggle('hidden');
-                        });
+            // Cierra todos los menús si se hace clic fuera de ellos
+            document.addEventListener('click', function(event) {
+                dropdownMenus.forEach((dropdownMenu) => {
+                    if (!dropdownMenu.contains(event.target)) {
+                        dropdownMenu.classList.add('hidden');
                     }
                 });
-
-                // Cierra todos los menús si se hace clic fuera de ellos
-                document.addEventListener('click', function(event) {
-                    dropdownMenus.forEach((dropdownMenu) => {
-                        if (!dropdownMenu.contains(event.target)) {
-                            dropdownMenu.classList.add('hidden');
-                        }
-                    });
-                });
             });
-        </script>
+        });
+    </script>
 
-        <!-- Scripts Section -->
-        @stack('scripts')
+    <!-- Scripts Section -->
+    @stack('scripts')
 
-    </body>
+</body>
 
-    </html>
+</html>
