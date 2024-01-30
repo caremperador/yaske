@@ -338,7 +338,78 @@
 
     @yield('content')
 
-  
+    <!-- items  -->
+    <div class="flex flex-col justify-center">
+        <div class="relative m-3 flex flex-wrap mx-auto justify-center">
+
+            <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  2xl:grid-cols-4 gap-2">
+
+                <!-- video card -->
+                <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <img class="h-40 rounded-2xl w-full object-cover"
+                            src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-md font-semibold text-gray-200 mb-4 line-clamp-1">Product Name greguierhgre
+                            </p>
+                            <p class="text-md text-gray-400 mt-0"></p>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Ing</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Es</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Lat</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Sub</span>
+                        </div>
+                        <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
+                            <span
+                                class="text-xxs text-gray-300 font-bold uppercase bg-red-800 px-2 py-1 rounded">Premium</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- video card -->
+                <div class="relative w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <img class="h-40 rounded-2xl w-full object-cover"
+                            src="https://picsum.photos/seed/picsum/341/192">
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-netflix.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-200 mb-4 line-clamp-1">texto de titulo gregui
+                                rhgre greguierhgre greguierhgre gergege 5h5</p>
+                            <!-- Resto del contenido de la card -->
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Ing</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Es</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Lat</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Sub</span>
+                        </div>
+                        <!-- etiqueta gratis premium -->
+                        <div class="flex flex-col-reverse mb-1 mr-2 font-bold group cursor-pointer">
+                            <span
+                                class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-2 py-1 rounded">Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
 
 
 

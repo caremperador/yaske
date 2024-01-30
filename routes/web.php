@@ -163,8 +163,8 @@ Route::get('/transaccion-aprobada', function () {
 })->name('transaccion.aprobada');
 
 //puntuaciones
-Route::get('/carusel', function () {
-    return view('carusel');
+Route::get('/tema2', function () {
+    return view('tema2');
 })->name('carusel');
 
 // Ruta para puntuar un video.
