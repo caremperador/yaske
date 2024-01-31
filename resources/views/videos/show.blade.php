@@ -122,7 +122,7 @@
 
                     @if ($video->sub_url_video)
                         <button onclick="changeVideo('{{ $video->sub_url_video }}')"
-                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
+                            class="mx-2 mb-1 rounded-md bg-black px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                         </button>
                     @endif
