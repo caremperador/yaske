@@ -32,15 +32,29 @@
 
                     @if ($video->estado == 1)
                         @if ($usuarioPremium && ($diasPremiumUsuario->inicio_fecha_dias_usuario_premium == null || $fechaFinPasada))
-                            <!-- Mostrar Botón para activar día premium -->
+                           
                             <div
-                                class="bg-custom-gray rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                                class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+                                <!-- Container for the play image -->
+                                <div class="mb-4">
+                                    <!-- Add margin bottom to create space between the image and the button -->
                                     <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}"
                                         method="POST">
                                         @csrf
-                                        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                                            <i class="fas fa-gem mr-1" aria-hidden="true"></i>
+                                        <button type="submit">
+                                            <img src="/images/complementos/play.png" class="hover:opacity-70" width="125"
+                                                height="125" alt="Play" />
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- Container for the button -->
+                                <div>
+                                    <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded text-xs">
+                                            <i class="fas fa-gem mr-1"></i>
                                             Gastar un día premium para ver este video
                                         </button>
                                     </form>
@@ -59,18 +73,26 @@
                                 <p>No hay video disponible</p>
                             @endif
                         @else
-                            <!-- Mostrar Imagen de Marcador de Posición para usuarios no premium -->
-                            {{-- <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
-                            class="absolute top-0 left-0 w-full h-full"> --}}
-                            <div
-                                class="bg-custom-gray rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                    <a href="{{ route('seleccionarRevendedor') }}"
-                                        class="bg-red-500 text-white font-bold py-2 px-4 rounded">
-                                        <i class="fas fa-gem mr-1" aria-hidden="true"></i>
-                                        este video es premium!
-                                    </a>
+                          
 
+                            <div
+                                class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
+                                <!-- Container for the play image -->
+                                <div class="mb-4">
+                                    <!-- Add margin bottom to create space between the image and the button -->
+
+                                    <a href="{{ route('seleccionarRevendedor') }}">
+                                        <img src="/images/complementos/play.png" class="opacity-70" width="125"
+                                            height="125" alt="Play" />
+                                    </a>
+                                </div>
+                                <!-- Container for the button -->
+                                <div>
+                                    <a href="{{ route('seleccionarRevendedor') }}"
+                                        class="bg-red-800 hover:bg-red-600 uppercase text-white font-bold py-2 px-4 rounded text-xs">
+                                        <i class="fas fa-lock mr-1" aria-hidden="true"></i>
+                                        Video premium!
+                                    </a>
                                 </div>
                             </div>
                         @endif
@@ -100,25 +122,25 @@
 
                     @if ($video->sub_url_video)
                         <button onclick="changeVideo('{{ $video->sub_url_video }}')"
-                            class="mx-2 my-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                         </button>
                     @endif
                     @if ($video->es_url_video)
                         <button onclick="changeVideo('{{ $video->es_url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Español (España)
                         </button>
                     @endif
                     @if ($video->lat_url_video)
                         <button onclick="changeVideo('{{ $video->lat_url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                         </button>
                     @endif
                     @if ($video->url_video)
                         <button onclick="changeVideo('{{ $video->url_video }}')"
-                            class="mx-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Inglés
                         </button>
                     @endif

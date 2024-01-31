@@ -22,6 +22,9 @@ export default {
             colors: {
                 "custom-gray": "#1d2432",
             },
+            spacing: {
+                75: "75px",
+            },
         },
     },
 

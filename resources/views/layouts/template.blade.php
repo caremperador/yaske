@@ -343,13 +343,6 @@
 
 
 
-
-
-
-
-
-
-
     <!-- Footer -->
     <footer class="bg-custom-gray p-4 text-center">
         @yield('footer')
