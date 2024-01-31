@@ -20,4 +20,8 @@ class Lista extends Model
     {
         return $this->hasMany(Video::class);
     }
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
 }

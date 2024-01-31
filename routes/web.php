@@ -16,6 +16,8 @@ use App\Http\Controllers\EstructuraWebController;
 use App\Http\Controllers\TransaccionesP2pController;
 use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
+use App\Http\Controllers\NetflixController;
+use App\Http\Controllers\PlataformaController;
 use App\Models\DiasPremiumUser;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -156,6 +158,13 @@ Route::post('/transacciones/rechazar/{transaction}', [DiasPremiumController::cla
 
 // Ruta para rechazar una transacción
 Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::class, 'estadoTransaccion'])->name('transacciones.estado');
+
+
+
+// Route::get('/netflix/peliculas-{categoria}', [NetflixController::class, 'peliculasCategoria'])->name('netflix.peliculas-categoria');
+
+Route::get('/{tipo}/{plataforma?}/{categoria?}', [PlataformaController::class, 'filtrarVideosPorTipoYCategoria'])->name('videos.filtrar');
+
 
 //puntuaciones
 Route::get('/transaccion-aprobada', function () {
