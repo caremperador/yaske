@@ -128,7 +128,7 @@
                     @endif
                     @if ($video->es_url_video)
                         <button onclick="changeVideo('{{ $video->es_url_video }}')"
-                            class="mx-2 mb-1 rounded-md bg-white/10 px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
+                            class="mx-2 mb-1 rounded-md bg-custom-gray px-2.5 py-1.5 text-md font-semibold text-white shadow-sm hover:bg-white/20">
                             <i class="fa fa-volume-up pr-1"></i>Español (España)
                         </button>
                     @endif
