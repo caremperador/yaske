@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Tipos específicos
+        /*  // Tipos específicos
         $tipos = ['peliculas', 'series', 'animes', 'doramas', 'documentales', 'cursos', 'hentai', 'novelas']; // Ejemplo de tipos
 
         $secciones = [];
@@ -41,9 +41,13 @@ class HomeController extends Controller
             }
         }
 
-        return view('home.index', compact('secciones'));
+        return view('home.index', compact('secciones')); */
+        // Ordenar videos por fecha de creación en orden descendente
+        $videos = Video::with('categorias')->orderBy('created_at', 'desc')->paginate(32);
+
+        return view('home.index', compact('videos'));
     }
     // En tu VideoController
 
-    
+
 }

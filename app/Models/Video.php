@@ -18,7 +18,7 @@ class Video extends Model
     protected $guarded = [];
     public function categorias()
     {
-        return $this->belongsToMany(Categoria::class, 'video_categoria', 'video_id', 'categoria_id');
+        return $this->belongsToMany(Categoria::class, 'video_categoria');
     }
     public function tipo()
     {

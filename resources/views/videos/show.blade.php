@@ -14,9 +14,9 @@
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
-        <div class="mx-auto max-w-6xl">
+        <div class="mx-auto max-w-7xl">
             <!-- ... (contenedor video) ... -->
-            <div class="mt-8p-6 rounded-lg shadow-lg">
+            <div>
 
 
                 <div class="aspect-w-16 rounded-lg aspect-h-9 bg-gray-900">
@@ -51,7 +51,7 @@
                                 <div
                                     class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
                                     <!-- Container for the play image -->
-                                    <div class="mb-4">
+                                    <div class="mb-3">
                                         <!-- Add margin bottom to create space between the image and the button -->
                                         <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}"
                                             method="POST">
@@ -106,11 +106,11 @@
                                 <div
                                     class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
                                     <!-- Container for the play image -->
-                                    <div class="mb-4">
+                                    <div class="mb-3">
                                         <!-- Add margin bottom to create space between the image and the button -->
 
                                         <a href="{{ route('seleccionarRevendedor') }}">
-                                            <img src="/images/complementos/play.png" class="opacity-70" width="110"
+                                            <img src="/images/complementos/play.png" class="opacity-80" width="110"
                                                 height="110" alt="Play" />
                                         </a>
                                     </div>
@@ -150,25 +150,25 @@
 
                         @if ($video->sub_url_video)
                             <button onclick="changeVideo('{{ $video->sub_url_video }}')"
-                                class="mx-2 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                                class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                             </button>
                         @endif
                         @if ($video->es_url_video)
                             <button onclick="changeVideo('{{ $video->es_url_video }}')"
-                                class="mx-2 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (España)
                             </button>
                         @endif
                         @if ($video->lat_url_video)
                             <button onclick="changeVideo('{{ $video->lat_url_video }}')"
-                                class="mx-2 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                             </button>
                         @endif
                         @if ($video->url_video)
                             <button onclick="changeVideo('{{ $video->url_video }}')"
-                                class="mx-2 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés
                             </button>
                         @endif
@@ -176,7 +176,7 @@
 
                     </div>
 
-                    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="mx-auto max-w-7xl px-2 sm:px-2 lg:px-2">
                         <h2 class="text-3xl font-bold pt-4">{{ $video->titulo }}</h2>
                         <!-- Video description -->
                         <p class="text-gray-300 text-sm mt-4">{{ $video->descripcion }}</p>

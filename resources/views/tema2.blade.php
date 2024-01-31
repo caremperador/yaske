@@ -405,6 +405,52 @@
                 </div>
 
 
+              {{--    <!-- video card -->
+                 <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <a href="{{ route('videos.show', $video->id) }}" class="block"> <img
+                                class="h-40 rounded-2xl w-full object-cover"
+                                src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"></a>
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-md font-semibold text-gray-200 mb-4 line-clamp-1">{{ $video->titulo }}
+                            </p>
+                            <p class="text-md text-gray-400 mt-0"></p>
+                            <!-- Idiomas disponibles -->
+                            @if ($video->url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Ing</span>
+                            @endif
+                            @if ($video->es_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Es</span>
+                            @endif
+                            @if ($video->lat_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Lat</span>
+                            @endif
+                            @if ($video->sub_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Sub</span>
+                            @endif
+                        </div>
+                        <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
+                            @if ($video->estado == 0)
+                                <span
+                                    class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-2 py-1 rounded">Gratis</span>
+                            @else
+                                <span
+                                    class="text-xxs text-gray-300 font-bold uppercase bg-red-800 px-2 py-1 rounded">Premium</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+ --}}
+
 
             </div>
         </div>
