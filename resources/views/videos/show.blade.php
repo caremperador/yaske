@@ -12,7 +12,7 @@
     </script>
 @endsection
 @section('content')
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="mx-auto max-w-6xl">
             <!-- ... (contenedor video) ... -->
@@ -58,7 +58,7 @@
                                             @csrf
                                             <button type="submit">
                                                 <img src="/images/complementos/play.png" class="hover:opacity-70"
-                                                    width="120" height="120" alt="Play" />
+                                                    width="110" height="110" alt="Play" />
                                             </button>
                                         </form>
                                     </div>
@@ -110,8 +110,8 @@
                                         <!-- Add margin bottom to create space between the image and the button -->
 
                                         <a href="{{ route('seleccionarRevendedor') }}">
-                                            <img src="/images/complementos/play.png" class="opacity-70" width="120"
-                                                height="120" alt="Play" />
+                                            <img src="/images/complementos/play.png" class="opacity-70" width="110"
+                                                height="110" alt="Play" />
                                         </a>
                                     </div>
                                     <!-- Container for the button -->
