@@ -2,8 +2,10 @@
 @section('title', 'Resultados de Búsqueda')
 @section('content')
 
-    <div class="bg-gray-800">
-        <div class="text-white">
+    
+            <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8 bg-gray-800">
+                <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
+                <div class="mx-auto max-w-7xl">
             <h2 class="text-xl font-bold mb-4 px-4 pt-4">Resultados de Búsqueda</h2>
             <ul>
                 @forelse ($videos as $video)
@@ -12,7 +14,7 @@
                             <div class="flex items-start p-4">
                                 <div class="flex-shrink-0">
                                     <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"
-                                    class="h-24 w-40 object-cover">
+                                    class="h-20 w-40 object-cover">
                                     @if ($video->lista)
                                         <div class="mt-2">
                                             <a href="{{ route('listas.show', $video->lista->id) }}"

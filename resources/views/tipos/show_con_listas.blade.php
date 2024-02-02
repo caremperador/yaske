@@ -17,7 +17,7 @@
                             <p class="absolute right-2 top-2 cursor-pointer">
                                 @if ($lista->categoria && $lista->categoria->name == 'Prime Video')
                                     <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
-                                @elseif ($lista->categoria && $lista->categoria->name == 'velit')
+                                @elseif ($lista->categoria && $lista->categoria->name == 'Netflix')
                                     <img src="/images/logo/logo-netflix.png" height="35" width="35" />
                                 @endif
                             </p>

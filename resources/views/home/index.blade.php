@@ -49,7 +49,7 @@
             <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  2xl:grid-cols-4 gap-2">
                 @foreach ($videos as $video)
                     <!-- video card -->
-                    <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
+                    <div class="relative w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
                         <div class="overflow-x-hidden rounded-2xl relative">
                             <a href="{{ route('videos.show', $video->id) }}" class="block"> <img
                                     class="h-40 rounded-2xl w-full object-cover"

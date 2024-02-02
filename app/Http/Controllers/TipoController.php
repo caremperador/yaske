@@ -47,17 +47,25 @@ class TipoController extends Controller
         return view('tipos.show', compact('tipo', 'videos'));
     }
 
-    public function show_con_listas($tipoSlug)
-    {
-        $tipo = Tipo::where('name', $tipoSlug)->firstOrFail();
+    public function show_con_listas($tipoSlug, $categoriaSlug = null)
+{
+    $tipo = Tipo::where('name', $tipoSlug)->firstOrFail();
 
-        // Obtén solo las listas asociadas a este tipo que tengan al menos un video
-        $listas = Lista::with(['videos', 'categoria', 'tipo'])
-            ->whereHas('videos') // Asegúrate de que las listas tengan videos
-            ->where('tipo_id', $tipo->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(32);
+    $query = Lista::with(['videos', 'categoria', 'tipo'])
+        ->where('tipo_id', $tipo->id);
 
-        return view('tipos.show_con_listas', compact('tipo', 'listas'));
+    // Filtrar por categoría si se proporciona
+    if (!is_null($categoriaSlug)) {
+        $query->whereHas('categoria', function ($q) use ($categoriaSlug) {
+            $q->where('name', $categoriaSlug);
+        });
     }
+
+    $listas = $query->whereHas('videos')
+        ->orderBy('created_at', 'desc')
+        ->paginate(32);
+
+    return view('tipos.show_con_listas', compact('tipo', 'listas'));
+}
+
 }
