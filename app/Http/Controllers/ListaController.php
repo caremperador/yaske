@@ -32,23 +32,27 @@ class ListaController extends Controller
         $validatedData = $request->validate([
             'titulo' => 'required|max:255',
             'descripcion' => 'nullable',
-            'thumbnail' => 'required|url',
+            'thumbnail' => 'required|image|max:2048',
             'categoria_id' => 'required|exists:categorias,id',
             'tipo_id' => 'required|exists:tipos,id',
         ]);
-
+    
+        // Procesamiento y almacenamiento del archivo
+        $path = $request->file('thumbnail')->store('thumbnails', 'public');
+    
         // Creación de la lista
         $lista = new Lista();
         $lista->titulo = $validatedData['titulo'];
-        $lista->descripcion = $validatedData['descripcion'];
-        $lista->thumbnail = $validatedData['thumbnail'];
+        $lista->descripcion = $validatedData['descripcion'] ?? null; // Usa el operador de fusión null para asignar un valor por defecto si es necesario
+        $lista->thumbnail = $path; // Asigna la ruta del archivo
         $lista->categoria_id = $validatedData['categoria_id'];
         $lista->tipo_id = $validatedData['tipo_id'];
         $lista->save();
-
+    
         // Redirige a alguna parte con un mensaje
         return redirect()->route('listas.create')->with('success', 'Lista creada con éxito');
     }
+    
 
     public function show($id)
     {

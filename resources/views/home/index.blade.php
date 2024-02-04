@@ -50,14 +50,18 @@
                 @foreach ($videos as $video)
                     <!-- video card -->
                     <div class="relative w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
-                        <div class="overflow-x-hidden rounded-2xl relative">
+                        <div class="overflow-x-hidden rounded-2xl relative thumbnail-container"  onMouseOver="showPlayIcon(this)" onMouseOut="hidePlayIcon(this)">
                             <a href="{{ route('videos.show', $video->id) }}" class="block"> <img
                                     class="h-40 rounded-2xl w-full object-cover"
-                                    src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"></a>
+                                    src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}">
+                                    <img src="/images/complementos/play.png" width="60"
+                                    height="60" class="play-icon" alt="Play" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+                                </a>
                             @if ($video->lista)
                                 <a href="{{ route('listas.show', $video->lista->id) }}"
                                     class="absolute left-2 top-2 cursor-pointer"><i class="fas fa-list-ul"></i></a>
                             @endif
+                           
                             <p class="absolute right-2 top-2 cursor-pointer">
                                 @foreach ($video->categorias as $categoria)
                                     @if ($categoria->name == 'Prime Video')

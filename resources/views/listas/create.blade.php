@@ -14,20 +14,24 @@
         </p>
 
         <div class="mt-8">
-            <form action="{{ route('listas.store') }}" method="post" class="space-y-6">
+            <form action="{{ route('listas.store') }}" method="post" class="space-y-6" enctype="multipart/form-data">
                 @csrf
                 <div>
-                    <input style="color:black;" type="text" name="titulo" id="titulo" placeholder="Título de la lista" required
+
+                    <label for="photo" class="block text-gray-300 text-sm font-bold mb-2">Selecciona una Foto:</label>
+                    <input type="file" id="thumbnail" name="thumbnail" accept="image/*"
+                        class="shadow border rounded py-2 px-3 text-gray-300 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <div>
+                    <input style="color:black;" type="text" name="titulo" id="titulo"
+                        placeholder="Título de la lista" required
                         class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
                 </div>
                 <div>
                     <textarea style="color:black;" id="descripcion" name="descripcion" rows="4" placeholder="Descripción de la lista"
                         class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
                 </div>
-                <div>
-                    <input style="color:black;" type="url" id="thumbnail" name="thumbnail" placeholder="URL del thumbnail de la lista"
-                        class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                </div>
+            
                 <div>
                     <select style="color:black;" name="categoria_id" id="categoria_id"
                         class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">

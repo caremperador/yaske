@@ -421,6 +421,20 @@
                 });
             });
         });
+
+        function showPlayIcon(container) {
+            const playIcon = container.querySelector('.play-icon');
+            if (playIcon) {
+                playIcon.style.display = 'block';
+            }
+        }
+
+        function hidePlayIcon(container) {
+            const playIcon = container.querySelector('.play-icon');
+            if (playIcon) {
+                playIcon.style.display = 'none';
+            }
+        }
     </script>
 
     <!-- Scripts Section -->

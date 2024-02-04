@@ -13,8 +13,8 @@
                         <a href="{{ route('videos.show', $video->id) }}" class="block">
                             <div class="flex items-start p-4">
                                 <div class="flex-shrink-0">
-                                    <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}" class="h-20 w-40 object-scale-down">
-
+                                    <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"
+                                    class="h-24 w-40 object-cover">
                                     @if ($video->lista)
                                         <div class="mt-2">
                                             <a href="{{ route('listas.show', $video->lista->id) }}"
