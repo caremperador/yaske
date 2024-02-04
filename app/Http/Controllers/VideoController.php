@@ -30,7 +30,7 @@ class VideoController extends Controller
     {
         $listas = Lista::all(); // Obtén todas las listas
         $tipos = Tipo::all();
-        $categorias = Categoria::all();
+        $categorias = Categoria::orderBy('name')->get(); // Ordena las categorías alfabéticamente
 
         return view('videos.create', compact('listas', 'tipos', 'categorias')); // Pasa los datos a la vista
     }
