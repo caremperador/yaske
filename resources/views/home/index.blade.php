@@ -66,7 +66,7 @@
                                 @foreach ($video->categorias as $categoria)
                                     @if ($categoria->name == 'Prime Video')
                                         <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
-                                    @elseif ($categoria->name == 'Netflix')
+                                    @elseif ($categoria->name == 'netflix')
                                         <img src="/images/logo/logo-netflix.png" height="35" width="35" />
                                     @endif
                                 @endforeach
