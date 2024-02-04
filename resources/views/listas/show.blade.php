@@ -37,9 +37,8 @@
                                     <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"
                                         class="h-24 w-36 object-cover">
                                     <!-- Play Button -->
-                                    <img src="/images/complementos/play.png" width="50" height="50" class="play-icon"
-                                        alt="Play"
-                                        style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);" />
+                                    <img src="/images/complementos/play.png" alt="Play" class="play-icon hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" width="50" height="50" />
+
 
                                     <!-- Estado del video -->
                                     <p class="absolute bottom-1 right-1 cursor-pointer">

@@ -137,6 +137,7 @@ class VideoController extends Controller
         $videos = Video::where('titulo', 'LIKE', '%' . $query . '%')
             ->orWhere('es_titulo', 'LIKE', '%' . $query . '%')
             ->orWhere('lat_titulo', 'LIKE', '%' . $query . '%')
+            ->orderBy('created_at', 'desc') // Ordena por fecha de creación descendente
             ->paginate(10); // Puedes ajustar la cantidad por página
 
         return view('videos.resultados', compact('videos'));
@@ -149,6 +150,7 @@ class VideoController extends Controller
         $videos = Video::where('titulo', 'LIKE', '%' . $query . '%')
             ->orWhere('es_titulo', 'LIKE', '%' . $query . '%')
             ->orWhere('lat_titulo', 'LIKE', '%' . $query . '%')
+            ->orderBy('created_at', 'desc') // Ordena por fecha de creación descendente
             ->paginate(10); // Puedes ajustar la cantidad por página
 
         return view('admin.admin_todos_los_videos', compact('videos'));
