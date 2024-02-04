@@ -64,7 +64,7 @@
                            
                             <p class="absolute right-2 top-2 cursor-pointer">
                                 @foreach ($video->categorias as $categoria)
-                                    @if ($categoria->name == 'Prime Video')
+                                    @if ($categoria->name == 'amazon-prime')
                                         <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
                                     @elseif ($categoria->name == 'netflix')
                                         <img src="/images/logo/logo-netflix.png" height="35" width="35" />
