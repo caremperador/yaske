@@ -109,7 +109,7 @@
             <div>
                 <label for="categoria_id" class="block text-sm font-medium text-gray-300">Categorías</label>
                 <select style="color:black;" name="categoria_id[]" id="categoria_id" multiple required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 h-52">
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 h-40">
 
                     <option value="" disabled {{ old('categoria_id') ? '' : 'selected' }}>
                         Seleccione categorías</option>
