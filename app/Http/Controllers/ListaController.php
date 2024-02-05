@@ -21,7 +21,7 @@ class ListaController extends Controller
 
     public function create()
     {
-        $categorias = Categoria::all(); // Obtén todas las categorías
+        $categorias = Categoria::orderBy('name')->get(); // Ordena las categorías alfabéticamente
         $tipos = Tipo::all(); // Obtén todos los tipos
         return view('listas.create', compact('categorias', 'tipos')); // Pasa los datos a la vista
     }

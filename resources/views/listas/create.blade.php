@@ -38,7 +38,7 @@
                         class="h-40 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         <option value="" disabled {{ old('categoria_id') ? '' : 'selected' }}>Seleccione categorías
                         </option>
-                        @foreach ($categorias as $categoria)
+                        @foreach ($categorias->sortBy('name') as $categoria)
                             <option value="{{ $categoria->id }}"
                                 {{ in_array($categoria->id, old('categoria_id', [])) ? 'selected' : '' }}>
                                 {{ $categoria->name }}
