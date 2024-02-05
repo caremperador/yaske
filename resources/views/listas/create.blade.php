@@ -31,16 +31,27 @@
                     <textarea style="color:black;" id="descripcion" name="descripcion" rows="4" placeholder="Descripción de la lista"
                         class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
                 </div>
-            
+
                 <div>
-                    <select style="color:black;" name="categoria_id" id="categoria_id"
-                        class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                        <option value="">Seleccione una categoría</option>
+                    <label for="categoria_id" class="block text-sm font-medium text-gray-300">Categorías</label>
+                    <select style="color:black;" name="categoria_id[]" id="categoria_id" multiple required
+                        class="h-40 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        <option value="" disabled {{ old('categoria_id') ? '' : 'selected' }}>Seleccione categorías
+                        </option>
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->name }}</option>
+                            <option value="{{ $categoria->id }}"
+                                {{ in_array($categoria->id, old('categoria_id', [])) ? 'selected' : '' }}>
+                                {{ $categoria->name }}
+                            </option>
                         @endforeach
                     </select>
+                    @error('categoria_id')
+                        <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                    @enderror
+                    <p class="mt-2 text-sm text-gray-300">Mantén presionada la tecla 'Ctrl' (Windows/Linux) o 'Command'
+                        (Mac) para seleccionar múltiples opciones.</p>
                 </div>
+
                 <div>
                     <select style="color:black;" name="tipo_id" id="tipo_id"
                         class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
