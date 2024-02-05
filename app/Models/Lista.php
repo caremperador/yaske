@@ -11,7 +11,7 @@ class Lista extends Model
 {
     use HasFactory;
 
-    
+
     public function tipo()
     {
         return $this->belongsTo(Tipo::class);
@@ -20,8 +20,8 @@ class Lista extends Model
     {
         return $this->hasMany(Video::class);
     }
-    public function categoria()
+    public function categorias()
     {
-        return $this->belongsTo(Categoria::class, 'categoria_id');
+        return $this->belongsToMany(Categoria::class);
     }
 }
