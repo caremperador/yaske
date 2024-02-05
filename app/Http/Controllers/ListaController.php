@@ -46,7 +46,6 @@ class ListaController extends Controller
         $lista->titulo = $validatedData['titulo'];
         $lista->descripcion = $validatedData['descripcion'] ?? null; // Usa el operador de fusión null para asignar un valor por defecto si es necesario
         $lista->thumbnail = $path; // Asigna la ruta del archivo
-        $lista->categoria_id = $validatedData['categoria_id'];
         $lista->tipo_id = $validatedData['tipo_id'];
         $lista->save();
 
