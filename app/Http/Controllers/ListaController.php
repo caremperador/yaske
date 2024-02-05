@@ -50,7 +50,9 @@ class ListaController extends Controller
         $lista->tipo_id = $validatedData['tipo_id'];
         $lista->save();
 
-        // Asignar categorías a la lista
+
+
+        // Asignar categorías a la lista ggd
         $lista->categorias()->sync($validatedData['categoria_id']);
 
         // Redirige a alguna parte con un mensaje
