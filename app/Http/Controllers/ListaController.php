@@ -33,13 +33,14 @@ class ListaController extends Controller
             'titulo' => 'required|max:255',
             'descripcion' => 'nullable',
             'thumbnail' => 'required|image|max:2048',
-            'categoria_id' => 'required|exists:categorias,id',
+            'categoria_id' => 'required|array',
+            'categoria_id.*' => 'exists:categorias,id',
             'tipo_id' => 'required|exists:tipos,id',
         ]);
-    
+
         // Procesamiento y almacenamiento del archivo
         $path = $request->file('thumbnail')->store('thumbnails', 'public');
-    
+
         // Creación de la lista
         $lista = new Lista();
         $lista->titulo = $validatedData['titulo'];
@@ -48,11 +49,11 @@ class ListaController extends Controller
         $lista->categoria_id = $validatedData['categoria_id'];
         $lista->tipo_id = $validatedData['tipo_id'];
         $lista->save();
-    
+
         // Redirige a alguna parte con un mensaje
         return redirect()->route('listas.create')->with('success', 'Lista creada con éxito');
     }
-    
+
 
     public function show($id)
     {
