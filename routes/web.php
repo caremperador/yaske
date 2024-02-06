@@ -2,13 +2,17 @@
 
 
 use App\Models\Video;
+use App\Models\DiasPremiumUser;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ApiTMDBController;
+use App\Http\Controllers\NetflixController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\PlataformaController;
 use App\Http\Controllers\PuntuacionController;
 use App\Http\Controllers\DiasPremiumController;
 use App\Http\Controllers\TokenPremiumController;
@@ -16,9 +20,6 @@ use App\Http\Controllers\EstructuraWebController;
 use App\Http\Controllers\TransaccionesP2pController;
 use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
-use App\Http\Controllers\NetflixController;
-use App\Http\Controllers\PlataformaController;
-use App\Models\DiasPremiumUser;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -29,6 +30,11 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/video/{video}', 'show')->name('videos.show')->middleware('auth');
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
+});
+
+Route::controller(ApiTMDBController::class)->group(function () {
+    Route::get('/buscar-pelicula-tmdb/{id}', 'buscarPeliculaTMDB');
+    Route::get('/buscar-serie-tmdb/{id}', 'buscarSerieTMDB');
 });
 
 // Puedes añadir rutas adicionales para las listas si aún no las tienes
@@ -190,6 +196,3 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-
-    
-   

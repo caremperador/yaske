@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('listas', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
+            $table->string('es_titulo')->nullable();
+            $table->string('lat_titulo')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('thumbnail');
+            $table->string('tmdb_id')->unique()->nullable();
             $table->foreignId('tipo_id')->constrained();
             $table->timestamps();
         });

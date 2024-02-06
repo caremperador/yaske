@@ -7,7 +7,7 @@
 
             <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  2xl:grid-cols-4 gap-2">
                 @forelse ($listas as $lista)
-                  
+
                     <!-- listas card -->
                     <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
                         <div class="overflow-x-hidden rounded-2xl relative">
@@ -15,11 +15,14 @@
                                     class="h-40 rounded-2xl w-full object-cover" src="{{ $lista->thumbnail }}"
                                     alt="{{ $lista->titulo }}"></a>
                             <p class="absolute right-2 top-2 cursor-pointer">
-                                @if ($lista->categoria && $lista->categoria->name == 'Prime Video')
-                                    <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
-                                @elseif ($lista->categoria && $lista->categoria->name == 'Netflix')
-                                    <img src="/images/logo/logo-netflix.png" height="35" width="35" />
-                                @endif
+                                @foreach ($lista->categorias as $categoria)
+                                    @if ($categoria->name == 'Prime Video')
+                                        <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
+                                    @elseif ($categoria->name == 'Netflix')
+                                        <img src="/images/logo/logo-netflix.png" height="35" width="35" />
+                                    @endif
+                                @endforeach
+
                             </p>
                         </div>
                         <div class="mt-4 pl-2 mb-2 flex justify-between ">

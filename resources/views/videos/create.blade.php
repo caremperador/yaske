@@ -5,10 +5,48 @@
 @section('content')
 
 
+  <!-- mostrar errores en el formulario -->
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        @if ($errors->any())
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                Errores
+            </div>
+            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
         <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Crear Video</h3>
         <form action="{{ route('videos.store') }}" method="post" class="space-y-4" enctype="multipart/form-data">
             @csrf
+
+            <div>
+                <label for="tmdbSearch" class="block text-sm font-medium text-gray-300">Buscar en TMDB:</label>
+                <input type="text" style="color:black;" id="tmdbSearch" name="tmdbSearch"
+                    placeholder="Escribe para buscar..."
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
+            </div>
+
+            <!-- Vista previa del Thumbnail, inicialmente oculta -->
+            <div id="thumbnailPreviewContainer" style="display: none;">
+                <label class="block text-sm font-medium text-gray-300">Vista previa del Thumbnail:</label>
+                <img id="thumbnailPreview" src="" alt="Vista previa del thumbnail" class="w-32 h-48 object-cover">
+            </div>
+
+
+            <!-- Campo oculto para la URL del thumbnail (opcional) -->
+            <input type="hidden" id="thumbnailUrl" name="thumbnailUrl">
+           
+            <!-- Corregido para que coincida con la validación y manejo en el controlador -->
+            <input type="hidden" id="tmdb_id" name="tmdb_id">
+
+
+
             <div>
 
                 <label for="photo" class="block text-gray-300 text-sm font-bold mb-2">Selecciona una Foto:</label>
@@ -25,7 +63,7 @@
                 @enderror
             </div>
             <div>
-                <input style="color:black;" type="text" name="es_titulo" id="es titulo" placeholder="Titulo en español"
+                <input style="color:black;" type="text" name="es_titulo" id="es_titulo" placeholder="Titulo en español"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('es_titulo') }}">
                 @error('es_titulo')
@@ -157,5 +195,48 @@
 
 
     </div>
+    @push('scripts')
+        <script>
+            document.getElementById('tmdbSearch').addEventListener('input', async function() {
+                const tmdbId = this.value;
+                if (tmdbId.length === 0) return; // Evita búsquedas vacías
+
+                try {
+                    // Realiza la solicitud para obtener detalles de la película en inglés
+                    const responseEn = await fetch(`/buscar-pelicula-tmdb/${tmdbId}?language=en`);
+                    const movieEn = await responseEn.json();
+                    const yearEn = movieEn.release_date ? ` (${movieEn.release_date.split('-')[0]})` : '';
+                    document.getElementById('titulo').value = `${movieEn.title}${yearEn}` || '';
+                    // Actualiza el campo oculto con el ID de TMDB de la película
+                    document.getElementById('tmdb_id').value = tmdbId; // Asegúrate de que este es el ID de TMDB
+
+                    // Realiza la solicitud para obtener detalles de la película en español de España
+                    const responseEs = await fetch(`/buscar-pelicula-tmdb/${tmdbId}?language=es-ES`);
+                    const movieEs = await responseEs.json();
+                    const yearEs = movieEs.release_date ? ` (${movieEs.release_date.split('-')[0]})` : '';
+                    document.getElementById('es_titulo').value = `${movieEs.title}${yearEs}` || '';
+                    document.getElementById('descripcion').value = movieEs.overview || '';
+
+                    // Realiza la solicitud para obtener detalles de la película en español de Latinoamérica
+                    const responseLat = await fetch(`/buscar-pelicula-tmdb/${tmdbId}?language=es-MX`);
+                    const movieLat = await responseLat.json();
+                    const yearLat = movieLat.release_date ? ` (${movieLat.release_date.split('-')[0]})` : '';
+                    document.getElementById('lat_titulo').value = `${movieLat.title}${yearLat}` || '';
+
+                    // Actualizar la vista previa del thumbnail utilizando el póster de la película en español (movieEs)
+                    if (movieEn.poster_path) {
+                        const imageUrl = `https://image.tmdb.org/t/p/w500${movieEn.poster_path}`;
+                        document.getElementById('thumbnailPreview').src = imageUrl;
+                        document.getElementById('thumbnailPreviewContainer').style.display =
+                            'block'; // Muestra el contenedor
+                        document.getElementById('thumbnailUrl').value = imageUrl;
+                    }
+
+                } catch (error) {
+                    console.error('Error al buscar la película:', error);
+                }
+            });
+        </script>
+    @endpush
 
 @endsection

@@ -17,8 +17,8 @@ use Database\Seeders\RoleAssignSeeder;
 class DatabaseSeeder extends Seeder
 {
     public function run()
-    {/* 
-        // Crear categorías
+    {
+       /*  // Crear categorías
         Categoria::factory(40)->create();
 
         // Crear tipos específicos
@@ -30,28 +30,30 @@ class DatabaseSeeder extends Seeder
         // Asegurarse de que el tipo 'peliculas' existe para asignarlo a videos sin lista
         $tipoPeliculas = Tipo::firstOrCreate(['name' => 'peliculas']);
 
-        // Crear listas sin asignar el tipo 'peliculas'
+        // Crear listas y luego asociar categorías a través de la tabla intermedia
         $tiposExcluyendoPeliculas = Tipo::where('name', '<>', 'peliculas')->get();
         Lista::factory(70)->create()->each(function ($lista) use ($tiposExcluyendoPeliculas) {
-            $lista->tipo()->associate($tiposExcluyendoPeliculas->random())->save();
+            $tipoAleatorio = $tiposExcluyendoPeliculas->random();
+            $lista->tipo_id = $tipoAleatorio->id;
+            $lista->save();
+
+            // Asignar categorías aleatorias a la lista
+            $categoriasAleatorias = Categoria::inRandomOrder()->take(rand(1, 5))->pluck('id');
+            $lista->categorias()->sync($categoriasAleatorias);
         });
 
-        // Crear videos y asignar tipo 'peliculas' solo a los que no están en una lista
+        // El proceso de creación de videos y asignación de tipos sigue siendo válido
         Video::factory(100)->make()->each(function ($video) use ($tipoPeliculas, $tiposExcluyendoPeliculas) {
             if (is_null($video->lista_id)) {
-                // Asignar tipo 'peliculas' si el video no está en una lista
-                $video->tipo()->associate($tipoPeliculas);
+                $video->tipo_id = $tipoPeliculas->id;
             } else {
-                // Asegurar que los videos en una lista no tengan el tipo 'peliculas'
-                $video->tipo()->associate($tiposExcluyendoPeliculas->random());
+                $video->tipo_id = $tiposExcluyendoPeliculas->random()->id;
             }
             $video->save();
         }); */
 
-        // Crear usuarios
-        User::factory(10)->create();
-
-        // Llamar a otro seeder específico para la asignación de roles
+        // Crear usuarios y cualquier otro proceso de seeding necesario
+        User::factory(4)->create();
         $this->call(RoleAssignSeeder::class);
     }
 }

@@ -13,13 +13,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Video extends Model
 {
     use HasFactory;
-   /*  protected $fillable = ['titulo', 'descripcion', 'url_video', 'thumbnail', 'lista_id', 'categoria_id', 'estado']; */
+    /*  protected $fillable = ['titulo', 'descripcion', 'url_video', 'thumbnail', 'lista_id', 'categoria_id', 'estado']; */
 
     protected $guarded = [];
+    // En tu modelo Video
     public function categorias()
     {
-        return $this->belongsToMany(Categoria::class, 'video_categoria');
+        return $this->belongsToMany(Categoria::class, 'video_categoria', 'video_id', 'categoria_id');
     }
+
     public function tipo()
     {
         return $this->belongsTo(Tipo::class, 'tipo_id');

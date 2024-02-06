@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('videos', function (Blueprint $table) {
-            $table->boolean('es_calidad_cam')->default(false); // Añade esta línea
+        Schema::create('categoria_lista', function (Blueprint $table) {
+            $table->foreignId('lista_id')->constrained()->onDelete('cascade');
+            $table->foreignId('categoria_id')->constrained()->onDelete('cascade');
+            $table->primary(['lista_id', 'categoria_id']);
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('videos', function (Blueprint $table) {
-            $table->dropColumn('es_calidad_cam'); // Añade esta línea para revertir la migración
-        });
+        Schema::dropIfExists('categoria_lista');
     }
 };

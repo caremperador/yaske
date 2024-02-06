@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('es_titulo')->nullable();
             $table->string('lat_titulo')->nullable();
             $table->text('descripcion')->nullable();
+            $table->string('tmdb_id')->unique()->nullable();
             $table->string('thumbnail');
             $table->foreignId('lista_id')->nullable()->constrained();
             $table->foreignId('tipo_id')->constrained();
@@ -25,6 +26,7 @@ return new class extends Migration
             $table->string('lat_url_video')->nullable();
             $table->string('sub_url_video')->nullable();
             $table->boolean('estado'); // 0: inactivo, 1: activo
+            $table->boolean('es_calidad_cam')->default(false); // Añade esta línea
             $table->timestamps();
         });
     }

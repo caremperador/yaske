@@ -14,19 +14,24 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class ListaFactory extends Factory
 {
     protected $model = Lista::class;
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     public function definition(): array
     {
         return [
             'titulo' => $this->faker->sentence,
             'descripcion' => $this->faker->paragraph,
             'thumbnail' => 'https://via.placeholder.com/210x118',
-            'categoria_id' => Categoria::factory(),
+            // No asignar categoria_id aquí
             'tipo_id' => Tipo::inRandomOrder()->first()->id,
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Lista $lista) {
+            // Asigna categorías después de crear la lista
+            $categorias = Categoria::inRandomOrder()->take(rand(1, 3))->pluck('id');
+            $lista->categorias()->sync($categorias);
+        });
     }
 }

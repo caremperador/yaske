@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
@@ -34,7 +35,6 @@ class VideoController extends Controller
 
         return view('videos.create', compact('listas', 'tipos', 'categorias')); // Pasa los datos a la vista
     }
-
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -48,22 +48,39 @@ class VideoController extends Controller
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
-            'thumbnail' => 'required|image|max:2048',
+            'tmdb_id' => 'nullable|unique:videos,tmdb_id', // Asegura que el ID de TMDB sea único en la tabla videos
+            'thumbnail' => 'sometimes|image|max:2048', // Uso de sometimes para permitir archivos no subidos
+            'thumbnailUrl' => 'nullable|url',
             'lista_id' => 'nullable|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
-            'categoria_id' => 'required|array', // Asegúrate de que al menos una categoría esté seleccionada
-            'categoria_id.*' => 'exists:categorias,id', // Cada ID de categoría debe existir
+            'categoria_id' => 'required|array',
+            'categoria_id.*' => 'exists:categorias,id',
         ]);
-        $path = $request->file('thumbnail')->store('thumbnail', 'public');
 
-        // Asegúrate de que al menos una URL de video esté presente
-        if (empty($validatedData['url_video']) && empty($validatedData['es_url_video']) && empty($validatedData['lat_url_video']) && empty($validatedData['sub_url_video'])) {
-            return back()->withErrors('Por favor, proporciona al menos una URL de video.');
+        // Manejo de la imagen
+        if ($request->hasFile('thumbnail')) {
+            $path = $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif (!empty($validatedData['thumbnailUrl'])) {
+            $imageContents = file_get_contents($validatedData['thumbnailUrl']);
+            $imageName = basename($validatedData['thumbnailUrl']);
+            Storage::disk('public')->put("thumbnails/{$imageName}", $imageContents);
+            $path = "thumbnails/{$imageName}";
+        } else {
+            $path = null; // O establece un valor predeterminado para 'thumbnail'
         }
 
-        // Crear el video sin la información de categorías
-        $videoData = Arr::except($validatedData, ['categoria_id']);
-        $videoData['thumbnail'] = $path; // Aquí asignas la ruta de la imagen
+        // Verifica si ya existe un video con el mismo ID de TMDB
+        if (Video::where('tmdb_id', $request->tmdb_id)->exists()) {
+            return back()->withErrors(['tmdb_id' => 'Este video ya ha sido registrado.'])->withInput();
+        }
+        // Preparar datos para creación, excluyendo 'thumbnailUrl' y 'categoria_id'
+        $videoData = Arr::except($validatedData, ['thumbnailUrl', 'categoria_id']);
+        $videoData['thumbnail'] = $path;
+        $videoData['tmdb_id'] = $request->tmdb_id; // Asegúrate de incluir el ID de TMDB en los datos a guardar
+
+
+
+        // Crear el video
         $video = Video::create($videoData);
 
         // Asignar categorías al video si están presentes
@@ -71,12 +88,8 @@ class VideoController extends Controller
             $video->categorias()->sync($validatedData['categoria_id']);
         }
 
-        // Redirección con mensaje de éxito
-        return redirect()->route('videos.create')->with('success', 'Video uploaded successfully.');
+        return redirect()->route('videos.create')->with('success', 'Video creado con éxito.');
     }
-
-
-
 
 
     public function show(Video $video)
