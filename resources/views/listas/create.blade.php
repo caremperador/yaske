@@ -130,7 +130,7 @@
 
         // Vista previa del thumbnail y actualización del campo oculto para la imagen
         if (serieEn.poster_path) {
-            const imageUrl = `https://image.tmdb.org/t/p/w500${serieEn.poster_path}`;
+            const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${serieEn.backdrop_path}`;
             document.getElementById('thumbnailPreview').src = imageUrl;
             document.getElementById('thumbnailPreviewContainer').style.display = 'block';
             document.getElementById('thumbnailUrl').value = imageUrl;

@@ -225,7 +225,7 @@
 
                     // Actualizar la vista previa del thumbnail utilizando el póster de la película en español (movieEs)
                     if (movieEn.poster_path) {
-                        const imageUrl = `https://image.tmdb.org/t/p/w500${movieEn.poster_path}`;
+                        const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${movieEn.backdrop_path}`;
                         document.getElementById('thumbnailPreview').src = imageUrl;
                         document.getElementById('thumbnailPreviewContainer').style.display =
                             'block'; // Muestra el contenedor
