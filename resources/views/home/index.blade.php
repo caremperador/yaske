@@ -21,8 +21,10 @@
                             </p>
                             <div class="flex items-center space-x-2">
                                 <!-- Icono de play -->
-                                <a href="{{ route('videos.show', $video->id) }}"> <i class="fas fa-play-circle text-3xl md:text-4xl lg:text-5xl xl:text-6xl"></i>
-                                <span class="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  font-semibold">Play</span></a>
+                                <a href="{{ route('videos.show', $video->id) }}"> <i
+                                        class="fas fa-play-circle text-3xl md:text-4xl lg:text-5xl xl:text-6xl"></i>
+                                    <span
+                                        class="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  font-semibold">Play</span></a>
                             </div>
                         </div>
                         <!-- div derecha con la imagen -->
@@ -52,12 +54,13 @@
         <div class="swiper-button-prev"></div>
     </div>
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Ultimos videos agregados <a href="#"><i class="fas fa-angle-double-right"></i>
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Ultimos videos agregados <a href="#"><i
+                class="fas fa-angle-double-right"></i>
         </a></div>
 
 
     <!-- Swiper carusel -->
-    <div class="swiper swiperCarusel my-4">
+    <div class="swiper swiper-container swiperCarusel my-4">
         <div class="swiper-wrapper">
 
             @foreach ($videos as $video)
@@ -91,17 +94,18 @@
             @endforeach
         </div>
         <!--<div class="swiper-pagination"></div>-->
-        <div class="swiper-button-next hidden" id="btn-next"></div>
-        <div class="swiper-button-prev hidden" id="btn-prev"></div>
+        <div class="swiper-button-next hidden"></div>
+        <div class="swiper-button-prev hidden"></div>
     </div>
 
 
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Estrenos netflix <a href="#"><i class="fas fa-angle-double-right"></i>
-    </a></div>
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Estrenos netflix <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
 
     <!-- Swiper carusel -->
-    <div class="swiper swiperCarusel my-4">
+    <div class="swiper swiper-container swiperCarusel my-4">
         <div class="swiper-wrapper">
 
             @foreach ($estrenosNetflix as $video)
@@ -135,19 +139,20 @@
             @endforeach
         </div>
         <!--<div class="swiper-pagination"></div>-->
-        <div class="swiper-button-next hidden" id="btn-next"></div>
-        <div class="swiper-button-prev hidden" id="btn-prev"></div>
+        <div class="swiper-button-next hidden"></div>
+        <div class="swiper-button-prev hidden"></div>
     </div>
 
 
 
 
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas <a href="#"><i class="fas fa-angle-double-right"></i>
-    </a></div>
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
 
     <!-- Swiper carusel -->
-    <div class="swiper swiperCarusel my-4">
+    <div class="swiper swiper-container swiperCarusel my-4">
         <div class="swiper-wrapper">
 
             @foreach ($peliculas as $video)
@@ -181,12 +186,12 @@
             @endforeach
         </div>
         <!--<div class="swiper-pagination"></div>-->
-        <div class="swiper-button-next hidden" id="btn-next"></div>
-        <div class="swiper-button-prev hidden" id="btn-prev"></div>
+        <div class="swiper-button-next hidden"></div>
+        <div class="swiper-button-prev hidden"></div>
     </div>
 
 
-{{-- 
+    {{-- 
 
 
     <div class="flex flex-col justify-center">

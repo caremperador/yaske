@@ -261,7 +261,7 @@
                     </span>
                 </div>
             @else
-                login
+                <div class="rounded-full w-8 h-8 mr-1">login </div>
             @endif
 
         </nav>
@@ -468,91 +468,9 @@
         });
     </script>
 
-    <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".swiperCarusel", {
-            loop: true,
-            // slidesPerView: 8, // Muestra 4 slides a la vez
-            slidesPerView: 'auto',
-            centeredSlides: false,
-            spaceBetween: 2, // Espacio entre slides en px
-            /*
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },*/
-           /*  pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            }, */
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            // Añadir breakpoints para una respuesta adaptable
-            breakpoints: {
-                // cuando la anchura de la ventana es >= 320px
-                320: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 480px
-                480: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 640px
-                640: {
-                    slidesPerView: 4.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                768: {
-                    slidesPerView: 5.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                1024: {
-                    slidesPerView: 6.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                1280: {
-                    slidesPerView: 7.2,
-                    spaceBetween: 2
-                }
-            }
-
-        });
+       
     </script>
-     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          var swiperContainer = document.querySelector('.swiperCarusel');
-          var btnNext = document.getElementById('btn-next');
-          var btnPrev = document.getElementById('btn-prev');
-    
-          // Función para mostrar los botones
-          function showButtons() {
-            btnNext.classList.remove('hidden');
-            btnPrev.classList.remove('hidden');
-          }
-    
-          // Función para ocultar los botones
-          function hideButtons() {
-            btnNext.classList.add('hidden');
-            btnPrev.classList.add('hidden');
-          }
-    
-          // Evento cuando el cursor entra en el contenedor de Swiper
-          swiperContainer.addEventListener('mouseenter', showButtons);
-    
-          // Evento cuando el cursor sale del contenedor de Swiper
-          swiperContainer.addEventListener('mouseleave', hideButtons);
-    
-          // Asegúrate de que los botones estén ocultos al inicio si es necesario
-          hideButtons();
-        });
-      </script>
     <!-- Scripts Section -->
     @stack('scripts')
 

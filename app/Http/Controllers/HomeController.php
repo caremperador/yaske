@@ -14,21 +14,37 @@ class HomeController extends Controller
     {
         // Videos generales
         $videos = Video::with('categorias')->orderBy('created_at', 'desc')->paginate(32);
-        $estrenos = Video::with('categorias')->orderBy('created_at', 'desc')->take(3)->get();
 
-        // Estrenos
-        $estrenosNetflix = $this->estrenosNetflix();
+        // mostrar videos por categorias
+        $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
+        $estrenosPrimevideo = $this->videosPorCategorias(['prime video', 'estrenos']);
+
         // Obtener videos por tipo y categoría específicos.
         $peliculas = $this->videosPorTipoYCategoria('peliculas');
+        $peliculasAccion = $this->videosPorTipoYCategoria('peliculas', 'accion');
+        $peliculasAnimacion = $this->videosPorTipoYCategoria('peliculas', 'animacion');
+        $peliculasComedia = $this->videosPorTipoYCategoria('peliculas', 'animacion');
 
         // Videos de calidad CAM
         $videosCalidadCam = $this->videosCalidadCam();
 
 
-        return view('home.index', compact('videos', 'estrenos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam'));
+        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia'));
     }
 
-    private function estrenosNetflix()
+    private function videosPorCategorias(array $nombresCategorias)
+    {
+        $categorias = Categoria::whereIn('name', $nombresCategorias)->get();
+
+        $videos = Video::whereHas('categorias', function ($query) use ($categorias) {
+            $query->whereIn('categoria_id', $categorias->pluck('id'));
+        })->get();
+
+        return $videos;
+    }
+
+
+    /*   private function estrenosNetflix()
     {
         $categoriasNombres = ['aspernatur'];
         $categorias = Categoria::whereIn('name', $categoriasNombres)->get();
@@ -37,7 +53,7 @@ class HomeController extends Controller
         })->get();
 
         return $videosNetflix;
-    }
+    } */
     public function videosPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
     {
         $tipo = Tipo::where('name', $tipoNombre)->first();
