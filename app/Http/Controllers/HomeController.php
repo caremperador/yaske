@@ -21,12 +21,11 @@ class HomeController extends Controller
         // Obtener videos por tipo y categoría específicos.
         $peliculas = $this->videosPorTipoYCategoria('peliculas');
 
-        // Otros conjuntos de videos basados en categorías específicas
-        // Por ejemplo, $accionYAnimacion = $this->videosPorCategorias(['Acción', 'Animación']);
+        // Videos de calidad CAM
+        $videosCalidadCam = $this->videosCalidadCam();
 
-        // Puedes añadir aquí más llamadas a métodos similares según necesites
 
-        return view('home.index', compact('videos', 'estrenos', 'estrenosNetflix', 'peliculas'));
+        return view('home.index', compact('videos', 'estrenos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam'));
     }
 
     private function estrenosNetflix()
@@ -65,5 +64,11 @@ class HomeController extends Controller
         $videos = $query->get();
 
         return $videos;
+    }
+
+    public function videosCalidadCam()
+    {
+        $videosCalidadCam = Video::where('es_calidad_cam', true)->get();
+        return $videosCalidadCam;
     }
 }

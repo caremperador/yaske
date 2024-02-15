@@ -9,26 +9,26 @@
     <div class="swiper SwiperPortadas h-auto rounded-lg">
         <div class="swiper-wrapper">
 
-            @forelse ($estrenos as $estreno)
+            @forelse ($videosCalidadCam as $video)
                 <!-- Slide  -->
                 <div class="swiper-slide">
                     <div class="flex border border-black bg-black relative">
                         <!-- div izquierda -->
                         <div class="flex flex-col justify-center p-10 items-center z-20 text-justify text-white w-1/2">
-                            <h2 class="text-base md:text-2xl lg:text-5xl font-bold mb-3">{{ $estreno->titulo }}</h2>
+                            <h2 class="text-base md:text-2xl lg:text-4xl font-bold mb-3">{{ $video->titulo }}</h2>
                             <p class="text-xs md:text-base lg:text-lg mb-5">
-                                {{ Str::limit($estreno->descripcion, 100, '...') }}
+                                {{ Str::limit($video->descripcion, 100, '...') }}
                             </p>
                             <div class="flex items-center space-x-2">
                                 <!-- Icono de play -->
-                                <i class="fas fa-play-circle text-3xl md:text-4xl lg:text-6xl xl:text-7xl"></i>
-                                <span class="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  font-semibold">Play</span>
+                                <a href="{{ route('videos.show', $video->id) }}"> <i class="fas fa-play-circle text-3xl md:text-4xl lg:text-5xl xl:text-6xl"></i>
+                                <span class="sm:text-lg md:text-xl lg:text-2xl xl:text-3xl  font-semibold">Play</span></a>
                             </div>
                         </div>
                         <!-- div derecha con la imagen -->
                         <div class="w-1/2 max-h-full pt-10 md:pt-0 bg-cover bg-center">
                             <div>
-                                <img src="{{ asset('storage/' . $estreno->thumbnail) }}" alt="Placeholder Image"
+                                <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Placeholder Image"
                                     class="w-full h-full object-cover" />
                             </div>
                         </div>
@@ -52,7 +52,7 @@
         <div class="swiper-button-prev"></div>
     </div>
 
-    <div class="px-4 pt-5 text-2xl">Ultimos videos agregados <a href="#"><i class="fas fa-angle-double-right"></i>
+    <div class="px-4 pt-5 text-4xl">Ultimos videos agregados <a href="#"><i class="fas fa-angle-double-right"></i>
         </a></div>
 
 
@@ -97,7 +97,7 @@
 
 
 
-    <div class="px-4 pt-5 text-2xl">Estrenos netflix <a href="#"><i class="fas fa-angle-double-right"></i>
+    <div class="px-4 pt-5 text-4xl">Estrenos netflix <a href="#"><i class="fas fa-angle-double-right"></i>
     </a></div>
 
     <!-- Swiper carusel -->
@@ -143,7 +143,7 @@
 
 
 
-    <div class="px-4 pt-5 text-2xl">Peliculas <a href="#"><i class="fas fa-angle-double-right"></i>
+    <div class="px-4 pt-5 text-4xl">Peliculas <a href="#"><i class="fas fa-angle-double-right"></i>
     </a></div>
 
     <!-- Swiper carusel -->
