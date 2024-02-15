@@ -68,139 +68,148 @@
                     <p class="text-sm mt-3">ID del Usuario: {{ $userId ?? 'No Disponible' }}</p>
                 </div>
                 @yield('botones')
-                <a href="/"
-                    class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                    <i class="fas fa-home mr-1"></i> Home
-                </a>
-                <a href="/user/profile"
-                    class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                    <i class="fas fa-key mr-1"></i> Cambiar contraseña
-                </a>
+                <!-- Botón de hamburguesa visible solo en pantallas pequeñas -->
+                <button id="menu-toggle" class="bg-[#1F2937]   mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151] text-justify md:hidden">
+                    <i class="fas fa-bars mr-2"></i>Abrir Menú
+                </button>
 
-                @if (auth()->check() &&
-                        auth()->user()->hasRole('revendedor'))
+                <!-- Menú lateral -->
+                <div id="menu-lateral" class="hidden md:flex flex-col items-start">
+                    <!-- Contenido del menú aquí -->
+                    <a href="/"
+                        class="bg-[#1F2937]  w-full mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                        <i class="fas fa-home mr-1"></i> Home
+                    </a>
+                    <a href="/user/profile"
+                        class="bg-[#1F2937]  w-full  mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                        <i class="fas fa-key mr-1"></i> Cambiar contraseña
+                    </a>
 
-                    @if (!optional(auth()->user()->diasPremiumRevendedor)->exists)
-                        <!-- Link para usuarios que son revendedores -->
-                        <a href="{{ route('configuracion_revendedor.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-cog mr-1"></i> Configuracion
-                        </a>
-                    @else
-                        <a href="{{ route('configuracion_revendedor.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-cog mr-1"></i> Configuracion
-                        </a>
-                        <a href="{{ route('perfil_revendedor.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-user-circle mr-1"></i> Perfil
-                        </a>
+                    @if (auth()->check() &&
+                            auth()->user()->hasRole('revendedor'))
 
-                        <a href="{{ route('metodos_pago.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-credit-card mr-1"></i> Metodos de pago
+                        @if (!optional(auth()->user()->diasPremiumRevendedor)->exists)
+                            <!-- Link para usuarios que son revendedores -->
+                            <a href="{{ route('configuracion_revendedor.index') }}"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-cog mr-1"></i> Configuracion
+                            </a>
+                        @else
+                            <a href="{{ route('configuracion_revendedor.index') }}"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-cog mr-1"></i> Configuracion
+                            </a>
+                            <a href="{{ route('perfil_revendedor.index') }}"
+                                class="bg-[#1F2937]  w-full mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-user-circle mr-1"></i> Perfil
+                            </a>
+
+                            <a href="{{ route('metodos_pago.index') }}"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-credit-card mr-1"></i> Metodos de pago
+                            </a>
+                            <a href="{{ route('transacciones.show') }}"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias
+                            </a>
+                            <a href="{{ route('vender_dias_directo.index') }}"
+                                class="bg-[#1F2937]  w-full  mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias directo
+                            </a>
+                            <a href="{{ route('comprar_dias_revendedor.index') }}"
+                                class="bg-[#1F2937]  w-full  mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-shopping-cart mr-1"></i> Comprar dias
+                            </a>
+                            <a href="{{ route('generar.token') }}"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-key mr-1"></i> Generar token
+                            </a>
+                            <a href="#"
+                                class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                                <i class="fas fa-users mr-1"></i> Referidos
+                            </a>
+                        @endif
+                        <!-- Link para usuarios que son admin -->
+                    @elseif (auth()->check() &&
+                            auth()->user()->hasRole('admin'))
+                        <a href="{{ route('cambiar_foto_perfil.index') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-image mr-1"></i> Foto de Perfil
                         </a>
-                        <a href="{{ route('transacciones.show') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias
+                        <a href="{{ route('videos.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-video mr-1"></i> Crear videos
                         </a>
-                        <a href="{{ route('vender_dias_directo.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-gem mr-1 text-yellow-200"></i> Vender dias directo
+                        <a href="{{ route('tipos.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-folder-open mr-1"></i> Crear Tipos
                         </a>
-                        <a href="{{ route('comprar_dias_revendedor.index') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-shopping-cart mr-1"></i> Comprar dias
+                        <a href="{{ route('listas.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-list mr-1"></i> Crear Listas
                         </a>
-                        <a href="{{ route('generar.token') }}"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-key mr-1"></i> Generar token
+                        <a href="{{ route('categorias.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-tags mr-1"></i> Crear categorias
+                        </a>
+                        <a href="{{ route('admin.todos_los_videos') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-film mr-1"></i> Todos videos
+                        </a>
+                        <a href="{{ route('videos.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-users mr-1"></i> Todos los Usuarios
+                        </a>
+                        <a href="{{ route('admin.configuracion.pais') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-chart-line mr-1"></i> Precio minimo/maximo
+                        </a>
+                    @elseif (auth()->check() &&
+                            auth()->user()->hasRole('premium'))
+                        <!-- Link para usuarios premiums -->
+                        <a href="#"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-gem mr-1  text-yellow-200"></i> Mi plan premium
+                        </a>
+                        <a href="{{ route('cambiar_foto_perfil.index') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-image mr-1"></i> Foto de Perfil
+                        </a>
+                        <a href="{{ route('seleccionarRevendedor') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-shopping-cart mr-1"></i> Comprar dias premium
                         </a>
                         <a href="#"
-                            class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                            <i class="fas fa-users mr-1"></i> Referidos
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-user-tie mr-1"></i>Ser Revendedor
+                        </a>
+                    @else
+                        <!-- Link para usuarios free -->
+                        <a href="{{ route('cambiar_foto_perfil.index') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-image mr-1"></i> Foto de Perfil
+                        </a>
+                        <a href="{{ route('seleccionarRevendedor') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-shopping-cart mr-1"></i> Comprar dias premium
+                        </a>
+                        <a href="#"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-user-tie mr-1"></i>Ser Revendedor
                         </a>
                     @endif
-                    <!-- Link para usuarios que son admin -->
-                @elseif (auth()->check() &&
-                        auth()->user()->hasRole('admin'))
-                    <a href="{{ route('cambiar_foto_perfil.index') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-image mr-1"></i> Foto de Perfil
-                    </a>
-                    <a href="{{ route('videos.create') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-video mr-1"></i> Crear videos
-                    </a>
-                    <a href="{{ route('tipos.create') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-folder-open mr-1"></i> Crear Tipos
-                    </a>
-                    <a href="{{ route('listas.create') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-list mr-1"></i> Crear Listas
-                    </a>
-                    <a href="{{ route('categorias.create') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-tags mr-1"></i> Crear categorias
-                    </a>
-                    <a href="{{ route('admin.todos_los_videos') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-film mr-1"></i> Todos videos
-                    </a>
-                    <a href="{{ route('videos.create') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-users mr-1"></i> Todos los Usuarios
-                    </a>
-                    <a href="{{ route('admin.configuracion.pais') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-chart-line mr-1"></i> Precio minimo/maximo
-                    </a>
-                @elseif (auth()->check() &&
-                        auth()->user()->hasRole('premium'))
-                    <!-- Link para usuarios premiums -->
-                    <a href="#"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-gem mr-1  text-yellow-200"></i> Mi plan premium
-                    </a>
-                    <a href="{{ route('cambiar_foto_perfil.index') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-image mr-1"></i> Foto de Perfil
-                    </a>
-                    <a href="{{ route('seleccionarRevendedor') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-shopping-cart mr-1"></i> Comprar dias premium
-                    </a>
-                    <a href="#"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-user-tie mr-1"></i>Ser Revendedor
-                    </a>
-                @else
-                    <!-- Link para usuarios free -->
-                    <a href="{{ route('cambiar_foto_perfil.index') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-image mr-1"></i> Foto de Perfil
-                    </a>
-                    <a href="{{ route('seleccionarRevendedor') }}"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-shopping-cart mr-1"></i> Comprar dias premium
-                    </a>
-                    <a href="#"
-                        class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                        <i class="fas fa-user-tie mr-1"></i>Ser Revendedor
-                    </a>
-                @endif
 
-                <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                    class="bg-[#1F2937] text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
-                    <i class="fas fa-sign-out-alt mr-1"></i> Cerrar Sesión
-                </a>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                        class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                        <i class="fas fa-sign-out-alt mr-1"></i> Cerrar Sesión
+                    </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                    @csrf
-                </form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                        @csrf
+                    </form>
 
+                </div>
             </div>
 
 
@@ -235,6 +244,32 @@
 
     <!-- Scripts Section -->
     @stack('scripts')
+    <script>
+        // Espera a que el contenido del DOM se cargue completamente
+        document.addEventListener('DOMContentLoaded', function() {
+            // Selecciona el botón hamburguesa y el menú lateral
+            const btnToggle = document.getElementById('menu-toggle');
+            const menuLateral = document.getElementById('menu-lateral');
+
+            btnToggle.addEventListener('click', function() {
+                // Verifica si el menú lateral está oculto
+                if (menuLateral.classList.contains('hidden')) {
+                    // Muestra el menú lateral
+                    menuLateral.classList.remove('hidden');
+                    menuLateral.classList.add('flex');
+                    // Cambia el texto del botón a "Cerrar Menú"
+                    btnToggle.innerHTML = '<i class="fas fa-bars mr-2"></i> Cerrar Menú';
+                } else {
+                    // Oculta el menú lateral
+                    menuLateral.classList.add('hidden');
+                    menuLateral.classList.remove('flex');
+                    // Cambia el texto del botón a "Abrir Menú"
+                    btnToggle.innerHTML = '<i class="fas fa-bars mr-2"></i> Abrir Menú';
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

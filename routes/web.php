@@ -22,6 +22,8 @@ use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+//tema
+Route::get('/tema2', [HomeController::class, 'tema'])->name('tema2')->middleware('auth');
 
 Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');
@@ -165,6 +167,8 @@ Route::post('/transacciones/rechazar/{transaction}', [DiasPremiumController::cla
 // Ruta para rechazar una transacción
 Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::class, 'estadoTransaccion'])->name('transacciones.estado');
 
+//transaccion aprobada
+Route::get('/transaccion-aprobada', [DiasPremiumController::class, 'transaccionAprobada'])->name('transaccion.aprobada')->middleware('auth');
 
 
 // Route::get('/netflix/peliculas-{categoria}', [NetflixController::class, 'peliculasCategoria'])->name('netflix.peliculas-categoria');
@@ -172,15 +176,8 @@ Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::c
 Route::get('/{tipo}/{plataforma?}/{categoria?}', [PlataformaController::class, 'filtrarVideosPorTipoYCategoria'])->name('videos.filtrar');
 
 
-//puntuaciones
-Route::get('/transaccion-aprobada', function () {
-    return view('diaspremium.transacciones.estado_aprobado');
-})->name('transaccion.aprobada');
 
-//puntuaciones
-Route::get('/tema2', function () {
-    return view('tema2');
-})->name('carusel');
+
 
 // Ruta para puntuar un video.
 Route::post('/videos/{video}/puntuar', [PuntuacionController::class, 'store'])

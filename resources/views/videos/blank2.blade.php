@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @vite('resources/css/app.css')
     @yield('js_cabecera')
 </head>
@@ -16,9 +14,10 @@
     <header>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1 mr-6 text-white">
-                <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
+                <a href="#" class="-m-1.5 p-1.5">
                     <span class="sr-only">Yaske</span>
-                    <img class="h-8 w-auto" src="/images/logo/logo-yaske.png" alt="yaske">
+                    <img class="h-8 w-auto" src="/images/logo/logo-yaske.png"
+                        alt="">
                 </a>
             </div>
             <!-- Menú de navegación pantalla mediana-->
@@ -26,13 +25,11 @@
                 <!-- Campo de búsqueda  pantalla pequeña-->
                 <div class="flex-grow">
                     <div class="relative w-full">
-                        <form action="{{ route('videos.search') }}" method="GET">
-                            <input type="search"name="query" placeholder="Buscar videos..."
-                                class="w-full pl-4 pr-10 rounded-full text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 py-2 focus:outline-none" />
-                            <button type="submit" class="absolute right-0 mr-4 text-white p-2 text-xs">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
+                        <input type="search" name="q" placeholder="Buscar..."
+                            class="w-full pl-4 pr-10 rounded-full text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 py-2 focus:outline-none" />
+                        <button type="submit" class="absolute right-0 mr-4 text-white p-2 text-xs">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -45,7 +42,7 @@
 
 
             </div>
-            <div class="hidden lg:flex lg:gap-x-4">
+            <div class="hidden lg:flex lg:gap-x-12">
                 <!-- enlaces pantalla grande -->
                 {{--  <a href="#"
                     class="text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">Netflix</a> --}}
@@ -214,11 +211,11 @@
 
                 <!-- Formulario de búsqueda pantalla grande-->
 
-                <div class="relative flex pt-2">
+                <div class="relative flex items-center">
                     <form action="{{ route('videos.search') }}" method="GET">
                         <input type="search" name="query" placeholder="Buscar videos..."
-                            class="pl-4 pr-4 w-full rounded-full focus:outline-none text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 focus:border-gray-500 py-0.5" />
-                        <button type="submit" class="absolute right-0 pr-2 py-1 text-white p-0.5 text-xs">
+                            class="pl-4 pr-10 w-full rounded-full focus:outline-none text-sm font-semibold leading-none text-white placeholder-gray-300 bg-transparent border-2 border-gray-700 focus:border-gray-500 py-0.5" />
+                        <button type="submit" class="absolute right-0 mr-4 text-white p-0.5 text-xs">
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
@@ -227,43 +224,31 @@
 
 
             </div>
-            @if (auth()->check())
-                @php
-                    $user = auth()->user();
-                    $diasPremiumRevendedor = $user->diasPremiumRevendedor;
-                    $fotoPerfil = null;
 
-                    // Si el usuario es un revendedor, utiliza su foto de perfil
-                    if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
-                        $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
-                    } elseif ($user->foto_perfil) {
-                        // Si el usuario no es un revendedor, pero tiene una foto de perfil en la tabla users
-                        $fotoPerfil = Storage::url($user->foto_perfil);
-                    }
-                @endphp
+            @php
+                $user = auth()->user();
+                $diasPremiumRevendedor = $user->diasPremiumRevendedor;
+                $fotoPerfil = null;
 
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <a href="{{ route('dashboard-profil.index') }}"
-                        class="text-3xl font-semibold leading-6 text-white mr-1">
-                        @if ($fotoPerfil)
-                            <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-1">
-                        @else
-                            <i class="fas fa-user-circle mr-1"></i>
-                        @endif
-                    </a>
-                    <span class="text-xxs text-black font-extrabold bg-white px-1 py-2 rounded-full w-8 h-8">
-                        @if (auth()->check())
-                            {{ $diasPremium }} <i class="fas fa-gem text-yellow-600 "></i>
-                        @else
-                            0 <i class="fas fa-gem  text-yellow-600"></i>
-                        @endif
+                // Si el usuario es un revendedor, utiliza su foto de perfil
+                if ($diasPremiumRevendedor && $diasPremiumRevendedor->foto_perfil) {
+                    $fotoPerfil = Storage::url($diasPremiumRevendedor->foto_perfil);
+                } elseif ($user->foto_perfil) {
+                    // Si el usuario no es un revendedor, pero tiene una foto de perfil en la tabla users
+                    $fotoPerfil = Storage::url($user->foto_perfil);
+                }
+            @endphp
 
-                    </span>
-                </div>
-            @else
-                login
-            @endif
-
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                <a href="{{ route('dashboard-profil.index') }}"
+                    class="text-3xl font-semibold leading-6 text-white mr-1">
+                    @if ($fotoPerfil)
+                        <img src="{{ $fotoPerfil }}" alt="Profile" class="rounded-full w-8 h-8 mr-2">
+                    @else
+                        <i class="fas fa-user-circle mr-1"></i>
+                    @endif
+                </a>
+            </div>
         </nav>
 
         <!-- Mobile menu, show/hide based on menu open state. -->
@@ -275,7 +260,8 @@
                 <div class="flex items-center justify-between">
                     <a href="#" class="-m-1.5 p-1.5">
                         <span class="sr-only">Your Company</span>
-                        <img class="h-8 w-auto" src="/images/logo/logo-yaske.png" alt="yaske">
+                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                            alt="">
                     </a>
                     <!-- Para el botón de cerrar, si es necesario -->
                     <button type="button" class="close-button -m-2.5 rounded-md p-2.5 text-gray-400">
@@ -351,6 +337,130 @@
 
 
     @yield('content')
+
+    <!-- items  -->
+    <div class="flex flex-col justify-center">
+        <div class="relative m-3 flex flex-wrap mx-auto justify-center">
+
+            <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  2xl:grid-cols-4 gap-2">
+
+                <!-- video card -->
+                <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <img class="h-40 rounded-2xl w-full object-cover"
+                            src="https://pixahive.com/wp-content/uploads/2020/10/Gym-shoes-153180-pixahive.jpg">
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-md font-semibold text-gray-200 mb-4 line-clamp-1">Product Name greguierhgre
+                            </p>
+                            <p class="text-md text-gray-400 mt-0"></p>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Ing</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Es</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Lat</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Sub</span>
+                        </div>
+                        <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
+                            <span
+                                class="text-xxs text-gray-300 font-bold uppercase bg-red-800 px-2 py-1 rounded">Premium</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- video card -->
+                <div class="relative w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 cursor-pointer">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <img class="h-40 rounded-2xl w-full object-cover"
+                            src="https://picsum.photos/seed/picsum/341/192">
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-netflix.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-200 mb-4 line-clamp-1">texto de titulo gregui
+                                rhgre greguierhgre greguierhgre gergege 5h5</p>
+                            <!-- Resto del contenido de la card -->
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Ing</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Es</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Lat</span>
+                            <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                    class="fa fa-volume-up pr-1"></i>Sub</span>
+                        </div>
+                        <!-- etiqueta gratis premium -->
+                        <div class="flex flex-col-reverse mb-1 mr-2 font-bold group cursor-pointer">
+                            <span
+                                class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-2 py-1 rounded">Gratis</span>
+                        </div>
+                    </div>
+                </div>
+
+
+              {{--    <!-- video card -->
+                 <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
+                    <div class="overflow-x-hidden rounded-2xl relative">
+                        <a href="{{ route('videos.show', $video->id) }}" class="block"> <img
+                                class="h-40 rounded-2xl w-full object-cover"
+                                src="{{ asset('storage/' . $video->thumbnail) }}" alt="{{ $video->titulo }}"></a>
+                        <p class="absolute right-2 top-2 cursor-pointer">
+                            <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
+                        </p>
+                    </div>
+                    <div class="mt-4 pl-2 mb-2 flex justify-between ">
+                        <div>
+                            <p class="text-md font-semibold text-gray-200 mb-4 line-clamp-1">{{ $video->titulo }}
+                            </p>
+                            <p class="text-md text-gray-400 mt-0"></p>
+                            <!-- Idiomas disponibles -->
+                            @if ($video->url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Ing</span>
+                            @endif
+                            @if ($video->es_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Es</span>
+                            @endif
+                            @if ($video->lat_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Lat</span>
+                            @endif
+                            @if ($video->sub_url_video)
+                                <span class="text-xxs text-gray-300 uppercase bg-gray-600 px-2 py-1 rounded"><i
+                                        class="fa fa-volume-up pr-1"></i>Sub</span>
+                            @endif
+                        </div>
+                        <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
+                            @if ($video->estado == 0)
+                                <span
+                                    class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-2 py-1 rounded">Gratis</span>
+                            @else
+                                <span
+                                    class="text-xxs text-gray-300 font-bold uppercase bg-red-800 px-2 py-1 rounded">Premium</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+ --}}
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
 
 
 
@@ -432,127 +542,8 @@
                 });
             });
         });
-
-        function showPlayIcon(container) {
-            const playIcon = container.querySelector('.play-icon');
-            if (playIcon) {
-                playIcon.style.display = 'block';
-            }
-        }
-
-        function hidePlayIcon(container) {
-            const playIcon = container.querySelector('.play-icon');
-            if (playIcon) {
-                playIcon.style.display = 'none';
-            }
-        }
-    </script>
-    <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <!-- Initialize Swiper portadas -->
-    <script>
-        var swiper = new Swiper('.SwiperPortadas', {
-            // Configuraciones de Swiper
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            /* autoplay: {
-                delay: 5000,
-            }, */
-        });
     </script>
 
-    <!-- Initialize Swiper -->
-    <script>
-        var swiper = new Swiper(".swiperCarusel", {
-            loop: true,
-            // slidesPerView: 8, // Muestra 4 slides a la vez
-            slidesPerView: 'auto',
-            centeredSlides: false,
-            spaceBetween: 2, // Espacio entre slides en px
-            /*
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },*/
-           /*  pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            }, */
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            // Añadir breakpoints para una respuesta adaptable
-            breakpoints: {
-                // cuando la anchura de la ventana es >= 320px
-                320: {
-                    slidesPerView: 2.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 480px
-                480: {
-                    slidesPerView: 3.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 640px
-                640: {
-                    slidesPerView: 4.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                768: {
-                    slidesPerView: 5.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                1024: {
-                    slidesPerView: 6.2,
-                    spaceBetween: 2
-                },
-                // cuando la anchura de la ventana es >= 768px
-                1280: {
-                    slidesPerView: 7.2,
-                    spaceBetween: 2
-                }
-            }
-
-        });
-    </script>
-     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          var swiperContainer = document.querySelector('.swiperCarusel');
-          var btnNext = document.getElementById('btn-next');
-          var btnPrev = document.getElementById('btn-prev');
-    
-          // Función para mostrar los botones
-          function showButtons() {
-            btnNext.classList.remove('hidden');
-            btnPrev.classList.remove('hidden');
-          }
-    
-          // Función para ocultar los botones
-          function hideButtons() {
-            btnNext.classList.add('hidden');
-            btnPrev.classList.add('hidden');
-          }
-    
-          // Evento cuando el cursor entra en el contenedor de Swiper
-          swiperContainer.addEventListener('mouseenter', showButtons);
-    
-          // Evento cuando el cursor sale del contenedor de Swiper
-          swiperContainer.addEventListener('mouseleave', hideButtons);
-    
-          // Asegúrate de que los botones estén ocultos al inicio si es necesario
-          hideButtons();
-        });
-      </script>
     <!-- Scripts Section -->
     @stack('scripts')
 

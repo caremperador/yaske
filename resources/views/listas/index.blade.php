@@ -10,7 +10,7 @@
                     <a href="{{ route('listas.show', $lista->id) }}" class="bg-gray-800 rounded-lg shadow-md overflow-hidden block">
                         <div>
                             <!-- Thumbnail -->
-                            <img src="{{ $lista->thumbnail }}" alt="{{ $lista->titulo }}" class="w-full">
+                            <img src="{{ asset('storage/' . $lista->thumbnail) }}" alt="{{ $lista->titulo }}" class="w-full">
                             <!-- Lista details -->
                             <div class="p-4">
                                 <h3 class="font-bold text-white">{{ $lista->titulo }}</h3>

@@ -1,0 +1,11 @@
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff !important; /* Icono/flecha blanca */
+  /* Más estilos... */
+}
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 40px !important;
+  font-weight:bold;
+  color: inherit !important; /* Hereda el color del botón */
+}

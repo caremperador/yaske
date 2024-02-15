@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tipo;
+use App\Models\Lista;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 

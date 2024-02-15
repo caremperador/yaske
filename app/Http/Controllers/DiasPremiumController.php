@@ -43,7 +43,7 @@ class DiasPremiumController extends Controller
 
         // Guarda el modelo en la base de datos
         $diasPremiumRevendedor->save();
-        
+
         // Redirige de vuelta al formulario con un mensaje de éxito
         return redirect()->route('comprar_dias_revendedor.index')->with('success', 'Días premium comprados con éxito.');
     }
@@ -265,5 +265,9 @@ class DiasPremiumController extends Controller
         }
 
         return view('diaspremium.transacciones.estado_transaccion', compact('transaction', 'sellerId', 'transactionId', 'buyerId'));
+    }
+    public function transaccionAprobada()
+    {
+        return view('diaspremium.transacciones.estado_aprobado');
     }
 }
