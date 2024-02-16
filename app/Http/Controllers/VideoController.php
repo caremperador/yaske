@@ -69,10 +69,15 @@ class VideoController extends Controller
             $path = null; // O establece un valor predeterminado para 'thumbnail'
         }
 
-        // Verifica si ya existe un video con el mismo ID de TMDB
+       /*  // Verifica si ya existe un video con el mismo ID de TMDB
         if (Video::where('tmdb_id', $request->tmdb_id)->exists()) {
             return back()->withErrors(['tmdb_id' => 'Este video ya ha sido registrado.'])->withInput();
+        } */
+        // Verifica si ya existe un video con el mismo ID de TMDB solo si tmdb_id es proporcionado
+        if (!empty($request->tmdb_id) && Video::where('tmdb_id', $request->tmdb_id)->exists()) {
+            return back()->withErrors(['tmdb_id' => 'Este video ya ha sido registrado.'])->withInput();
         }
+
         // Preparar datos para creación, excluyendo 'thumbnailUrl' y 'categoria_id'
         $videoData = Arr::except($validatedData, ['thumbnailUrl', 'categoria_id']);
         $videoData['thumbnail'] = $path;
