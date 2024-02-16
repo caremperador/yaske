@@ -42,7 +42,7 @@ Route::controller(ListaController::class)->group(function () {
     Route::get('/listas', 'index')->name('listas.index');
     Route::get('/listas/create', 'create')->name('listas.create')->middleware('auth');
     Route::post('/listas', 'store')->name('listas.store')->middleware('auth');
-    Route::get('/listas/{lista}', 'show')->name('listas.show')->middleware('auth');
+    Route::get('/listas/{lista}', 'show')->name('listas.show');
 });
 
 
