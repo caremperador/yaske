@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody id="transactionsContainer">
-                    @foreach ($transactions as $transaction)
+                    @foreach ($transactions->where('estado', '!=', 'rechazada')->where('estado', '!=', 'aprobada') as $transaction)
                         <tr id="transaction_{{ $transaction->id }}">
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 {{ $transaction->id }}

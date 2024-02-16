@@ -22,8 +22,6 @@ use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-//tema
-Route::get('/tema2', [HomeController::class, 'tema'])->name('tema2')->middleware('auth');
 
 Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');
@@ -163,6 +161,10 @@ Route::post('/transacciones/aprobar/{transaction}', [DiasPremiumController::clas
 
 Route::post('/transacciones/cancelar/{transaction}', [DiasPremiumController::class, 'cancelarTransaccionCliente'])->name('transacciones.cancelar');
 Route::post('/transacciones/rechazar/{transaction}', [DiasPremiumController::class, 'rechazarTransaccion'])->name('transacciones.rechazar')->middleware('isRevendedor');
+
+Route::get('/transacciones/rechazadas', [DiasPremiumController::class, 'verTransaccionesRechazadas'])->name('transacciones.rechazadas');
+Route::get('/transacciones/aprobadas', [DiasPremiumController::class, 'verTransaccionesAprobadas'])->name('transacciones.aprobadas');
+
 
 // Ruta para rechazar una transacción
 Route::get('/transacciones/comprobante/{transaction}', [DiasPremiumController::class, 'estadoTransaccion'])->name('transacciones.estado');

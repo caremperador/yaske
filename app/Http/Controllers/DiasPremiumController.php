@@ -200,13 +200,15 @@ class DiasPremiumController extends Controller
 
             // Guarda los cambios en la base de datos
             try {
+                $transaction->estado = 'aprobada';
+                $transaction->save();
                 $revendedor->save();
                 $comprador->save();
 
                 // Elimina la foto del almacenamiento
                 Storage::delete('public/' . $transaction->photo_path);
                 // Elimina la transacción después de la aprobación
-                $transaction->delete();
+                // $transaction->delete();
                 // Disparar el evento cuando una transacción es aprobada
                 event(new TransactionApproved($transactionId));
                 return back()->with('success', 'Transacción aprobada y días premium transferidos correctamente.');
@@ -245,13 +247,23 @@ class DiasPremiumController extends Controller
     }
 
 
-    public function rechazarTransaccion($transactionId)
+    public function rechazarTransaccion(Request $request, $transactionId)
     {
         $transaction = Transaction::find($transactionId);
-        // ... Lógica para manejar el rechazo de la transacción ...
-        event(new TransactionRejected($transactionId));
-        // ... Resto de la lógica del controlador ...
+        if ($transaction) {
+            $transaction->estado = 'rechazada';
+            $transaction->save();
+
+            // Emitir evento o realizar acciones adicionales si es necesario
+            event(new TransactionRejected($transactionId));
+
+            // Redirigir con un mensaje de éxito
+            return redirect()->route('transacciones.show')->with('success', 'Transacción rechazada con éxito.');
+        } else {
+            return back()->with('error', 'Transacción no encontrada.');
+        }
     }
+
 
 
     public function estadoTransaccion($transactionId)
@@ -269,5 +281,18 @@ class DiasPremiumController extends Controller
     public function transaccionAprobada()
     {
         return view('diaspremium.transacciones.estado_aprobado');
+    }
+
+    public function verTransaccionesRechazadas()
+    {
+        $transaccionesRechazadas = Transaction::where('estado', 'rechazada')->get();
+
+        return view('diaspremium.transacciones.rechazadas', compact('transaccionesRechazadas'));
+    }
+    public function verTransaccionesAprobadas()
+    {
+        $transaccionesAprobadas = Transaction::where('estado', 'aprobada')->get();
+
+        return view('diaspremium.transacciones.aprobadas', compact('transaccionesAprobadas'));
     }
 }

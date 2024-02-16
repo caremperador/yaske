@@ -53,14 +53,11 @@
                         @endif
                     @endif
 
-                    @if (auth()->check() &&
-                            auth()->user()->hasRole('revendedor'))
+                    @if (auth()->check() && auth()->user()->hasRole('revendedor'))
                         <p class="text-sm mt-3">Cuenta: revendedor</p>
-                    @elseif (auth()->check() &&
-                            auth()->user()->hasRole('admin'))
+                    @elseif (auth()->check() && auth()->user()->hasRole('admin'))
                         <p class="text-sm mt-3">Cuenta: Admin</p>
-                    @elseif (auth()->check() &&
-                            auth()->user()->hasRole('premium'))
+                    @elseif (auth()->check() && auth()->user()->hasRole('premium'))
                         <p class="text-sm mt-3">Cuenta: Premium</p>
                     @else
                         <p class="text-sm mt-3">Cuenta: free</p>
@@ -69,7 +66,8 @@
                 </div>
                 @yield('botones')
                 <!-- Botón de hamburguesa visible solo en pantallas pequeñas -->
-                <button id="menu-toggle" class="bg-[#1F2937]   mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151] text-justify md:hidden">
+                <button id="menu-toggle"
+                    class="bg-[#1F2937]   mb-1  text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151] text-justify md:hidden">
                     <i class="fas fa-bars mr-2"></i>Abrir Menú
                 </button>
 
@@ -85,8 +83,7 @@
                         <i class="fas fa-key mr-1"></i> Cambiar contraseña
                     </a>
 
-                    @if (auth()->check() &&
-                            auth()->user()->hasRole('revendedor'))
+                    @if (auth()->check() && auth()->user()->hasRole('revendedor'))
 
                         @if (!optional(auth()->user()->diasPremiumRevendedor)->exists)
                             <!-- Link para usuarios que son revendedores -->
@@ -130,8 +127,7 @@
                             </a>
                         @endif
                         <!-- Link para usuarios que son admin -->
-                    @elseif (auth()->check() &&
-                            auth()->user()->hasRole('admin'))
+                    @elseif (auth()->check() && auth()->user()->hasRole('admin'))
                         <a href="{{ route('cambiar_foto_perfil.index') }}"
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-image mr-1"></i> Foto de Perfil
@@ -164,8 +160,15 @@
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-chart-line mr-1"></i> Precio minimo/maximo
                         </a>
-                    @elseif (auth()->check() &&
-                            auth()->user()->hasRole('premium'))
+                        <a href="{{ route('transacciones.aprobadas') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-check mr-1"></i> Trans. Aprobadas
+                        </a>
+                        <a href="{{ route('transacciones.rechazadas') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-times mr-1"></i> Trans. rechazadas
+                        </a>
+                    @elseif (auth()->check() && auth()->user()->hasRole('premium'))
                         <!-- Link para usuarios premiums -->
                         <a href="#"
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
