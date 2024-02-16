@@ -192,7 +192,7 @@
         <div class="swiper-button-prev hidden"></div>
     </div>
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas PrimeVideo<a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas PrimeVideo <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.primevideo_peliculas')

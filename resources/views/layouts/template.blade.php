@@ -338,9 +338,9 @@
                             </div>
                         </div>
 
-                        <div class="py-6 hidden">
+                        <div class="py-6">
                             <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">Log
+                                class="-mx-3 hidden rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white hover:bg-gray-800">Log
                                 in</a>
                         </div>
                     </div>
