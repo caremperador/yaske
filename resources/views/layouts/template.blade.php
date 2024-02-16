@@ -467,10 +467,6 @@
             }, */
         });
     </script>
-
-    <script>
-       
-    </script>
     <!-- Scripts Section -->
     @stack('scripts')
 

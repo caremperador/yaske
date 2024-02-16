@@ -34,14 +34,21 @@ class HomeController extends Controller
 
     private function videosPorCategorias(array $nombresCategorias)
     {
-        $categorias = Categoria::whereIn('name', $nombresCategorias)->get();
+        // Iniciar la consulta de videos
+        $query = Video::query();
 
-        $videos = Video::whereHas('categorias', function ($query) use ($categorias) {
-            $query->whereIn('categoria_id', $categorias->pluck('id'));
-        })->get();
+        // Aplicar un filtro `whereHas` para cada categoría requerida
+        foreach ($nombresCategorias as $nombreCategoria) {
+            $query->whereHas('categorias', function ($query) use ($nombreCategoria) {
+                $query->where('name', $nombreCategoria);
+            });
+        }
+
+        $videos = $query->get();
 
         return $videos;
     }
+
 
 
     /*   private function estrenosNetflix()
