@@ -91,7 +91,7 @@ class HomeController extends Controller
 
     public function videosCalidadCam()
     {
-        $videosCalidadCam = Video::where('es_calidad_cam', true)->get();
+        $videosCalidadCam = Video::where('es_calidad_cam', true)->orderBy('created_at', 'desc')->get();
         return $videosCalidadCam;
     }
 }
