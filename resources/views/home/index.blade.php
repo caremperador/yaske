@@ -15,7 +15,9 @@
                     <div class="flex border border-black bg-black relative">
                         <!-- div izquierda -->
                         <div class="flex flex-col justify-center p-10 items-center z-20 text-justify text-white w-1/2">
-                            <h2 class="text-xs sm:text-base md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 tracking-tighter">{{ $video->titulo }}</h2>
+                            <h2
+                                class="text-xs sm:text-base md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 tracking-tighter">
+                                {{ $video->titulo }}</h2>
                             <p class="text-xs md:text-base lg:text-lg hidden md:flex mb-5">
                                 {{ Str::limit($video->descripcion, 100, '...') }}
                             </p>
@@ -190,7 +192,10 @@
         <div class="swiper-button-prev hidden"></div>
     </div>
 
-
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas PrimeVideo<a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+    @include('home.carusel.primevideo_peliculas')
     {{-- 
 
 
