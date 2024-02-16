@@ -26,11 +26,14 @@ class HomeController extends Controller
         $peliculasAnimacion = $this->videosPorTipoYCategoria('peliculas', 'animacion');
         $peliculasComedia = $this->videosPorTipoYCategoria('peliculas', 'animacion');
 
+        // Obtener listas por tipo (y categoría si se desea añadir esa funcionalidad)
+        $seriesNetflix = $this->listasPorTipoYCategoria('series', 'netflix');
+
         // Videos de calidad CAM
         $videosCalidadCam = $this->videosCalidadCam();
 
 
-        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo'));
+        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix'));
     }
 
     private function videosPorCategorias(array $nombresCategorias)
@@ -50,18 +53,6 @@ class HomeController extends Controller
         return $videos;
     }
 
-
-
-    /*   private function estrenosNetflix()
-    {
-        $categoriasNombres = ['aspernatur'];
-        $categorias = Categoria::whereIn('name', $categoriasNombres)->get();
-        $videosNetflix = Video::whereHas('categorias', function ($query) use ($categorias) {
-            $query->whereIn('categoria_id', $categorias->pluck('id'));
-        })->get();
-
-        return $videosNetflix;
-    } */
     public function videosPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
     {
         $tipo = Tipo::where('name', $tipoNombre)->first();
@@ -88,6 +79,30 @@ class HomeController extends Controller
         $videos = $query->get();
 
         return $videos;
+    }
+    public function listasPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
+    {
+        $tipo = Tipo::where('name', $tipoNombre)->first();
+
+        if (!$tipo) {
+            // Si no se encuentra el tipo, retorna una colección vacía o maneja el error como prefieras.
+            return collect();
+        }
+
+        $query = Lista::where('tipo_id', $tipo->id);
+
+        if (!is_null($categoriaNombre)) {
+            $categoria = Categoria::where('name', $categoriaNombre)->first();
+            if ($categoria) {
+                $query->whereHas('categorias', function ($query) use ($categoria) {
+                    $query->where('categorias.id', $categoria->id);
+                });
+            }
+        }
+
+        $listas = $query->get();
+
+        return $listas;
     }
 
     public function videosCalidadCam()

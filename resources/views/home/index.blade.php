@@ -196,6 +196,11 @@
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.primevideo_peliculas')
+
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Series Netflix <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+    @include('home.carusel.netflix_series')
     {{-- 
 
 
