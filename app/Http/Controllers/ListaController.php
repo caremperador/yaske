@@ -91,7 +91,7 @@ class ListaController extends Controller
         // Carga los videos asociados con paginación
         $videos = Video::where('lista_id', $lista->id)
             ->orderBy('created_at', 'desc')
-            ->paginate(2); // Número de videos por página
+            ->paginate(15); // Número de videos por página
 
         return view('listas.show', compact('lista', 'videos'));
     }
