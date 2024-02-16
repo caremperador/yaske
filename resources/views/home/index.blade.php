@@ -16,7 +16,7 @@
                         <!-- div izquierda -->
                         <div class="flex flex-col justify-center p-10 items-center z-20 text-justify text-white w-1/2">
                             <h2 class="text-base md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 tracking-tighter">{{ $video->titulo }}</h2>
-                            <p class="text-xs md:text-base lg:text-lg sm:hidden mb-5">
+                            <p class="text-xs md:text-base lg:text-lg sm:hidden md:block mb-5">
                                 {{ Str::limit($video->descripcion, 100, '...') }}
                             </p>
                             <div class="flex items-center space-x-2">
