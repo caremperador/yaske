@@ -404,9 +404,12 @@
                 });
             });
         });
-
         function changeVideo(url) {
-            document.querySelectorAll('.videoFrame').forEach(frame => frame.src = url);
+            document.querySelectorAll('.videoFrame').forEach(frame => {
+                // Cambia solo el protocolo de HTTP a HTTPS si es necesario
+                const secureUrl = url.replace(/^http:/, 'https:');
+                frame.src = secureUrl;
+            });
         }
     </script>
 
