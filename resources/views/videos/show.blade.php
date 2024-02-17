@@ -5,12 +5,6 @@
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
-    {{--   <script defer>
-        function changeVideo(url) {
-            document.querySelectorAll('.videoFrame').forEach(frame => frame.src = url);
-        }
-    </script>
- --}}
 @endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
@@ -392,9 +386,8 @@
 @section('footer')
 @endsection
 
-
-
 @push('scripts')
+<!-- Cambiar el video en el iframe -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.changeVideoButton').forEach(button => {
@@ -412,7 +405,7 @@
             });
         }
     </script>
-
+    <!-- Actualizar el texto de la puntuación -->
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
