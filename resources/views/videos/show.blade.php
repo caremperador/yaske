@@ -5,6 +5,15 @@
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
+    <script>
+        function changeVideo(url) {
+            // Seleccionar todos los iframes con la clase 'videoFrame' y actualizar su 'src'
+            document.querySelectorAll('.videoFrame').forEach(frame => {
+                frame.src = url;
+            });
+        }
+    </script>
+
 @endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
@@ -69,8 +78,8 @@
                             @elseif ($usuarioPremium)
                                 <!-- Mostrar Video -->
                                 @if ($videoUrl)
-                                    <iframe  class="videoFrame absolute top-0 left-0 w-full h-full"
-                                        src="{{ $videoUrl }}" title="YouTube video player" frameborder="0"
+                                    <iframe class="videoFrame absolute top-0 left-0 w-full h-full" src="{{ $videoUrl }}"
+                                        title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen>
                                     </iframe>
@@ -118,8 +127,8 @@
                         @elseif ($video->estado == 0)
                             <!-- Mostrar Video para videos gratis -->
                             @if ($videoUrl)
-                                <iframe  class="videoFrame absolute top-0 left-0 w-full h-full"
-                                    src="{{ $videoUrl }}" title="YouTube video player" frameborder="0"
+                                <iframe class="videoFrame absolute top-0 left-0 w-full h-full" src="{{ $videoUrl }}"
+                                    title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen>
                                 </iframe>
@@ -140,26 +149,26 @@
                     <div class="flex flex-col sm:flex-row">
 
                         @if ($video->sub_url_video)
-                            <button id="btnSubtitulado"
+                            <button onclick="changeVideo('{{ $video->sub_url_video }}')"
                                 class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                             </button>
                         @endif
                         @if ($video->es_url_video)
-                            <button id="btnEspanol"
+                            <button onclick="changeVideo('{{ $video->es_url_video }}')"
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (España)
                             </button>
                         @endif
                         @if ($video->lat_url_video)
-                            <button id="btnLatino"
+                            <button onclick="changeVideo('{{ $video->lat_url_video }}')"
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                             </button>
                         @endif
                         @if ($video->url_video)
-                            <button id="btnIngles"
-                                class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button onclick="changeVideo('{{ $video->url_video }}')"
+                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés
                             </button>
                         @endif
@@ -389,32 +398,6 @@
 
 
 @push('scripts')
-    <script>
-        function changeVideo(videoUrl) {
-            // Seleccionar todos los iframes con la clase videoFrame
-            document.querySelectorAll('.videoFrame').forEach(frame => {
-                // Verificar si el iframe está visible
-                if (frame.offsetWidth > 0 && frame.offsetHeight > 0) {
-                    frame.src = videoUrl;
-                }
-            });
-        }
-
-        // Asignar eventos a botones utilizando clases o id
-        document.getElementById('btnSubtitulado').addEventListener('click', function() {
-            changeVideo("{{ $video->sub_url_video }}");
-        });
-        document.getElementById('btnEspanol').addEventListener('click', function() {
-            changeVideo("{{ $video->es_url_video }}");
-        });
-        document.getElementById('btnLatino').addEventListener('click', function() {
-            changeVideo("{{ $video->lat_url_video }}");
-        });
-        document.getElementById('btnIngles').addEventListener('click', function() {
-            changeVideo("{{ $video->url_video }}");
-        });
-    </script>
-
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
