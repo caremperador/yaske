@@ -6,10 +6,23 @@
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
     <script>
-        function changeVideo(url) {
-            document.getElementById('videoFrame').src = url;
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para cambiar el vídeo
+            window.changeVideo = function(newVideoUrl) {
+                var videoFrame = document.getElementById('videoFrame');
+                videoFrame.src = newVideoUrl;
+            };
+
+            // Opcional: Si deseas agregar un manejador de eventos a los botones directamente desde JavaScript en lugar de usar el atributo onclick en el HTML,
+            // puedes asignar clases únicas o IDs a los botones y agregar los manejadores aquí.
+            // Ejemplo:
+            // document.getElementById('botonSubtitulado').addEventListener('click', function() {
+            //     changeVideo('URL_DEL_VIDEO_SUBTITULADO');
+            // });
+            // Repite para los demás botones según sea necesario.
+        });
     </script>
+
 @endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
@@ -402,14 +415,6 @@
                 star.classList.toggle('text-yellow-400', index < rating);
                 star.classList.toggle('text-gray-400', index >= rating);
             });
-        }
-    </script>
-    <script>
-        function changeVideo(url) {
-            // Buscar el iframe por su ID
-            var videoFrame = document.getElementById('videoFrame');
-            // Actualizar el atributo 'src' del iframe con la nueva URL
-            videoFrame.src = url;
         }
     </script>
 @endpush
