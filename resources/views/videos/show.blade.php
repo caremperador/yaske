@@ -140,25 +140,25 @@
                     <div class="flex flex-col sm:flex-row">
 
                         @if ($video->sub_url_video)
-                            <button onclick="changeVideo('{{ $video->sub_url_video }}')"
+                            <button class="changeVideo" data-video-url="{{ $video->sub_url_video }}" 
                                 class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                             </button>
                         @endif
                         @if ($video->es_url_video)
-                            <button onclick="changeVideo('{{ $video->es_url_video }}')"
+                            <button class="changeVideo" data-video-url="{{ $video->es_url_video }}" 
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (España)
                             </button>
                         @endif
                         @if ($video->lat_url_video)
-                            <button onclick="changeVideo('{{ $video->lat_url_video }}')"
+                            <button class="changeVideo" data-video-url="{{ $video->lat_url_video }}" 
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                             </button>
                         @endif
                         @if ($video->url_video)
-                            <button onclick="changeVideo('{{ $video->url_video }}')"
+                            <button class="changeVideo" data-video-url="{{ $video->url_video }}" 
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés
                             </button>
@@ -389,23 +389,21 @@
 
 
 @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Función para cambiar el vídeo
-            window.changeVideo = function(newVideoUrl) {
-                var videoFrame = document.getElementById('videoFrame');
-                videoFrame.src = newVideoUrl;
-            };
-
-            // Opcional: Si deseas agregar un manejador de eventos a los botones directamente desde JavaScript en lugar de usar el atributo onclick en el HTML,
-            // puedes asignar clases únicas o IDs a los botones y agregar los manejadores aquí.
-            // Ejemplo:
-            // document.getElementById('botonSubtitulado').addEventListener('click', function() {
-            //     changeVideo('URL_DEL_VIDEO_SUBTITULADO');
-            // });
-            // Repite para los demás botones según sea necesario.
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Seleccionar todos los botones que pueden cambiar el vídeo
+        document.querySelectorAll('.changeVideo').forEach(button => {
+            button.addEventListener('click', function() {
+                // Leer la URL del vídeo desde el atributo data-video-url
+                const videoUrl = this.getAttribute('data-video-url');
+                
+                // Cambiar la fuente del vídeo en el iframe
+                document.getElementById('videoFrame').src = videoUrl;
+            });
         });
+    });
     </script>
+    
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
