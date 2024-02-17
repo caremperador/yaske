@@ -5,12 +5,12 @@
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
-    <script defer>
+    {{--   <script defer>
         function changeVideo(url) {
             document.querySelectorAll('.videoFrame').forEach(frame => frame.src = url);
         }
     </script>
-
+ --}}
 @endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
@@ -146,26 +146,26 @@
                     <div class="flex flex-col sm:flex-row">
 
                         @if ($video->sub_url_video)
-                            <button onclick="changeVideo('{{ $video->sub_url_video }}')"
-                                class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button data-video-url="{{ $video->sub_url_video }}"
+                                class="changeVideoButton mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                             </button>
                         @endif
                         @if ($video->es_url_video)
-                            <button onclick="changeVideo('{{ $video->es_url_video }}')"
-                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button data-video-url="{{ $video->es_url_video }}"
+                                class="changeVideoButton mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (España)
                             </button>
                         @endif
                         @if ($video->lat_url_video)
-                            <button onclick="changeVideo('{{ $video->lat_url_video }}')"
-                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button data-video-url="{{ $video->lat_url_video }}"
+                                class="changeVideoButton x-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                             </button>
                         @endif
                         @if ($video->url_video)
-                            <button onclick="changeVideo('{{ $video->url_video }}')"
-                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button data-video-url="{{ $video->url_video }}"
+                                class="changeVideoButton mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés
                             </button>
                         @endif
@@ -395,6 +395,21 @@
 
 
 @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.changeVideoButton').forEach(button => {
+                button.addEventListener('click', function() {
+                    const url = this.getAttribute('data-video-url');
+                    changeVideo(url);
+                });
+            });
+        });
+
+        function changeVideo(url) {
+            document.querySelectorAll('.videoFrame').forEach(frame => frame.src = url);
+        }
+    </script>
+
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
