@@ -23,11 +23,7 @@
                     <div class="relative" style="padding-top: 56.25%;">
                         @php
                             $usuarioPremium = Auth::check() && Auth::user()->hasRole('premium');
-                            $diasPremiumUsuario = $usuarioPremium
-                                ? Auth::user()
-                                    ->diasPremiumUsuario()
-                                    ->first()
-                                : null;
+                            $diasPremiumUsuario = $usuarioPremium ? Auth::user()->diasPremiumUsuario()->first() : null;
                             $videoUrl = $video->sub_url_video ?? ($video->es_url_video ?? ($video->lat_url_video ?? $video->url_video));
                             $fechaFinPasada = $diasPremiumUsuario && $diasPremiumUsuario->fin_fecha_dias_usuario_premium ? Carbon::parse($diasPremiumUsuario->fin_fecha_dias_usuario_premium)->isPast() : true;
                         @endphp
@@ -307,7 +303,8 @@
                             <input type="hidden" name="video_id" value="{{ $video->id }}">
                             <textarea name="contenido" class="w-full rounded border-gray-300 p-2" style="color: black;"
                                 placeholder="Añade un comentario..." minlength="200" maxlength="750"></textarea>
-                            <button type="submit" class="mt-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded">Añadir
+                            <button type="submit"
+                                class="mt-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded">Añadir
                                 crítica</button>
                         </form>
                     @else
@@ -405,6 +402,14 @@
                 star.classList.toggle('text-yellow-400', index < rating);
                 star.classList.toggle('text-gray-400', index >= rating);
             });
+        }
+    </script>
+    <script>
+        function changeVideo(url) {
+            // Buscar el iframe por su ID
+            var videoFrame = document.getElementById('videoFrame');
+            // Actualizar el atributo 'src' del iframe con la nueva URL
+            videoFrame.src = url;
         }
     </script>
 @endpush
