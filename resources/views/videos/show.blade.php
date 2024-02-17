@@ -6,12 +6,14 @@
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
     <script>
-        function changeVideo(url) {
-            // Seleccionar todos los iframes con la clase 'videoFrame' y actualizar su 'src'
-            document.querySelectorAll('.videoFrame').forEach(frame => {
-                frame.src = url;
-            });
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            function changeVideo(url) {
+                // Seleccionar todos los iframes con la clase 'videoFrame' y actualizar su 'src'
+                document.querySelectorAll('.videoFrame').forEach(frame => {
+                    frame.src = url;
+                });
+            }
+        });
     </script>
 
 @endsection
