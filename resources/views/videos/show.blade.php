@@ -69,7 +69,7 @@
                             @elseif ($usuarioPremium)
                                 <!-- Mostrar Video -->
                                 @if ($videoUrl)
-                                    <iframe id="videoFrame" class="absolute top-0 left-0 w-full h-full"
+                                    <iframe  class="videoFrame absolute top-0 left-0 w-full h-full"
                                         src="{{ $videoUrl }}" title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen>
@@ -118,7 +118,7 @@
                         @elseif ($video->estado == 0)
                             <!-- Mostrar Video para videos gratis -->
                             @if ($videoUrl)
-                                <iframe id="videoFrame" class="absolute top-0 left-0 w-full h-full"
+                                <iframe  class="videoFrame absolute top-0 left-0 w-full h-full"
                                     src="{{ $videoUrl }}" title="YouTube video player" frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                     allowfullscreen>
@@ -390,33 +390,30 @@
 
 @push('scripts')
     <script>
-        function changeToSubtitulado() {
-            const videoUrl = "{{ $video->sub_url_video }}";
-            document.getElementById('videoFrame').src = videoUrl;
+        function changeVideo(videoUrl) {
+            // Seleccionar todos los iframes con la clase videoFrame
+            document.querySelectorAll('.videoFrame').forEach(frame => {
+                // Verificar si el iframe está visible
+                if (frame.offsetWidth > 0 && frame.offsetHeight > 0) {
+                    frame.src = videoUrl;
+                }
+            });
         }
 
-        function changeToEspanol() {
-            const videoUrl = "{{ $video->es_url_video }}";
-            document.getElementById('videoFrame').src = videoUrl;
-        }
-
-        function changeToLatino() {
-            const videoUrl = "{{ $video->lat_url_video }}";
-            document.getElementById('videoFrame').src = videoUrl;
-        }
-
-        function changeToIngles() {
-            const videoUrl = "{{ $video->url_video }}";
-            document.getElementById('videoFrame').src = videoUrl;
-        }
-
-        // Asignar eventos a botones
-        document.getElementById('btnSubtitulado').addEventListener('click', changeToSubtitulado);
-        document.getElementById('btnEspanol').addEventListener('click', changeToEspanol);
-        document.getElementById('btnLatino').addEventListener('click', changeToLatino);
-        document.getElementById('btnIngles').addEventListener('click', changeToIngles);
+        // Asignar eventos a botones utilizando clases o id
+        document.getElementById('btnSubtitulado').addEventListener('click', function() {
+            changeVideo("{{ $video->sub_url_video }}");
+        });
+        document.getElementById('btnEspanol').addEventListener('click', function() {
+            changeVideo("{{ $video->es_url_video }}");
+        });
+        document.getElementById('btnLatino').addEventListener('click', function() {
+            changeVideo("{{ $video->lat_url_video }}");
+        });
+        document.getElementById('btnIngles').addEventListener('click', function() {
+            changeVideo("{{ $video->url_video }}");
+        });
     </script>
-
 
     <script>
         function updateRatingText(rating) {
