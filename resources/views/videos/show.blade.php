@@ -5,24 +5,6 @@
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Función para cambiar el vídeo
-            window.changeVideo = function(newVideoUrl) {
-                var videoFrame = document.getElementById('videoFrame');
-                videoFrame.src = newVideoUrl;
-            };
-
-            // Opcional: Si deseas agregar un manejador de eventos a los botones directamente desde JavaScript en lugar de usar el atributo onclick en el HTML,
-            // puedes asignar clases únicas o IDs a los botones y agregar los manejadores aquí.
-            // Ejemplo:
-            // document.getElementById('botonSubtitulado').addEventListener('click', function() {
-            //     changeVideo('URL_DEL_VIDEO_SUBTITULADO');
-            // });
-            // Repite para los demás botones según sea necesario.
-        });
-    </script>
-
 @endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
@@ -407,6 +389,23 @@
 
 
 @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para cambiar el vídeo
+            window.changeVideo = function(newVideoUrl) {
+                var videoFrame = document.getElementById('videoFrame');
+                videoFrame.src = newVideoUrl;
+            };
+
+            // Opcional: Si deseas agregar un manejador de eventos a los botones directamente desde JavaScript en lugar de usar el atributo onclick en el HTML,
+            // puedes asignar clases únicas o IDs a los botones y agregar los manejadores aquí.
+            // Ejemplo:
+            // document.getElementById('botonSubtitulado').addEventListener('click', function() {
+            //     changeVideo('URL_DEL_VIDEO_SUBTITULADO');
+            // });
+            // Repite para los demás botones según sea necesario.
+        });
+    </script>
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
