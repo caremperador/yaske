@@ -140,26 +140,26 @@
                     <div class="flex flex-col sm:flex-row">
 
                         @if ($video->sub_url_video)
-                            <button class="changeVideo" data-video-url="{{ $video->sub_url_video }}" 
+                            <button id="btnSubtitulado"
                                 class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés Subtitulado
                             </button>
                         @endif
                         @if ($video->es_url_video)
-                            <button class="changeVideo" data-video-url="{{ $video->es_url_video }}" 
+                            <button id="btnEspanol"
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (España)
                             </button>
                         @endif
                         @if ($video->lat_url_video)
-                            <button class="changeVideo" data-video-url="{{ $video->lat_url_video }}" 
+                            <button id="btnLatino"
                                 class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Español (Latinoamérica)
                             </button>
                         @endif
                         @if ($video->url_video)
-                            <button class="changeVideo" data-video-url="{{ $video->url_video }}" 
-                                class="mx-1 mb-1  bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                            <button id="btnIngles"
+                                class="mx-1 mb-1 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
                                 <i class="fa fa-volume-up pr-1"></i>Inglés
                             </button>
                         @endif
@@ -389,21 +389,35 @@
 
 
 @push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Seleccionar todos los botones que pueden cambiar el vídeo
-        document.querySelectorAll('.changeVideo').forEach(button => {
-            button.addEventListener('click', function() {
-                // Leer la URL del vídeo desde el atributo data-video-url
-                const videoUrl = this.getAttribute('data-video-url');
-                
-                // Cambiar la fuente del vídeo en el iframe
-                document.getElementById('videoFrame').src = videoUrl;
-            });
-        });
-    });
+    <script>
+        function changeToSubtitulado() {
+            const videoUrl = "{{ $video->sub_url_video }}";
+            document.getElementById('videoFrame').src = videoUrl;
+        }
+
+        function changeToEspanol() {
+            const videoUrl = "{{ $video->es_url_video }}";
+            document.getElementById('videoFrame').src = videoUrl;
+        }
+
+        function changeToLatino() {
+            const videoUrl = "{{ $video->lat_url_video }}";
+            document.getElementById('videoFrame').src = videoUrl;
+        }
+
+        function changeToIngles() {
+            const videoUrl = "{{ $video->url_video }}";
+            document.getElementById('videoFrame').src = videoUrl;
+        }
+
+        // Asignar eventos a botones
+        document.getElementById('btnSubtitulado').addEventListener('click', changeToSubtitulado);
+        document.getElementById('btnEspanol').addEventListener('click', changeToEspanol);
+        document.getElementById('btnLatino').addEventListener('click', changeToLatino);
+        document.getElementById('btnIngles').addEventListener('click', changeToIngles);
     </script>
-    
+
+
     <script>
         function updateRatingText(rating) {
             document.getElementById('rating-text').textContent = `Vas a enviar ${rating} estrella(s)`;
