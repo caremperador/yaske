@@ -13,6 +13,14 @@
 </head>
 
 <body class="bg-gray-900 text-white">
+    <!-- Indicador de Carga con Tailwind CSS -->
+    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-70 z-50 flex justify-center items-center">
+        <div class="text-center">
+            <img src="https://i.pinimg.com/originals/49/23/29/492329d446c422b0483677d0318ab4fa.gif" alt="Cargando..."
+                class="mx-auto" />
+        </div>
+    </div>
+
     <header>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1 mr-6 text-white">
@@ -465,6 +473,16 @@
             /* autoplay: {
                 delay: 5000,
             }, */
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(window).on('load', function() {
+            // Cuando todas las imágenes y recursos estén cargados
+            $('#loading-spinner').fadeOut('slow', function() {
+                // Oculta el indicador de carga
+                $(this).remove();
+            });
         });
     </script>
     <!-- Scripts Section -->
