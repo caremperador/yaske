@@ -20,7 +20,7 @@
                 class="mx-auto" />
         </div>
     </div>
-    @yield('background')
+
     <header>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1 mr-6 text-white">
@@ -357,11 +357,38 @@
         </div>
     </header>
 
-  
+    @yield('background')
 
     @yield('content')
 
 
+    <!-- Footer -->
+    <footer class="fixed inset-x-0 bottom-0 bg-gray-800 border-t-2 border-gray-800 z-50 md:hidden">
+        <div class="flex justify-between items-center max-w-screen-md mx-auto py-3 px-4">
+            <!-- Icono de Home -->
+            <div class="text-center">
+                <a href="{{ route('home') }}"><i class="fas fa-home fa-lg"></i>
+                    <p class="text-xs mt-1">Home</p>
+                </a>
+            </div>
+            <!-- Icono de Categorias -->
+            <div class="text-center">
+                <i class="fas fa-th fa-lg"></i>
+                <p class="text-xs mt-1">Categorias</p>
+            </div>
+            <!-- Icono de TV en vivo -->
+            <div class="text-center">
+                <i class="fas fa-tv fa-lg"></i>
+                <p class="text-xs mt-1">TV en vivo</p>
+            </div>
+            <!-- Icono de Mi cuenta -->
+            <div class="text-center">
+                <a href="{{ route('dashboard-profil.index') }}"><i class="fas fa-user fa-lg"></i>
+                    <p class="text-xs mt-1">Mi cuenta</p>
+                </a>
+            </div>
+        </div>
+    </footer>
 
     <!-- Incluir app.js al final del body -->
     @vite('resources/js/app.js')
