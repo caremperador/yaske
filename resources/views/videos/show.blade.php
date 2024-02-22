@@ -9,9 +9,8 @@
     <div class="relative w-full flow-root">
         <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
         <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen de portada"
-            class="w-full h-auto max-h-screen object-cover object-top">
-            <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen de portada"
-            class="w-full h-auto object-cover object-top md:hidden">
+            class="w-full h-auto md:max-h-screen object-cover object-top">
+           
         <!-- Degradado de izquierda a derecha -->
         <div class="absolute inset-0 left-0 hidden sm:block"
             style="
