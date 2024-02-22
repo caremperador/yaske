@@ -27,19 +27,23 @@
                 <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">{{ $video->titulo }}</p>
                 <div class="hidden md:flex flex-col w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] text-xs lg:text-base">
                     @if ($video->sub_url_video)
-                        <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                        <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                                class="fa fa-play mr-1"></i>Play
                             Inglés Subtitulado</a>
                     @endif
                     @if ($video->es_url_video)
-                        <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                        <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                                class="fa fa-play mr-1"></i>Play
                             Español (España)</a>
                     @endif
                     @if ($video->lat_url_video)
-                        <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                        <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                                class="fa fa-play mr-1"></i>Play
                             Español (Latinoamérica)</a>
                     @endif
                     @if ($video->url_video)
-                        <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                        <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                                class="fa fa-play mr-1"></i>Play
                             Inglés</a>
                     @endif
                 </div>
@@ -50,20 +54,24 @@
 
     <div class="md:hidden flex flex-col mx-2">
         @if ($video->sub_url_video)
-            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Inglés Subtitulado</button>
+            <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                    class="fa fa-play mr-1"></i>Play
+                Inglés Subtitulado</a>
         @endif
         @if ($video->es_url_video)
-            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Español (España)</button>
+            <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                    class="fa fa-play mr-1"></i>Play
+                Español (España)</a>
         @endif
         @if ($video->lat_url_video)
-            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Español (Latinoamérica)</button>
+            <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                    class="fa fa-play mr-1"></i>Play
+                Español (Latinoamérica)</a>
         @endif
         @if ($video->url_video)
-            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Inglés</button>
+            <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                    class="fa fa-play mr-1"></i>Play
+                Inglés</a>
         @endif
     </div>
 
@@ -119,8 +127,8 @@
                             @elseif ($usuarioPremium)
                                 <!-- Mostrar Video -->
                                 @if ($videoUrl)
-                                    <iframe class="videoFrame absolute top-0 left-0 w-full h-full" src="{{ $videoUrl }}"
-                                        title="YouTube video player" frameborder="0"
+                                    <iframe class="videoFrame absolute top-0 left-0 w-full h-full"
+                                        src="{{ $videoUrl }}" title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                         allowfullscreen>
                                     </iframe>
