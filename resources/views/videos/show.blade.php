@@ -6,6 +6,70 @@
 @section('title', 'Yaske - ' . $video->titulo)
 @section('js_cabecera')
 @endsection
+@section('background')
+
+    <div class="relative w-full">
+        <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
+        <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen de portada"
+            class="w-full h-auto max-h-screen object-cover object-top">
+        <!-- Degradado de izquierda a derecha -->
+        <div class="absolute inset-0 left-0 hidden sm:block"
+            style="
+      background-image: 
+        linear-gradient(to left, rgba(0, 0, 0, 0) 10%, #111827 85%);
+  "></div>
+        <!-- Degradado de abajo hacia arriba -->
+        <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-gray-900 to-transparent"></div>
+        <!-- Contenido superpuesto, como título y botones, si es necesario -->
+        <div class="absolute bottom-0 left-0 p-4 w-[90%] md:w-[50%]">
+            <!-- Otros elementos del contenido... -->
+            <div class=" text-white p-4 rounded-lg">
+                <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">{{ $video->titulo }}</p>
+                <div class="hidden md:flex flex-col w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] text-xs lg:text-base">
+                    @if ($video->sub_url_video)
+                        <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                            Inglés Subtitulado</a>
+                    @endif
+                    @if ($video->es_url_video)
+                        <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                            Español (España)</a>
+                    @endif
+                    @if ($video->lat_url_video)
+                        <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                            Español (Latinoamérica)</a>
+                    @endif
+                    @if ($video->url_video)
+                        <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                            Inglés</a>
+                    @endif
+                </div>
+            </div>
+            <p class="hidden lg:block lg:text-xl px-4 mb-5">{{ $video->descripcion }}</p>
+        </div>
+    </div>
+
+    <div class="md:hidden flex flex-col mx-2">
+        @if ($video->sub_url_video)
+            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                Inglés Subtitulado</button>
+        @endif
+        @if ($video->es_url_video)
+            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                Español (España)</button>
+        @endif
+        @if ($video->lat_url_video)
+            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                Español (Latinoamérica)</button>
+        @endif
+        @if ($video->url_video)
+            <button class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
+                Inglés</button>
+        @endif
+    </div>
+
+    <p class="block lg:hidden m-2">{{ $video->descripcion }}</p>
+
+@endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
@@ -25,20 +89,6 @@
 
                         @if ($video->estado == 1)
                             @if ($usuarioPremium && ($diasPremiumUsuario->inicio_fecha_dias_usuario_premium == null || $fechaFinPasada))
-                                <!-- Mostrar Botón para activar día premium -->
-                                {{--   <div class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center"
-                                style="background-image: url('/images/complementos/play.png'); background-repeat: no-repeat; background-position: center; background-size: 125px 125px;">
-                                <div class="z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                    <form action="{{ route('activar-dia-premium', ['video_id' => $video->id]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <button type="submit" class="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-                                            <i class="fas fa-gem mr-1" aria-hidden="true"></i>
-                                            Gastar un día premium para ver este video
-                                        </button>
-                                    </form>
-                                </div>
-                            </div> --}}
                                 <div
                                     class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
                                     <!-- Container for the play image -->
@@ -79,21 +129,6 @@
                                     <p>No hay video disponible</p>
                                 @endif
                             @else
-                                <!-- Mostrar Imagen de Marcador de Posición para usuarios no premium -->
-                                {{-- <img src="https://via.placeholder.com/300x250" alt="Contenido Premium"
-                            class="absolute top-0 left-0 w-full h-full"> --}}
-                                {{-- <div
-                                class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex justify-center items-center">
-                                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                                    <a href="{{ route('seleccionarRevendedor') }}"
-                                        class="bg-red-500 text-white font-bold py-2 px-4 rounded">
-                                        <i class="fas fa-gem mr-1" aria-hidden="true"></i>
-                                        este video es premium!
-                                    </a>
-
-                                </div>
-                            </div> --}}
-
                                 <div
                                     class="bg-black rounded-lg absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
                                     <!-- Container for the play image -->
@@ -387,7 +422,7 @@
 @endsection
 
 @push('scripts')
-<!-- Cambiar el video en el iframe -->
+    <!-- Cambiar el video en el iframe -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.changeVideoButton').forEach(button => {
@@ -397,6 +432,7 @@
                 });
             });
         });
+
         function changeVideo(url) {
             document.querySelectorAll('.videoFrame').forEach(frame => {
                 // Cambia solo el protocolo de HTTP a HTTPS si es necesario

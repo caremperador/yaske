@@ -357,14 +357,35 @@
         </div>
     </header>
 
+    @yield('background')
 
     @yield('content')
 
 
-
     <!-- Footer -->
-    <footer class="bg-custom-gray p-4 text-center">
-        @yield('footer')
+    <footer class="fixed inset-x-0 bottom-0 bg-gray-800 border-t-2 border-gray-800 z-50 md:hidden">
+        <div class="flex justify-between items-center max-w-screen-md mx-auto py-3 px-4">
+            <!-- Icono de Home -->
+            <div class="text-center">
+                <i class="fas fa-home fa-lg"></i>
+                <p class="text-xs mt-1">Home</p>
+            </div>
+            <!-- Icono de Categorias -->
+            <div class="text-center">
+                <i class="fas fa-th fa-lg"></i>
+                <p class="text-xs mt-1">Categorias</p>
+            </div>
+            <!-- Icono de TV en vivo -->
+            <div class="text-center">
+                <i class="fas fa-tv fa-lg"></i>
+                <p class="text-xs mt-1">TV en vivo</p>
+            </div>
+            <!-- Icono de Mi cuenta -->
+            <div class="text-center">
+                <i class="fas fa-user fa-lg"></i>
+                <p class="text-xs mt-1">Mi cuenta</p>
+            </div>
+        </div>
     </footer>
 
     <!-- Incluir app.js al final del body -->
