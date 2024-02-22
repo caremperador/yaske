@@ -358,8 +358,9 @@
     </header>
 
     @yield('background')
-
-    @yield('content')
+    <div class="pb-20">
+        @yield('content')
+    </div>
     <div class="mb-20"></div>
 
     <!-- Footer -->
