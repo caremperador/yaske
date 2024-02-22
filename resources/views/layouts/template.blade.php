@@ -367,8 +367,9 @@
         <div class="flex justify-between items-center max-w-screen-md mx-auto py-3 px-4">
             <!-- Icono de Home -->
             <div class="text-center">
-                <i class="fas fa-home fa-lg"></i>
-                <p class="text-xs mt-1">Home</p>
+                <a href="{{ route('home') }}"><i class="fas fa-home fa-lg"></i>
+                    <p class="text-xs mt-1">Home</p>
+                </a>
             </div>
             <!-- Icono de Categorias -->
             <div class="text-center">
@@ -382,8 +383,9 @@
             </div>
             <!-- Icono de Mi cuenta -->
             <div class="text-center">
-                <i class="fas fa-user fa-lg"></i>
-                <p class="text-xs mt-1">Mi cuenta</p>
+                <a href="{{ route('dashboard-profil.index') }}"><i class="fas fa-user fa-lg"></i>
+                    <p class="text-xs mt-1">Mi cuenta</p>
+                </a>
             </div>
         </div>
     </footer>
