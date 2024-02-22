@@ -4,8 +4,6 @@
 @endphp
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
-@section('js_cabecera')
-@endsection
 @section('background')
 
     <div class="relative w-full">
@@ -76,6 +74,7 @@
     </div>
 
     <p class="block lg:hidden m-2">{{ $video->descripcion }}</p>
+    <img src="{{ asset('storage/' . $video->thumbnail) }}"  />
 
 @endsection
 @section('content')
