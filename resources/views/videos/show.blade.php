@@ -74,7 +74,7 @@
     </div>
 
     <p class="block lg:hidden m-2">{{ $video->descripcion }}</p>
-    <img src="{{ asset('storage/' . $video->thumbnail) }}"  />
+    
 
 @endsection
 @section('content')
