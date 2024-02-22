@@ -4,7 +4,7 @@
 @endphp
 @extends('layouts.template')
 @section('title', 'Yaske - ' . $video->titulo)
-@section('background')
+
 
     <div class="relative w-full">
         <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
@@ -75,8 +75,6 @@
 
     <p class="block lg:hidden m-2">{{ $video->descripcion }}</p>
     
-
-@endsection
 @section('content')
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
