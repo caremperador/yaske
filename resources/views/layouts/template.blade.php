@@ -282,7 +282,7 @@
                 class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-white/10">
                 <div class="flex items-center justify-between">
                     <a href="#" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Your Company</span>
+                        <span class="sr-only">Yaske</span>
                         <img class="h-8 w-auto" src="/images/logo/logo-yaske.png" alt="yaske">
                     </a>
                     <!-- Para el botón de cerrar, si es necesario -->

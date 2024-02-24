@@ -30,7 +30,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/video/{video}', 'show')->name('videos.show');
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
-    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('auth');
+    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo');
 });
 
 Route::controller(ApiTMDBController::class)->group(function () {
