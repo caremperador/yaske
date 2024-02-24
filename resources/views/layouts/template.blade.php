@@ -20,7 +20,7 @@
                 class="mx-auto" />
         </div>
     </div>
-
+    @include('layouts.aviso')
     <header>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1 mr-6 text-white">
@@ -510,8 +510,28 @@
         });
     </script>
     <!-- Scripts Section -->
-    @stack('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alertMessage = document.getElementById('alert-message');
+            const closeButton = document.getElementById('close-alert');
 
+            // Verifica si el usuario ya cerró el mensaje
+            if (!localStorage.getItem('alertMessageDismissed')) {
+                alertMessage.style.display = ''; // Muestra el mensaje si no se ha cerrado antes
+            } else {
+                alertMessage.style.display = 'none'; // Oculta el mensaje si ya fue cerrado
+            }
+
+            // Escucha el evento de clic en el botón de cerrar
+            closeButton.addEventListener('click', function() {
+                alertMessage.style.display = 'none'; // Oculta el mensaje
+                localStorage.setItem('alertMessageDismissed', 'true'); // Marca el mensaje como cerrado
+            });
+        });
+    </script>
+
+    @stack('scripts')
+    <img src="https://whos.amung.us/widget/yaskeros.png" style="display:none" />
 </body>
 
 </html>
