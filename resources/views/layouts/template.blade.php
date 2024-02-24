@@ -62,7 +62,7 @@
                 <div class="relative inline-block text-left">
                     <button
                         class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Peliculas
+                        Categorias
                         <i class="fas fa-chevron-down text-xs ml-2"></i>
                     </button>
                     <!-- Submenú -->
@@ -71,12 +71,27 @@
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
+                            Netflix
                         </a>
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
+                            Amazon Prime
+                        </a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Disney Plus
+                        </a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Apple TV
+                        </a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Start plus
                         </a>
                     </div>
                 </div>
@@ -84,7 +99,7 @@
                 <div class="relative inline-block text-left">
                     <button
                         class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Series
+                        Tv En vivo
                         <i class="fas fa-chevron-down text-xs ml-2"></i>
                     </button>
                     <!-- Submenú -->
@@ -93,110 +108,17 @@
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
+                            En español
                         </a>
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
+                           En ingles
                         </a>
                     </div>
                 </div>
 
                 <!-- Animes Menú con submenú -->
-                <div class="relative inline-block text-left">
-                    <button
-                        class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Animes
-                        <i class="fas fa-chevron-down text-xs ml-2"></i>
-                    </button>
-                    <!-- Submenú -->
-                    <div
-                        class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Doramas Menú con submenú -->
-                <div class="relative inline-block text-left">
-                    <button
-                        class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Doramas
-                        <i class="fas fa-chevron-down text-xs ml-2"></i>
-                    </button>
-                    <!-- Submenú -->
-                    <div
-                        class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
-                        </a>
-                    </div>
-                </div>
-
-
-                <!-- Telenovelas  Menú con submenú -->
-                <div class="relative inline-block text-left">
-                    <button
-                        class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Telenovelas
-                        <i class="fas fa-chevron-down text-xs ml-2"></i>
-                    </button>
-                    <!-- Submenú -->
-                    <div
-                        class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cursos Menú con submenú -->
-                <div class="relative inline-block text-left">
-                    <button
-                        class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Cursos
-                        <i class="fas fa-chevron-down text-xs ml-2"></i>
-                    </button>
-                    <!-- Submenú -->
-                    <div
-                        class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
-                                class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Adultos Menú con submenú -->
                 <div class="relative inline-block text-left">
                     <button
                         class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
@@ -209,15 +131,21 @@
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos Cam
+                           Hentai
                         </a>
                         <a href="#"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Estrenos HD
+                           OnlyFans
+                        </a>
+                        <a href="#"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                          Brazzers
                         </a>
                     </div>
                 </div>
+
 
 
                 <!-- Formulario de búsqueda pantalla grande-->
@@ -295,13 +223,13 @@
                     <div class="-my-6 divide-y divide-gray-500/25">
                         <div class="space-y-2 py-6">
                             <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Product</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Categorias</a>
                             <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Features</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Adultos</a>
                             <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Marketplace</a>
-                            <a href="#"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Company</a>
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">TV
+                                en vivo</a>
+
                         </div>
 
 
@@ -309,39 +237,23 @@
                             <!-- Botón del menú desplegable -->
                             <button
                                 class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
-                                Menú
+                                Estrenos
                                 <i class="fas fa-angle-down ml-1 text-xxs"></i>
                             </button>
 
                             <!-- Menú desplegable -->
                             <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
                                 <!-- Ítems del submenú aquí -->
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    1 43gge grge</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    2</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    3</a>
-                                <!-- ... más ítems del submenú ... -->
-                            </div>
-                        </div>
-                        <div class="py-6">
-                            <!-- Botón del menú desplegable -->
-                            <button
-                                class="dropdown-toggle text-base font-semibold leading-7 text-white hover:bg-gray-800 px-3 py-2.5 rounded-lg focus:outline-none focus:shadow-outline">
-                                Menú
-                                <i class="fas fa-angle-down ml-1 text-xxs"></i>
-                            </button>
-
-                            <!-- Menú desplegable -->
-                            <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
-                                <!-- Ítems del submenú aquí -->
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    1</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    2</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Submenú
-                                    3</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Cine
+                                    cam</a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Netflix</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Prime
+                                    Video</a>
+                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Disney
+                                    PLus</a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-gray-700">AppleTV</a>
                                 <!-- ... más ítems del submenú ... -->
                             </div>
                         </div>
