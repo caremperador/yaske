@@ -10,7 +10,7 @@
         <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
         <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen de portada"
             class="w-full h-auto md:max-h-screen object-cover object-top">
-           
+
         <!-- Degradado de izquierda a derecha -->
         <div class="absolute inset-0 left-0 hidden sm:block"
             style="
@@ -23,26 +23,28 @@
         <div class="absolute bottom-0 left-0 p-4 w-full md:w-[85%] lg:w-[75%] xl:w-[60] xl:mb-20">
             <!-- Otros elementos del contenido... -->
             <div class=" text-white p-4 rounded-lg">
-                <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">{{ $video->titulo }}</p>
+                <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">
+                    {{ $video->titulo }}</p>
                 <div class="hidden md:inline-flex flex-col text-xs lg:text-base">
                     @if ($video->sub_url_video)
-                        <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                                class="fa fa-play mr-1"></i>Play
-                            Inglés Subtitulado</a>
+                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) }}"
+                            class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                            <i class="fa fa-play mr-1"></i>Play Inglés Subtitulado
+                        </a>
                     @endif
                     @if ($video->es_url_video)
-                        <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                                class="fa fa-play mr-1"></i>Play
+                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) }}"
+                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                             Español (España)</a>
                     @endif
                     @if ($video->lat_url_video)
-                        <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                                class="fa fa-play mr-1"></i>Play
+                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) }}"
+                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                             Español (Latinoamérica)</a>
                     @endif
                     @if ($video->url_video)
-                        <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                                class="fa fa-play mr-1"></i>Play
+                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) }}"
+                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                             Inglés</a>
                     @endif
                 </div>
@@ -53,39 +55,40 @@
 
     <div class="md:hidden flex flex-col mx-2 text-center">
         @if ($video->sub_url_video)
-            <a href="{{ $video->sub_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                    class="fa fa-play mr-1"></i>Play
-                Inglés Subtitulado</a>
+            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) }}"
+                class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                <i class="fa fa-play mr-1"></i>Play Inglés Subtitulado
+            </a>
         @endif
         @if ($video->es_url_video)
-            <a href="{{ $video->es_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                    class="fa fa-play mr-1"></i>Play
+            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) }}"
+                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                 Español (España)</a>
         @endif
         @if ($video->lat_url_video)
-            <a href="{{ $video->lat_url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                    class="fa fa-play mr-1"></i>Play
+            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) }}"
+                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                 Español (Latinoamérica)</a>
         @endif
         @if ($video->url_video)
-            <a href="{{ $video->url_video }}" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
-                    class="fa fa-play mr-1"></i>Play
+            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) }}"
+                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
                 Inglés</a>
         @endif
     </div>
 
     <p class="block xl:hidden m-2">{{ $video->descripcion }}</p>
-    
+
 
 @endsection
 @section('content')
 
-<!-- Contenedor principal -->
+    <!-- Contenedor principal -->
     <div class="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="mx-auto max-w-7xl">
-           
-            
+
+
 
             {{-- ... aqui empieza el div de puntuaciones del video ... --}}
             <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">

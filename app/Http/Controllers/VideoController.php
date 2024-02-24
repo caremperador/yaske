@@ -69,7 +69,7 @@ class VideoController extends Controller
             $path = null; // O establece un valor predeterminado para 'thumbnail'
         }
 
-       /*  // Verifica si ya existe un video con el mismo ID de TMDB
+        /*  // Verifica si ya existe un video con el mismo ID de TMDB
         if (Video::where('tmdb_id', $request->tmdb_id)->exists()) {
             return back()->withErrors(['tmdb_id' => 'Este video ya ha sido registrado.'])->withInput();
         } */
@@ -147,6 +147,37 @@ class VideoController extends Controller
             'usuarioHaVotado'
         ));
     }
+
+    public function mostrarVideo($videoId, $idioma)
+    {
+        $video = Video::findOrFail($videoId);
+        $videoUrl = '';
+
+        switch ($idioma) {
+            case 'sub':
+                $videoUrl = $video->sub_url_video;
+                break;
+            case 'es':
+                $videoUrl = $video->es_url_video;
+                break;
+            case 'lat':
+                $videoUrl = $video->lat_url_video;
+                break;
+            case 'eng':
+                $videoUrl = $video->url_video;
+                break;
+            default:
+                abort(404); // O manejar de otra manera si el idioma no es válido
+        }
+
+        if (empty($videoUrl)) {
+            return redirect()->back()->withErrors(['message' => 'URL del video no disponible.']);
+        }
+
+        return view('videos.mostrarVideo', compact('videoUrl'));
+    }
+
+
     public function search(Request $request)
     {
         $query = $request->input('query');
