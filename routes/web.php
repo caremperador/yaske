@@ -9,7 +9,6 @@ use App\Http\Controllers\TipoController;
 use App\Http\Controllers\ListaController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\ApiTMDBController;
-use App\Http\Controllers\NetflixController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\PlataformaController;
@@ -22,6 +21,10 @@ use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/proximamente', function () {
+    return view('paginaProximamente');
+})->name('proximamente');
+
 
 Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');

@@ -105,15 +105,15 @@
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
+                        <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
                             En español
                         </a>
-                        <a href="#"
+                        <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                           En ingles
+                            En ingles
                         </a>
                     </div>
                 </div>
@@ -128,20 +128,20 @@
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
+                        <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                           Hentai
+                            Hentai
                         </a>
-                        <a href="#"
+                        <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                           OnlyFans
+                            OnlyFans
                         </a>
-                        <a href="#"
+                        <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                          Brazzers
+                            Brazzers
                         </a>
                     </div>
                 </div>
@@ -222,11 +222,11 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/25">
                         <div class="space-y-2 py-6">
-                            <a href="#"
+                            <a href="{{ route('proximamente') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Categorias</a>
-                            <a href="#"
+                            <a href="{{ route('proximamente') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Adultos</a>
-                            <a href="#"
+                            <a href="{{ route('proximamente') }}"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">TV
                                 en vivo</a>
 
@@ -291,8 +291,10 @@
             </div>
             <!-- Icono de TV en vivo -->
             <div class="text-center">
-                <i class="fas fa-tv "></i>
-                <p class="text-xs mt-1">TV en vivo</p>
+                <a href="{{ route('proximamente') }}">
+                    <i class="fas fa-tv "></i>
+                    <p class="text-xs mt-1">TV en vivo</p>
+                </a>
             </div>
             <!-- Icono de Mi cuenta -->
             <div class="text-center">
