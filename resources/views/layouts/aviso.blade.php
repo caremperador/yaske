@@ -12,8 +12,8 @@
                 </span>
                 <a href="{{ route('proximamente') }}">
                     <p class="ml-3 font-medium text-white truncate">
-                        <span class="md:hidden text-xs">
-                            ¡Tenemos noticias importantes para ti!
+                        <span class="md:hidden">
+                            ¡Leer importante aviso!
                         </span>
                         <span class="hidden md:inline">
                             Dilo.nu ahora será Yaske.ru. ¡Encuentra series, animes, películas, doramas, novelas y más en
