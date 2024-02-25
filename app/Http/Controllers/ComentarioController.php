@@ -11,7 +11,7 @@ class ComentarioController extends Controller
     {
         $request->validate([
             'video_id' => 'required|exists:videos,id',
-            'contenido' => 'required|min:200|max:750', // Añade restricción de longitud máxima
+            'contenido' => 'required|min:100|max:750', // Añade restricción de longitud máxima
         ]);
 
         // Verifica si el usuario ya ha comentado en este video
@@ -46,7 +46,7 @@ class ComentarioController extends Controller
     public function update(Request $request, Comentario $comentario)
     {
         $request->validate([
-            'contenido' => 'required|min:200|max:750',
+            'contenido' => 'required|min:100|max:750',
         ]);
 
         // Verificar que el usuario es el autor del comentario
