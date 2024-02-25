@@ -26,10 +26,13 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input): User
     {
         Validator::make($input, [
-            // tus reglas de validación...
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => $this->passwordRules(),
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        $userWithToken = User::where('token_referido', $input['token_referido'])
+        /*   $userWithToken = User::where('token_referido', $input['token_referido'])
             ->where('token_referido_expires_at', '>', now())
             ->first();
 
@@ -37,14 +40,14 @@ class CreateNewUser implements CreatesNewUsers
             throw ValidationException::withMessages([
                 'token_referido' => ['The provided token is invalid, expired, or hasbeen used.'],
             ]);
-        }
+        } */
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 
-        // Mark the token as used
+        /*   // Mark the token as used
         $userWithToken->token_referido_used = true;
         $userWithToken->save();
 
@@ -52,7 +55,7 @@ class CreateNewUser implements CreatesNewUsers
         Referido::create([
             'user_id' => $user->id,
             'revendedor_id' => $userWithToken->id,
-        ]);
+        ]); */
 
         return $user;
     }

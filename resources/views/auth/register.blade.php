@@ -36,7 +36,7 @@
                     name="password_confirmation" required />
             </div>
 
-            <!-- Token Premium -->
+           {{--  <!-- Token Premium -->
             <div class="mt-4">
                 <x-label for="token_referido" :value="__('Token de tu revendedor')" />
                 <x-input id="token_referido" class="block mt-1 w-full" type="text" name="token_referido" required
@@ -44,7 +44,7 @@
                 @error('token_referido')
                     <span class="text-red-500 text-xs">{{ $message }}</span>
                 @enderror
-            </div>
+            </div> --}}
             <!-- fin Campo Token Premium -->
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-4">
