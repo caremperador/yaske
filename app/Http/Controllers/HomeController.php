@@ -30,12 +30,13 @@ class HomeController extends Controller
         $seriesNetflix = $this->listasPorTipoYCategoria('series', 'netflix');
         $seriesEstrenos = $this->listasPorTipoYCategoria('series', 'estrenos');
         $seriesPrimevideo = $this->listasPorTipoYCategoria('series', 'prime-video');
+        $animes = $this->listasPorTipoYCategoria('animes');
 
         // Videos de calidad CAM
         $videosCalidadCam = $this->videosCalidadCam();
 
 
-        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix', 'seriesPrimevideo', 'seriesEstrenos'));
+        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculas', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix', 'seriesPrimevideo', 'seriesEstrenos', 'animes'));
     }
 
     private function videosPorCategorias(array $nombresCategorias)

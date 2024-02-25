@@ -211,6 +211,12 @@
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.primevideo_series')
+
+
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Ultimos Animes agregados <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+    @include('home.carusel.ultimos_animes_agregados')
     {{-- 
 
 
