@@ -14,7 +14,7 @@
 
 <body class="bg-gray-900 text-white">
     <!-- Indicador de Carga con Tailwind CSS -->
-    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-70 z-50 flex justify-center items-center">
+    <div id="loading-spinner" class="fixed inset-0 bg-gray-900 bg-opacity-90 z-50 flex justify-center items-center">
         <div class="text-center">
             <img src="https://i.pinimg.com/originals/49/23/29/492329d446c422b0483677d0318ab4fa.gif" alt="Cargando..."
                 class="mx-auto" />
