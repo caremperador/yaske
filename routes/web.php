@@ -33,7 +33,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/video/{video}', 'show')->name('videos.show')->middleware('responseCache:60');
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
-    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo');
+    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('responseCache:60');
 });
 
 Route::controller(ApiTMDBController::class)->group(function () {
@@ -179,7 +179,7 @@ Route::get('/transaccion-aprobada', [DiasPremiumController::class, 'transaccionA
 
 // Route::get('/netflix/peliculas-{categoria}', [NetflixController::class, 'peliculasCategoria'])->name('netflix.peliculas-categoria');
 
-Route::get('/{tipo}/{plataforma?}/{categoria?}', [PlataformaController::class, 'filtrarVideosPorTipoYCategoria'])->name('videos.filtrar');
+Route::get('/{tipo}/{plataforma?}/{categoria?}', [PlataformaController::class, 'filtrarVideosPorTipoYCategoria'])->name('videos.filtrar')->middleware('responseCache:60');
 
 
 

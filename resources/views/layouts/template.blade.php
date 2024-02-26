@@ -62,33 +62,33 @@
                 <div class="relative inline-block text-left">
                     <button
                         class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Categorias
+                        Peliculas
                         <i class="fas fa-chevron-down text-xs ml-2"></i>
                     </button>
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="#"
+                        <a href="/peliculas/netflix"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Netflix
+                            Peliculas Netflix
                         </a>
-                        <a href="#"
+                        <a href="/peliculas/prime-video"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Amazon Prime
+                            Peliculas Amazon Prime
                         </a>
-                        <a href="#"
+                        <a href="/peliculas/diseny"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
                             Disney Plus
                         </a>
-                        <a href="#"
+                        <a href="/peliculas/apple-tv"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
                             Apple TV
                         </a>
-                        <a href="#"
+                        <a href="/peliculas/start-plus"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
                             Start plus
