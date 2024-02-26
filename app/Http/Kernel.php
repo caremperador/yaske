@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'isRevendedor' => \App\Http\Middleware\IsRevendedor::class,
+        'responseCache' => \Spatie\ResponseCache\Middlewares\CacheResponse::class,
         
     ];
    
