@@ -25,5 +25,6 @@
     <iframe src="{{ $videoUrl }}" class="fullscreen-iframe" allowfullscreen>
         Tu navegador no soporta iframes.
     </iframe>
+    <img src="https://whos.amung.us/widget/yaskevideos.png" style="display:none" />
 </body>
 </html>
