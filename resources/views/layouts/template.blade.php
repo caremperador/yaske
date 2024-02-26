@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     @vite('resources/css/app.css')
     @yield('js_cabecera')
-    @include('scripts.pa_antiadblock_7142069')
 </head>
 
 <body class="bg-gray-900 text-white">

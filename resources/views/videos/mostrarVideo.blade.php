@@ -20,6 +20,7 @@
             border: none;
         }
     </style>
+     @include('scripts.pa_antiadblock_7142069')
 </head>
 <body>
     <iframe src="{{ $videoUrl }}" class="fullscreen-iframe" allowfullscreen>
