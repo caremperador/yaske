@@ -287,7 +287,7 @@
                 </a>
             </div>
             <!-- Icono de Categorias -->
-            <div class="text-center">
+            <div class="text-center hidden">
                 <i class="fas fa-th "></i>
                 <p class="text-xs mt-1">Categorias</p>
             </div>
