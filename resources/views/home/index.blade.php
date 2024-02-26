@@ -76,7 +76,7 @@
 
                         <div class="absolute right-2 top-2 h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7  cursor-pointer">
                             @foreach ($video->categorias as $categoria)
-                                @if ($categoria->name == 'amazon-prime')
+                                @if ($categoria->name == 'prime-video')
                                     <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
                                 @elseif ($categoria->name == 'netflix')
                                     <img src="/images/logo/logo-netflix.png" class="object-contain" />
@@ -121,7 +121,7 @@
 
                         <div class="absolute right-2 top-2 h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7  cursor-pointer">
                             @foreach ($video->categorias as $categoria)
-                                @if ($categoria->name == 'amazon-prime')
+                                @if ($categoria->name == 'prime-video')
                                     <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
                                 @elseif ($categoria->name == 'netflix')
                                     <img src="/images/logo/logo-netflix.png" class="object-contain" />
@@ -168,7 +168,7 @@
 
                         <div class="absolute right-2 top-2 h-5 w-5 lg:h-6 lg:w-6 xl:h-7 xl:w-7  cursor-pointer">
                             @foreach ($video->categorias as $categoria)
-                                @if ($categoria->name == 'amazon-prime')
+                                @if ($categoria->name == 'prime-video')
                                     <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
                                 @elseif ($categoria->name == 'netflix')
                                     <img src="/images/logo/logo-netflix.png" class="object-contain" />

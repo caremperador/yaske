@@ -5,9 +5,9 @@
 @section('content')
     <div class="flex flex-col justify-center">
         <div class="relative m-3 flex flex-wrap mx-auto justify-center">
-            
+
             <div class="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2  2xl:grid-cols-4 gap-2">
-                
+
                 @foreach ($videos as $video)
                     <!-- video card -->
                     <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
@@ -21,9 +21,9 @@
                             @endif
                             <p class="absolute right-2 top-2 cursor-pointer">
                                 @foreach ($video->categorias as $categoria)
-                                    @if ($categoria->name == 'Prime Video')
+                                    @if ($categoria->name == 'prime-video')
                                         <img src="/images/logo/logo-prime-video.png" height="35" width="35" />
-                                    @elseif ($categoria->name == 'Netflix')
+                                    @elseif ($categoria->name == 'netflix')
                                         <img src="/images/logo/logo-netflix.png" height="35" width="35" />
                                     @endif
                                 @endforeach
@@ -53,12 +53,8 @@
                                 @endif
                             </div>
                             <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
-                                @if ($video->estado == 0)
-                                    <span
-                                        class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-2 py-1 rounded">Gratis</span>
-                                @else
-                                    <span
-                                        class="text-xxs text-gray-300 font-bold uppercase bg-red-800 px-2 py-1 rounded">Premium</span>
+                                @if ($video->estado == 1)
+                                    <i class="fas fa-gem text-yellow-600 mr-1 my-1 text-xs md:text-base"></i>
                                 @endif
                             </div>
                         </div>
