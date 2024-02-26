@@ -68,6 +68,11 @@
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
+                        <a href="/peliculas"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Todas las Peliculas
+                        </a>
                         <a href="/peliculas/netflix"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
