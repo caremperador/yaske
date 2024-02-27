@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video en Pantalla Completa</title>
     @vite('resources/css/app.css')
-    @include('scripts.pa_antiadblock_7142069')
+    
 </head>
 <body class="m-0 p-0 md:h-screen overflow-hidden bg-gray-900">
     <iframe src="{{ $videoUrl }}" class="absolute top-0 left-0 w-full h-full border-none">
