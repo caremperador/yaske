@@ -19,7 +19,7 @@
     <!-- Contenedor para Iframe específico de WebView de Android -->
     <div id="iframe-container" class="inset-0 flex justify-center items-center bg-gray-900" style="display: none;">
         
-        <iframe id="webview-iframe"  class="absolute top-0 left-0 w-[200px] h-[200px]" src="{{ $videoUrl }}"
+        <iframe id="webview-iframe"  class="w-[200px] h-[200px]" src="{{ $videoUrl }}"
             title="YouTube video player" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
