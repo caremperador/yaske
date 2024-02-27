@@ -7,6 +7,8 @@
     @vite('resources/css/app.css')
     @if (!$isWebView)
         @include('scripts.pa_antiadblock_7142069')
+    @else
+        <script async="async" data-cfasync="false" src="//thubanoa.com/1?z=7144328"></script>
     @endif
 </head>
 
