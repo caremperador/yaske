@@ -6,39 +6,40 @@
     <title>Video en Pantalla Completa</title>
     @vite('resources/css/app.css')
 </head>
-<body class=" bg-gray-900">
+<body class="bg-gray-900">
 
-    <!-- Iframe para navegadores normales y WebView -->
-    <iframe id="normal-iframe" src="{{ $videoUrl }}" class="absolute top-0 left-0 w-full h-full border-none" style="display: none;">
+    <!-- Iframe normal para navegadores web -->
+    <iframe id="normal-iframe" src="{{ $videoUrl }}" class="hidden absolute top-0 left-0 w-full h-full border-none" allowfullscreen>
         Tu navegador no soporta iframes.
     </iframe>
 
-    <!-- Iframe específico para WebView de Android -->
-    <iframe id="webview-iframe" src="{{ $videoUrl }}" class="absolute top-0 left-0 w-[200px] h-[200px] border-none" style="display: none;">
-        Tu navegador no soporta iframes.
-    </iframe>
+    <!-- Contenedor para Iframe específico de WebView de Android -->
+    <div id="iframe-container" class="absolute inset-0 flex justify-center items-center bg-gray-900" style="display: none;">
+        <iframe id="webview-iframe" src="{{ $videoUrl }}" class="w-[200px] h-[200px] border-none" allowfullscreen>
+            Tu navegador no soporta iframes.
+        </iframe>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var userAgent = navigator.userAgent.toLowerCase();
             var isAndroidWebView = userAgent.includes('wv');
 
-            // Obtén referencias a ambos iframes
+            // Obtén referencias al contenedor del iframe y al iframe normal
             var normalIframe = document.getElementById('normal-iframe');
-            var webviewIframe = document.getElementById('webview-iframe');
+            var iframeContainer = document.getElementById('iframe-container');
 
             if (isAndroidWebView) {
-                // Muestra el iframe específico para WebView y oculta el normal
-                webviewIframe.style.display = 'block';
+                // Muestra el contenedor del iframe específico para WebView y oculta el iframe normal
+                iframeContainer.style.display = 'flex';
             } else {
-                // Muestra el iframe normal y oculta el específico para WebView
+                // Muestra el iframe normal
                 normalIframe.style.display = 'block';
             }
         });
     </script>
 
     <img src="https://whos.amung.us/widget/yaskevideos.png" style="display:none" />
-    <!-- Incluir app.js al final del body -->
     @vite('resources/js/app.js')
 </body>
 </html>
