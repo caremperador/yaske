@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video en Pantalla Completa</title>
     @vite('resources/css/app.css')
+    @include('scripts.pa_antiadblock_7142069')
 </head>
 
 <body class="bg-gray-900">
