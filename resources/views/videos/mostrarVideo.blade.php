@@ -33,13 +33,13 @@
             var iframeContainer = document.getElementById('iframe-container');
             var webviewIframe = document.getElementById('webview-iframe');
 
+            // Configura el src del iframe apropiado según el contexto
+            var videoSrc = "{{ $videoUrl }}";
             if (isAndroidWebView) {
-                // Configura el src del iframe para WebView y muestra el contenedor
-                webviewIframe.src = "{{ $videoUrl }}";
+                webviewIframe.src = videoSrc;
                 iframeContainer.style.display = 'flex';
             } else {
-                // Configura el src del iframe normal y lo muestra
-                normalIframe.src = "{{ $videoUrl }}";
+                normalIframe.src = videoSrc;
                 normalIframe.style.display = 'block';
             }
         });
