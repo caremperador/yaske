@@ -7,7 +7,7 @@
     @vite('resources/css/app.css')
     
 </head>
-<body class="m-0 p-0 md:h-screen overflow-hidden bg-gray-900">
+<body class="m-0 p-0 lg:h-screen overflow-hidden bg-gray-900">
     <iframe src="{{ $videoUrl }}" class="absolute top-0 left-0 w-full h-full border-none">
         Tu navegador no soporta iframes.
     </iframe>
