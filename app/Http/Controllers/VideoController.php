@@ -174,8 +174,14 @@ class VideoController extends Controller
             return redirect()->back()->withErrors(['message' => 'URL del video no disponible.']);
         }
 
-        return view('videos.mostrarVideo', compact('videoUrl'));
+        // Verificar el User-Agent para identificar si la solicitud proviene de una WebView de Android
+        $userAgent = request()->header('User-Agent');
+        $isWebView = strpos($userAgent, 'wv') !== false;
+
+        // Pasar la variable $isWebView a la vista
+        return view('videos.mostrarVideo', compact('videoUrl', 'isWebView'));
     }
+
 
 
     public function search(Request $request)
