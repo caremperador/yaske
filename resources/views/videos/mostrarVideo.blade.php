@@ -19,9 +19,8 @@
     <!-- Contenedor para Iframe específico de WebView de Android -->
     <div id="iframe-container" class="inset-0 flex justify-center items-center bg-gray-900 border" style="display: none;">
 
-        <iframe id="webview-iframe" class="w-[250px] h-[200px]" src="{{ $videoUrl }}" frameborder="0"
-            
-            allowfullscreen>
+        <iframe id="webview-iframe" src="{{ $videoUrl }}" class="w-[230px] h-[200px] border-none" allowfullscreen>
+            Tu navegador no soporta iframes.
         </iframe>
     </div>
 
