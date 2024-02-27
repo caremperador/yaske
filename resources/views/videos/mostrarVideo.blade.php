@@ -12,16 +12,15 @@
 
     <!-- Iframe normal para navegadores web -->
     <iframe id="normal-iframe" src="{{ $videoUrl }}" class="hidden absolute top-0 left-0 w-full h-full border-none"
-        allowfullscreen>
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
         Tu navegador no soporta iframes.
     </iframe>
 
     <!-- Contenedor para Iframe específico de WebView de Android -->
     <div id="iframe-container" class="inset-0 flex justify-center items-center bg-gray-900" style="display: none;">
-        
-        <iframe id="webview-iframe"  class="w-[200px] h-[200px]" src="{{ $videoUrl }}"
-            title="YouTube video player" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+
+        <iframe id="webview-iframe" class="w-[300px] h-[200px]" src="{{ $videoUrl }}" frameborder="0"
+            
             allowfullscreen>
         </iframe>
     </div>
