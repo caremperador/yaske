@@ -17,9 +17,9 @@
     </iframe>
 
     <!-- Contenedor para Iframe específico de WebView de Android -->
-    <div id="iframe-container" class="inset-0 flex justify-center items-center bg-gray-900" style="display: none;">
+    <div id="iframe-container" class="inset-0 flex justify-center items-center bg-gray-900 border" style="display: none;">
 
-        <iframe id="webview-iframe" class="w-[300px] h-[200px]" src="{{ $videoUrl }}" frameborder="0"
+        <iframe id="webview-iframe" class="w-[250px] h-[200px]" src="{{ $videoUrl }}" frameborder="0"
             
             allowfullscreen>
         </iframe>
