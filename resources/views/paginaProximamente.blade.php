@@ -13,7 +13,7 @@
             <p class="text-lg text-gray-300 mb-4">
                 Estamos trabajando arduamente para mejorar nuestro sitio web. Mientras tanto, puedes disfrutar de nuestra aplicación en Android.
             </p>
-            <a href="https://bit.ly/49u3hPK" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 mb-4">
+            <a href="https://bit.ly/3IdSQDI" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 mb-4">
                 <i class="fab fa-android mr-1 text-2xl"></i>
  Descargar la APK <i class="fa fa-arrow-circle-down ml-1"></i>
             </a>
