@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video en Pantalla Completa</title>
+    @vite('resources/css/app.css')
     <style>
         body, html {
             margin: 0;
@@ -20,12 +21,15 @@
             border: none;
         }
     </style>
-     @include('scripts.pa_antiadblock_7142069')
+
+    @include('scripts.pa_antiadblock_7142069')
 </head>
-<body>
-    <iframe src="{{ $videoUrl }}" class="fullscreen-iframe" allowfullscreen>
+<body class="m-0 p-0 md:h-screen overflow-hidden bg-gray-900">
+    <iframe src="{{ $videoUrl }}" class="absolute top-0 left-0 w-full h-full border-none" allowfullscreen>
         Tu navegador no soporta iframes.
     </iframe>
     <img src="https://whos.amung.us/widget/yaskevideos.png" style="display:none" />
+    <!-- Incluir app.js al final del body -->
+    @vite('resources/js/app.js')
 </body>
 </html>
