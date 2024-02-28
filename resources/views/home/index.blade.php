@@ -149,7 +149,7 @@
 
 
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas <a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas Familiares<a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
 
@@ -157,7 +157,7 @@
     <div class="swiper swiper-container swiperCarusel my-4">
         <div class="swiper-wrapper">
 
-            @foreach ($peliculas as $video)
+            @foreach ($peliculasFamilia as $video)
                 <!-- Slide-->
                 <div class="swiper-slide">
                     <div class="aspect-w-20 aspect-h-10  relative">
@@ -196,6 +196,11 @@
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.primevideo_peliculas')
+
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas Recomendadas <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+    @include('home.carusel.peliculas_recomendadas')
 
     <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Estrenos series Mundiales<a href="#"><i
                 class="fas fa-angle-double-right"></i>
