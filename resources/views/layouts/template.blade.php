@@ -294,9 +294,11 @@
                 </a>
             </div>
             <!-- Icono de Categorias -->
-            <div class="text-center hidden">
-                <i class="fas fa-th "></i>
-                <p class="text-xs mt-1">Categorias</p>
+            <div class="text-center">
+                <a href="/peliculas">
+                <i class="fas fa-film"></i>
+                <p class="text-xs mt-1">Peliculas</p>
+                </a>
             </div>
             <!-- Icono de TV en vivo -->
             <div class="text-center">

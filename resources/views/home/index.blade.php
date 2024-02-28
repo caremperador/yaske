@@ -212,7 +212,7 @@
         </a></div>
     @include('home.carusel.crimenymisterio')
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">ultimas series agregadas<a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">ultimas series agregadas <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.estrenos_series')
