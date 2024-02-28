@@ -40,6 +40,9 @@ class PlataformaController extends Controller
             }
         }
 
+        // Ordenar los videos por los más recientes
+        $query->orderBy('created_at', 'desc');
+
         $videos = $query->paginate(24);
 
         return view('videos.filtrar', compact('videos'));
