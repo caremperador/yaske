@@ -17,6 +17,8 @@ class HomeController extends Controller
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
+        $crimenymisterio = $this->videosPorCategorias(['crimen', 'misterio']);
+
         $estrenosPrimevideo = $this->videosPorCategorias(['prime-video', 'estrenos']);
         $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', 'prime-video');
 
@@ -37,7 +39,23 @@ class HomeController extends Controller
         $videosCalidadCam = $this->videosCalidadCam();
 
 
-        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculasFamilia', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix', 'seriesPrimevideo', 'seriesEstrenos', 'animes', 'peliculasRecomendadas'));
+        return view('home.index', compact(
+            'videos',
+            'estrenosNetflix',
+            'peliculasFamilia',
+            'videosCalidadCam',
+            'peliculasAccion',
+            'estrenosPrimevideo',
+            'peliculasAnimacion',
+            'peliculasComedia',
+            'peliculasPrimevideo',
+            'seriesNetflix',
+            'seriesPrimevideo',
+            'seriesEstrenos',
+            'animes',
+            'peliculasRecomendadas',
+            'crimenymisterio'
+        ));
     }
 
     private function videosPorCategorias(array $nombresCategorias)
