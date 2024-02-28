@@ -196,72 +196,6 @@
 
     </div>
     @push('scripts')
-    <script>
-        document.getElementById('tmdbSearch').addEventListener('input', async function() {
-            const input = this.value;
-            if (input.length === 0) return; // Evita búsquedas vacías
-        
-            const seriePattern = /(\d+)-[^\/]+\/season\/(\d+)\/episode\/(\d+)/;
-            const match = input.match(seriePattern);
-        
-            if (match) {
-                // Input corresponde a un episodio de serie
-                const [, serieId, temporada, episodio] = match;
-        
-                try {
-                    // Asume que tienes un endpoint configurado para buscar episodios de series
-                    const url = `/buscar-episodio-tmdb/${serieId}/season/${temporada}/episode/${episodio}?language=es-MX`;
-                    const response = await fetch(url);
-                    const episodeData = await response.json();
-        
-                    // Actualiza los campos con los datos del episodio
-                    document.getElementById('titulo').value = episodeData.name || '';
-                    document.getElementById('descripcion').value = episodeData.overview || '';
-                    document.getElementById('tmdb_id').value = `${serieId}-s${temporada}e${episodio}`;
-        
-                    if (episodeData.still_path) {
-                        const imageUrl = `https://image.tmdb.org/t/p/w500${episodeData.still_path}`;
-                        document.getElementById('thumbnailPreview').src = imageUrl;
-                        document.getElementById('thumbnailPreviewContainer').style.display = 'block';
-                        document.getElementById('thumbnailUrl').value = imageUrl;
-                    }
-        
-                } catch (error) {
-                    console.error('Error al buscar el episodio:', error);
-                }
-            } else {
-                // Procesamiento original para películas
-                try {
-                    const responseEn = await fetch(`/buscar-pelicula-tmdb/${input}?language=en`);
-                    const movieEn = await responseEn.json();
-                    const yearEn = movieEn.release_date ? ` (${movieEn.release_date.split('-')[0]})` : '';
-                    document.getElementById('titulo').value = `${movieEn.title}${yearEn}` || '';
-                    document.getElementById('tmdb_id').value = input; // Asegúrate de que este es el ID de TMDB
-        
-                    const responseEs = await fetch(`/buscar-pelicula-tmdb/${input}?language=es-ES`);
-                    const movieEs = await responseEs.json();
-                    const yearEs = movieEs.release_date ? ` (${movieEs.release_date.split('-')[0]})` : '';
-                    document.getElementById('es_titulo').value = `${movieEs.title}${yearEs}` || '';
-                    document.getElementById('descripcion').value = movieEs.overview || '';
-        
-                    const responseLat = await fetch(`/buscar-pelicula-tmdb/${input}?language=es-MX`);
-                    const movieLat = await responseLat.json();
-                    const yearLat = movieLat.release_date ? ` (${movieLat.release_date.split('-')[0]})` : '';
-                    document.getElementById('lat_titulo').value = `${movieLat.title}${yearLat}` || '';
-        
-                    if (movieEn.poster_path) {
-                        const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${movieEn.backdrop_path}`;
-                        document.getElementById('thumbnailPreview').src = imageUrl;
-                        document.getElementById('thumbnailPreviewContainer').style.display = 'block';
-                        document.getElementById('thumbnailUrl').value = imageUrl;
-                    }
-                } catch (error) {
-                    console.error('Error al buscar la película:', error);
-                }
-            }
-        });
-        </script>
-       {{--  
         <script>
             document.getElementById('tmdbSearch').addEventListener('input', async function() {
                 const tmdbId = this.value;
@@ -302,7 +236,7 @@
                     console.error('Error al buscar la película:', error);
                 }
             });
-        </script> --}}
+        </script>
     @endpush
 
 @endsection
