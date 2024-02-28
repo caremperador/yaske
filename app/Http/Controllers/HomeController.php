@@ -89,13 +89,18 @@ class HomeController extends Controller
         if (!empty($categoriasNombres)) {
             $query->whereHas('categorias', function ($query) use ($categoriasNombres) {
                 $query->whereIn('name', $categoriasNombres);
-            });
+            }, '=', count($categoriasNombres)); // Asegurar que el video tiene todas las categorías
         }
 
-        $videos = $query->orderBy('created_at', 'desc')->get();
+        $videos = $query->withCount(['categorias' => function ($query) use ($categoriasNombres) {
+            $query->whereIn('name', $categoriasNombres);
+        }])->having('categorias_count', '=', count($categoriasNombres))
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return $videos;
     }
+
 
     public function listasPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
     {
