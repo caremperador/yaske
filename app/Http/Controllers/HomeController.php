@@ -37,7 +37,7 @@ class HomeController extends Controller
         $videosCalidadCam = $this->videosCalidadCam();
 
 
-        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculasfamilia', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix', 'seriesPrimevideo', 'seriesEstrenos', 'animes', 'peliculasRecomendadas'));
+        return view('home.index', compact('videos', 'estrenosNetflix', 'peliculasFamilia', 'videosCalidadCam', 'peliculasAccion', 'estrenosPrimevideo', 'peliculasAnimacion', 'peliculasComedia', 'peliculasPrimevideo', 'seriesNetflix', 'seriesPrimevideo', 'seriesEstrenos', 'animes', 'peliculasRecomendadas'));
     }
 
     private function videosPorCategorias(array $nombresCategorias)
