@@ -202,7 +202,7 @@
         </a></div>
     @include('home.carusel.peliculas_recomendadas')
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Crimen y misterio <a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas de Crimen y misterio <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.crimenymisterio')
