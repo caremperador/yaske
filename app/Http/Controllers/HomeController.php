@@ -51,7 +51,8 @@ class HomeController extends Controller
             });
         }
 
-        $videos = $query->get();
+         // Aplicar orden descendente aquí
+         $videos = $query->orderBy('created_at', 'desc')->get();
 
         return $videos;
     }
@@ -79,7 +80,8 @@ class HomeController extends Controller
         }
 
         // Obtener los videos según los filtros aplicados.
-        $videos = $query->get();
+         // Aplicar orden descendente aquí
+         $videos = $query->orderBy('created_at', 'desc')->get();
 
         return $videos;
     }
