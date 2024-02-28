@@ -17,12 +17,13 @@ class HomeController extends Controller
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
-        $crimenymisterio = $this->videosPorTipoYCategoria('peliculas', ['terror', 'misterio']);
-
         $estrenosPrimevideo = $this->videosPorCategorias(['prime-video', 'estrenos']);
-        $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', ['prime-video']);
 
+        
         // Obtener videos por tipo y categoría específicos.
+        $crimenymisterio = $this->videosPorTipoYCategoria('peliculas', ['terror', 'misterio']);
+        $comediayromance = $this->videosPorTipoYCategoria('peliculas', ['romance', 'comedia']);
+        $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', ['prime-video']);
         $peliculasFamilia = $this->videosPorTipoYCategoria('peliculas', ['familia']);
         $peliculasAccion = $this->videosPorTipoYCategoria('peliculas', ['accion']);
         $peliculasRecomendadas = $this->videosPorTipoYCategoria('peliculas', ['recomendadas']);
@@ -54,7 +55,8 @@ class HomeController extends Controller
             'seriesEstrenos',
             'animes',
             'peliculasRecomendadas',
-            'crimenymisterio'
+            'crimenymisterio',
+            'comediayromance'
         ));
     }
 
