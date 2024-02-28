@@ -17,17 +17,17 @@ class HomeController extends Controller
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
-        $crimenymisterio = $this->videosPorCategorias(['crimen', 'misterio']);
+        $crimenymisterio = $this->videosPorTipoYCategorias('peliculas', ['crimen', 'misterio']);
 
         $estrenosPrimevideo = $this->videosPorCategorias(['prime-video', 'estrenos']);
-        $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', 'prime-video');
+        $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', ['prime-video']);
 
         // Obtener videos por tipo y categoría específicos.
-        $peliculasFamilia = $this->videosPorTipoYCategoria('peliculas', 'familia');
-        $peliculasAccion = $this->videosPorTipoYCategoria('peliculas', 'accion');
-        $peliculasRecomendadas = $this->videosPorTipoYCategoria('peliculas', 'recomendadas');
-        $peliculasAnimacion = $this->videosPorTipoYCategoria('peliculas', 'animacion');
-        $peliculasComedia = $this->videosPorTipoYCategoria('peliculas', 'animacion');
+        $peliculasFamilia = $this->videosPorTipoYCategoria('peliculas', ['familia']);
+        $peliculasAccion = $this->videosPorTipoYCategoria('peliculas', ['accion']);
+        $peliculasRecomendadas = $this->videosPorTipoYCategoria('peliculas', ['recomendadas']);
+        $peliculasAnimacion = $this->videosPorTipoYCategoria('peliculas', ['animacion']);
+        $peliculasComedia = $this->videosPorTipoYCategoria('peliculas', ['animacion']);
 
         // Obtener listas por tipo (y categoría si se desea añadir esa funcionalidad)
         $seriesNetflix = $this->listasPorTipoYCategoria('series', 'netflix');
@@ -76,34 +76,27 @@ class HomeController extends Controller
         return $videos;
     }
 
-    public function videosPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
+    public function videosPorTipoYCategoria($tipoNombre, $categoriasNombres = [])
     {
         $tipo = Tipo::where('name', $tipoNombre)->first();
 
         if (!$tipo) {
-            // Si no se encuentra el tipo, puedes optar por no devolver nada o lanzar un error.
             return collect();
         }
 
-        // Iniciar la consulta filtrando por tipo.
         $query = Video::where('tipo_id', $tipo->id);
 
-        // Si se ha proporcionado un nombre de categoría, añadir filtro por categoría.
-        if (!is_null($categoriaNombre)) {
-            $categoria = Categoria::where('name', $categoriaNombre)->first();
-            if ($categoria) {
-                $query->whereHas('categorias', function ($query) use ($categoria) {
-                    $query->where('categorias.id', $categoria->id);
-                });
-            }
+        if (!empty($categoriasNombres)) {
+            $query->whereHas('categorias', function ($query) use ($categoriasNombres) {
+                $query->whereIn('name', $categoriasNombres);
+            });
         }
 
-        // Obtener los videos según los filtros aplicados.
-        // Aplicar orden descendente aquí
         $videos = $query->orderBy('created_at', 'desc')->get();
 
         return $videos;
     }
+
     public function listasPorTipoYCategoria($tipoNombre, $categoriaNombre = null)
     {
         $tipo = Tipo::where('name', $tipoNombre)->first();
