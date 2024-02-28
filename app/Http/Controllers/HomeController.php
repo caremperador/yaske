@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         // Obtener listas por tipo (y categoría si se desea añadir esa funcionalidad)
         $seriesNetflix = $this->listasPorTipoYCategoria('series', 'netflix');
-        $seriesEstrenos = $this->listasPorTipoYCategoria('series', 'estrenos');
+        $seriesEstrenos = $this->listasPorTipoYCategoria('series');
         $seriesPrimevideo = $this->listasPorTipoYCategoria('series', 'prime-video');
         $animes = $this->listasPorTipoYCategoria('animes');
 
