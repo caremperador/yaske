@@ -12,10 +12,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Excluir videos de tipos específicos
+        // Videos generales excluyendo tipos específicos a través de su lista
         $videos = Video::with('categorias')
-            ->whereHas('tipo', function ($query) {
-                $query->whereNotIn('name', ['hentai-sin-censura', 'hentai']);
+            ->whereHas('lista', function ($query) {
+                $query->whereDoesntHave('tipo', function ($query) {
+                    $query->whereIn('name', ['hentai-sin-censura', 'hentai']);
+                });
             })
             ->orderBy('created_at', 'desc')
             ->paginate(32);
