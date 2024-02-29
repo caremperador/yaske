@@ -104,21 +104,21 @@
                 <div class="relative inline-block text-left">
                     <button
                         class="submenu-btn text-sm font-semibold leading-6 text-white px-0.5 py-2 bg-gray-900 rounded-md inline-flex items-center">
-                        Tv En vivo
+                        Series
                         <i class="fas fa-chevron-down text-xs ml-2"></i>
                     </button>
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="{{ route('proximamente') }}"
+                        <a href="/tipo/series"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            En español
+                            Series TV
                         </a>
-                        <a href="{{ route('proximamente') }}"
+                        <a href="/tipo/animes"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            En ingles
+                            Animes
                         </a>
                     </div>
                 </div>
@@ -227,13 +227,13 @@
                 <div class="mt-6 flow-root">
                     <div class="-my-6 divide-y divide-gray-500/25">
                         <div class="space-y-2 py-6">
-                            <a href="{{ route('proximamente') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Categorias</a>
-                            <a href="{{ route('proximamente') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Adultos</a>
-                            <a href="{{ route('proximamente') }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">TV
-                                en vivo</a>
+                            <a href="/peliculas"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Peliculas</a>
+                            <a href="/tipo/series"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Series
+                                TV</a>
+                            <a href="/tipo/animes"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Animes</a>
 
                         </div>
 
@@ -249,15 +249,15 @@
                             <!-- Menú desplegable -->
                             <div class="dropdown-menu hidden absolute bg-gray-800 mt-1 rounded-md shadow-lg">
                                 <!-- Ítems del submenú aquí -->
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Cine
-                                    cam</a>
-                                <a href="#"
+                                <a href="/peliculas/netflix"
                                     class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Netflix</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Prime
+                                <a href="/peliculas/prime-video"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Prime
                                     Video</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Disney
+                                <a href="/peliculas/disney"
+                                    class="block px-4 py-2 text-sm text-white hover:bg-gray-700">Disney
                                     PLus</a>
-                                <a href="#"
+                                <a href="/peliculas/apple-tv"
                                     class="block px-4 py-2 text-sm text-white hover:bg-gray-700">AppleTV</a>
                                 <!-- ... más ítems del submenú ... -->
                             </div>
@@ -296,15 +296,22 @@
             <!-- Icono de Categorias -->
             <div class="text-center">
                 <a href="/peliculas">
-                <i class="fas fa-film"></i>
-                <p class="text-xs mt-1">Peliculas</p>
+                    <i class="fas fa-film"></i>
+                    <p class="text-xs mt-1">Peliculas</p>
                 </a>
             </div>
             <!-- Icono de TV en vivo -->
             <div class="text-center">
-                <a href="{{ route('proximamente') }}">
-                    <i class="fas fa-tv "></i>
-                    <p class="text-xs mt-1">TV en vivo</p>
+                <a href="/tipo/series">
+                    <i class="fas fa-tv"></i>
+                    <p class="text-xs mt-1">Series TV</p>
+                </a>
+            </div>
+            <!-- Icono de TV en vivo -->
+            <div class="text-center">
+                <a href="/tipo/animes">
+                    <i class="fas fa-mask"></i>
+                    <p class="text-xs mt-1">Animes</p>
                 </a>
             </div>
             <!-- Icono de Mi cuenta -->
