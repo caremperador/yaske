@@ -68,7 +68,7 @@
             @foreach ($videos as $video)
                 <!-- Slide-->
                 <div class="swiper-slide">
-                    <div class="aspect-w-20 aspect-h-10  relative">
+                    <div class="aspect-w-20 aspect-h-10 overflow-hidden relative">
                         <a href="{{ route('videos.show', $video->id) }}">
                             <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen 1"
                                 class="w-full h-auto object-cover"></a>
