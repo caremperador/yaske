@@ -12,14 +12,19 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Videos generales
-        $videos = Video::with('categorias')->orderBy('created_at', 'desc')->paginate(32);
+        // Excluir videos de tipos específicos
+        $videos = Video::with('categorias')
+            ->whereHas('tipo', function ($query) {
+                $query->whereNotIn('name', ['hentai-sin-sensura', 'hentai']);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(32);
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
         $estrenosPrimevideo = $this->videosPorCategorias(['prime-video', 'estrenos']);
 
-        
+
         // Obtener videos por tipo y categoría específicos.
         $crimenymisterio = $this->videosPorTipoYCategoria('peliculas', ['terror', 'misterio']);
         $comediayromance = $this->videosPorTipoYCategoria('peliculas', ['romance', 'comedia']);
