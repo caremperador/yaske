@@ -12,7 +12,7 @@
                     <div class="relative  w-[340px] bg-white/5 shadow-md rounded-3xl p-2 mx-1 my-3 ">
                         <div class="overflow-x-hidden rounded-2xl relative">
                             <a href="{{ route('listas.show', $lista->id) }}" class="block"> <img
-                                    class="h-40 rounded-2xl w-full object-cover" src="{{ $lista->thumbnail }}"
+                                    class="h-40 rounded-2xl w-full object-cover" src="{{ asset('storage/' . $lista->thumbnail) }}"
                                     alt="{{ $lista->titulo }}"></a>
                             <p class="absolute right-2 top-2 cursor-pointer">
                                 @foreach ($lista->categorias as $categoria)
