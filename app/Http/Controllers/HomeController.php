@@ -15,7 +15,7 @@ class HomeController extends Controller
         // Excluir videos de tipos específicos
         $videos = Video::with('categorias')
             ->whereHas('tipo', function ($query) {
-                $query->whereNotIn('name', ['hentai-sin-sensura', 'hentai']);
+                $query->whereNotIn('name', ['hentai-sin-censura', 'hentai']);
             })
             ->orderBy('created_at', 'desc')
             ->paginate(32);
