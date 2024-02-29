@@ -50,7 +50,7 @@
                             </div>
                             <div class="flex flex-col-reverse mb-1 mr-2 text- group cursor-pointer">
 
-                                <!-- Indica si contiene videos premium -->
+                              {{--   <!-- Indica si contiene videos premium -->
                                 @php
                                     $esPremium = $lista->videos->contains(function ($video) {
                                         return $video->estado == 1;
@@ -64,7 +64,7 @@
                                     <span
                                         class="text-xxs text-gray-300 font-bold uppercase bg-green-800 px-1 py-1 rounded  absolute right-2 bottom-4">Todo
                                         Gratis</span>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
