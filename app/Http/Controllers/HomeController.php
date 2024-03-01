@@ -12,15 +12,17 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Videos generales excluyendo tipos específicos a través de su lista
+        // Videos generales incluyendo aquellos que no pertenecen a una lista y excluyendo tipos específicos a través de su lista
         $videos = Video::with('categorias')
-            ->whereHas('lista', function ($query) {
-                $query->whereDoesntHave('tipo', function ($query) {
+            ->whereDoesntHave('lista', function ($query) {
+                $query->whereHas('tipo', function ($query) {
                     $query->whereIn('name', ['hentai-sin-censura', 'hentai']);
                 });
             })
+            ->orWhereDoesntHave('lista') // Incluye videos que no están asociados a ninguna lista
             ->orderBy('created_at', 'desc')
             ->paginate(32);
+
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
