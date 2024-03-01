@@ -133,10 +133,10 @@
                     <!-- Submenú -->
                     <div
                         class="hidden absolute left-0 z-10 mt-1 bg-custom-gray border border-gray-600 rounded-md submenu">
-                        <a href="{{ route('proximamente') }}"
+                        <a href="/tipo/hentai-sin-censura"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Hentai
+                            Hentai sin censura
                         </a>
                         <a href="{{ route('proximamente') }}"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
@@ -234,6 +234,9 @@
                                 TV</a>
                             <a href="/tipo/animes"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Animes</a>
+                            <a href="/tipo/hentai-sin-censura"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Hentain
+                                sin censura</a>
 
                         </div>
 
