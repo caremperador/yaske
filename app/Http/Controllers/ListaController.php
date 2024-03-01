@@ -37,32 +37,37 @@ class ListaController extends Controller
             'descripcion' => 'nullable',
             'thumbnail' => 'sometimes|image|max:2048', // Uso de sometimes para permitir archivos no subidos o usar URL de TMDB
             'thumbnailUrl' => 'nullable|url', // Campo para la URL del thumbnail de TMDB
-            'tmdb_id' => 'nullable|unique:listas,tmdb_id', // Asegura que el ID de TMDB sea único
+            'tmdb_id' => 'nullable', // Eliminar la regla unique aquí
             'tipo_id' => 'required|exists:tipos,id',
             'categoria_id' => 'required|array',
             'categoria_id.*' => 'exists:categorias,id',
         ]);
-        // Verifica si ya existe una lista con el mismo ID de TMDB
-        if ($request->has('tmdb_id') && Lista::where('tmdb_id', $request->tmdb_id)->exists()) {
+
+        // Verifica si tmdb_id está presente y es único, solo si tmdb_id es proporcionado
+        if (!empty($request->tmdb_id) && Lista::where('tmdb_id', $request->tmdb_id)->exists()) {
             return back()->withErrors(['tmdb_id' => 'Esta serie ya ha sido registrada.'])->withInput();
         }
 
-        // Manejo de la imagen
+        // Añadir validación unique de tmdb_id solo si está presente
+        if (!empty($request->tmdb_id)) {
+            $request->validate([
+                'tmdb_id' => 'unique:listas,tmdb_id',
+            ]);
+        }
+
+        // Manejo de la imagen (sin cambios aquí)
         if ($request->hasFile('thumbnail')) {
-            // Si se subió una imagen, almacenar y obtener el path
             $path = $request->file('thumbnail')->store('thumbnails', 'public');
         } elseif (!empty($validatedData['thumbnailUrl'])) {
-            // Si se proporcionó una URL de imagen de TMDB, descargar y almacenar la imagen
             $imageContents = file_get_contents($validatedData['thumbnailUrl']);
-            $imageName = 'thumbnail_' . time() . '.jpg'; // Generar un nombre único
+            $imageName = 'thumbnail_' . time() . '.jpg';
             Storage::disk('public')->put("thumbnails/{$imageName}", $imageContents);
             $path = "thumbnails/{$imageName}";
         } else {
-            // Considera establecer una imagen predeterminada o manejar la ausencia de imagen
             $path = null; // Asigna null o el path de una imagen predeterminada
         }
 
-        // Creación de la lista
+        // Creación de la lista (sin cambios aquí)
         $lista = new Lista();
         $lista->titulo = $validatedData['titulo'];
         $lista->es_titulo = $validatedData['es_titulo'] ?? null;
@@ -70,14 +75,15 @@ class ListaController extends Controller
         $lista->descripcion = $validatedData['descripcion'] ?? null;
         $lista->thumbnail = $path; // Asignar path de la imagen subida o descargada
         $lista->tipo_id = $validatedData['tipo_id'];
-        $lista->tmdb_id = $validatedData['tmdb_id'] ?? null; // Asignar el tmdb_id
+        $lista->tmdb_id = $validatedData['tmdb_id'] ?? null; // Asignar el tmdb_id, puede ser null
         $lista->save();
 
-        // Asignar categorías a la lista
+        // Asignar categorías a la lista (sin cambios aquí)
         $lista->categorias()->sync($validatedData['categoria_id']);
 
         return redirect()->route('listas.create')->with('success', 'Lista creada con éxito');
     }
+
 
 
 
