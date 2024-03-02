@@ -2,7 +2,7 @@
  <div class="swiper swiper-container swiperCarusel my-4">
     <div class="swiper-wrapper">
 
-        @foreach ($crimenymisterio as $video)
+        @foreach ($peliculasTerror as $video)
             <!-- Slide-->
             <div class="swiper-slide">
                 <div class="aspect-w-20 aspect-h-10  relative">

@@ -207,10 +207,10 @@
         </a></div>
     @include('home.carusel.comediayromance')
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas de Terror y misterio <a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Peliculas de Terror <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
-    @include('home.carusel.crimenymisterio')
+    @include('home.carusel.peliculas_terror')
 
     <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">ultimas series agregadas <a href="#"><i
                 class="fas fa-angle-double-right"></i>
