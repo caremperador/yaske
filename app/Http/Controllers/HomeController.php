@@ -30,7 +30,7 @@ class HomeController extends Controller
 
 
         // Obtener videos por tipo y categoría específicos.
-        $crimenymisterio = $this->videosPorTipoYCategoria('peliculas', ['crimen', 'misterio']);
+        $crimenymisterio = $this->videosPorTipoYCategoria('peliculas', ['terror', 'misterio']);
         $comediayromance = $this->videosPorTipoYCategoria('peliculas', ['romance', 'comedia']);
         $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', ['prime-video']);
         $peliculasFamilia = $this->videosPorTipoYCategoria('peliculas', ['familia']);
