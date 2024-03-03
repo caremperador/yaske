@@ -35,6 +35,7 @@ class VideoController extends Controller
 
         return view('videos.create', compact('listas', 'tipos', 'categorias')); // Pasa los datos a la vista
     }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -291,5 +292,39 @@ class VideoController extends Controller
         $videos = Video::where('es_calidad_cam', true)->paginate(10); // Ajusta la paginación según necesites
 
         return view('estrenos.estrenos_gratis', compact('videos'));
+    }
+
+    public function createCapitulos()
+    {
+        $listas = Lista::all(); // Asegúrate de importar el modelo Lista en la parte superior.
+        return view('videos.crear_capitulos', compact('listas'));
+    }
+    public function storeCapitulo(Request $request)
+    {
+        // Validación de los datos recibidos del formulario
+        $request->validate([
+            'lista_id' => 'required|exists:listas,id',
+            'titulo' => 'required|string|max:255',
+            'url_video' => 'required|url',
+            'estado' => 'required|boolean',
+        ]);
+
+        // Creación del nuevo capítulo (video)
+        $video = new Video;
+        $video->lista_id = $request->lista_id;
+        $video->titulo = $request->titulo;
+        $video->url_video = $request->url_video;
+        $video->estado = $request->estado;
+
+        // Aquí puedes agregar más campos según necesites
+        // Por ejemplo, si tienes campos para diferentes idiomas o calidades
+        // $video->es_titulo = $request->es_titulo;
+        // $video->lat_titulo = $request->lat_titulo;
+        // $video->descripcion = $request->descripcion;
+
+        $video->save(); // Guarda el capítulo en la base de datos
+
+        // Redirecciona a la página que prefieras con un mensaje de éxito
+        return redirect()->route('capitulos.create')->with('success', 'Capítulo añadido con éxito.');
     }
 }
