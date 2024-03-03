@@ -306,18 +306,32 @@ class VideoController extends Controller
             'lista_id' => 'required|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
             'titulo' => 'required|string|max:255',
+            'es_url_video' => 'nullable|url',
+            'lat_url_video' => 'nullable|url',
+            'sub_url_video' => 'nullable|url',
+            'descripcion' => 'nullable|string',
             'url_video' => 'required|url',
-            'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
+            'thumbnail' => 'nullable|image|max:2048', // Cambia 'sometimes' por 'nullable' y quita 'required'
+            'thumbnail_url' => 'nullable|url', // Asegúrate de validar también la URL del thumbnail si se envía
             'estado' => 'required|boolean',
         ]);
 
-
-        // Manejo de la carga de la imagen thumbnail
-        $thumbnailPath = 'ruta/a/imagen/por/defecto.jpg'; // Ruta por defecto si no se sube una imagen
-        if ($request->hasFile('thumbnail')) {
+        $thumbnailPath = ''; // Puedes establecer una ruta a una imagen por defecto si lo deseas
+        // Verifica si se proporcionó una URL para el thumbnail y úsala
+        if (!empty($request->input('thumbnail_url'))) {
+            // Descarga y guarda la imagen de TMDB
+            $thumbnailUrl = $request->input('thumbnail_url');
+            $contents = file_get_contents($thumbnailUrl);
+            $name = substr($thumbnailUrl, strrpos($thumbnailUrl, '/') + 1);
+            $name = time() . '_' . $name; // Asegura un nombre único
+            $path = 'thumbnails/' . $name;
+            Storage::disk('public')->put($path, $contents);
+            $thumbnailPath = $path;
+        } elseif ($request->hasFile('thumbnail')) {
+            // Manejo de la carga de la imagen thumbnail subida manualmente
             $thumbnail = $request->file('thumbnail');
             $thumbnailName = time() . '_' . $thumbnail->getClientOriginalName();
-            $thumbnailPath = $thumbnail->storeAs('thumbnails', $thumbnailName, 'public'); // Guarda en storage/app/public/thumbnails
+            $thumbnailPath = $thumbnail->storeAs('thumbnails', $thumbnailName, 'public');
         }
 
         // Creación del nuevo capítulo (video)
@@ -325,17 +339,13 @@ class VideoController extends Controller
         $video->lista_id = $request->lista_id;
         $video->tipo_id = $request->tipo_id;
         $video->titulo = $request->titulo;
+        $video->descripcion = $request->descripcion;
         $video->url_video = $request->url_video;
+        $video->es_url_video = $request->input('es_url_video');
+        $video->lat_url_video = $request->input('lat_url_video');
+        $video->sub_url_video = $request->input('sub_url_video');
         $video->estado = $request->estado;
         $video->thumbnail = $thumbnailPath; // Guarda la ruta de la imagen
-
-
-        // Aquí puedes agregar más campos según necesites
-        // Por ejemplo, si tienes campos para diferentes idiomas o calidades
-        // $video->es_titulo = $request->es_titulo;
-        // $video->lat_titulo = $request->lat_titulo;
-        // $video->descripcion = $request->descripcion;
-        //dd($request);
 
         $video->save(); // Guarda el capítulo en la base de datos
 

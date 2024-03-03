@@ -136,6 +136,10 @@
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-video mr-1"></i> Crear videos
                         </a>
+                        <a href="{{ route('capitulos.create') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-video mr-1"></i> Crear capitulos
+                        </a>
                         <a href="{{ route('tipos.create') }}"
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-folder-open mr-1"></i> Crear Tipos
