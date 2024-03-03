@@ -45,7 +45,7 @@
             <select name="lista_id" id="lista_id" class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                 <option value="">Seleccione una Lista</option>
                 @foreach ($listas as $lista)
-                    <option value="{{ $lista->id }}">{{ $lista->titulo }}</option>
+                <option value="{{ $lista->id }}" data-tmdb-id="{{ $lista->tmdb_id }}">{{ $lista->titulo }}</option>
                 @endforeach
             </select>
         </div>
@@ -93,55 +93,71 @@
 </div>
 
 
-    <script>
-        document.getElementById('tmdb_url').addEventListener('change', async function() {
-            const tmdbUrl = this.value;
-            const match = tmdbUrl.match(/\/tv\/(\d+).*\/season\/(\d+)\/episode\/(\d+)/);
-
-            if (match) {
-                const serieId = match[1];
-                const temporada = match[2];
-                const episodio = match[3];
-                const apiKey = document.querySelector('meta[name="api-key"]').getAttribute('content');
-
-                try {
+<script>
+    document.getElementById('tmdb_url').addEventListener('change', async function() {
+        const tmdbUrl = this.value;
+        const serieMatch = tmdbUrl.match(/\/tv\/(\d+)/);
+    
+        if (serieMatch) {
+            const serieId = serieMatch[1];
+            const apiKey = document.querySelector('meta[name="api-key"]').getAttribute('content');
+    
+            try {
+                // Intenta seleccionar la lista basada en el ID de TMDB
+                const listas = document.querySelectorAll('#lista_id option');
+                let listaFound = false;
+                listas.forEach((option) => {
+                    if (option.dataset.tmdbId === serieId) {
+                        option.selected = true;
+                        listaFound = true;
+                    }
+                });
+    
+                if (!listaFound) {
+                    console.log("La lista correspondiente no fue encontrada.");
+                }
+    
+                // Continúa con la lógica para manejar episodios si es necesario
+                // Por ejemplo, si la URL incluye detalles del episodio, obtén esos detalles
+                const episodioMatch = tmdbUrl.match(/\/season\/(\d+)\/episode\/(\d+)/);
+                if (episodioMatch) {
+                    const temporada = episodioMatch[1];
+                    const episodio = episodioMatch[2];
+    
                     // Obtener detalles de la serie para el título y el año
-                    const serieUrl =
-                        `https://api.themoviedb.org/3/tv/${serieId}?api_key=${apiKey}&language=es-ES`;
+                    const serieUrl = `https://api.themoviedb.org/3/tv/${serieId}?api_key=${apiKey}&language=es-ES`;
                     const serieResponse = await fetch(serieUrl);
                     const serieData = await serieResponse.json();
                     const year = serieData.first_air_date ? serieData.first_air_date.substring(0, 4) : '';
-
+    
                     // Obtener detalles del episodio para la descripción
-                    const episodioUrl =
-                        `https://api.themoviedb.org/3/tv/${serieId}/season/${temporada}/episode/${episodio}?api_key=${apiKey}&language=es-ES`;
+                    const episodioUrl = `https://api.themoviedb.org/3/tv/${serieId}/season/${temporada}/episode/${episodio}?api_key=${apiKey}&language=es-ES`;
                     const episodioResponse = await fetch(episodioUrl);
                     const episodioData = await episodioResponse.json();
-
+    
                     // Formatear y asignar el título
-                    document.getElementById('titulo').value =
-                        `${serieData.name} (${year}) capítulo ${episodio} temporada ${temporada}`;
-
+                    document.getElementById('titulo').value = `${serieData.name} (${year}) capítulo ${episodio} temporada ${temporada}`;
+    
                     // Asignar la descripción
                     document.getElementById('descripcion').value = episodioData.overview;
-
+    
                     // Previsualizar la miniatura
-                    const thumbnailUrl = episodioData.still_path ?
-                        `https://image.tmdb.org/t/p/w500${episodioData.still_path}` : '';
+                    const thumbnailUrl = episodioData.still_path ? `https://image.tmdb.org/t/p/w500${episodioData.still_path}` : '';
                     if (thumbnailUrl) {
                         document.getElementById('thumbnail_url').value = thumbnailUrl;
                         const preview = document.getElementById('thumbnail_preview');
                         preview.src = thumbnailUrl;
                         preview.style.display = 'block';
                     }
-                } catch (error) {
-                    console.error('Error al obtener datos de TMDB:', error);
                 }
-            } else {
-                console.error('Formato de URL no reconocido.');
+            } catch (error) {
+                console.error('Error al obtener datos de TMDB:', error);
             }
-        });
+        } else {
+            console.error('Formato de URL no reconocido.');
+        }
+    });
     </script>
-
+    
 
 @endsection
