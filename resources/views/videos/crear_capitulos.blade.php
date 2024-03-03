@@ -34,7 +34,7 @@
             {{-- Estado --}}
             <div class="mb-3">
                 <label for="estado" class="form-label">Estado</label>
-                <select name="estado" id="estado" class="form-select">
+                <select style="color: black;" name="estado" id="estado" class="form-select">
                     <option style="color: black;" value="1">Activo</option>
                     <option style="color: black;" value="0">Inactivo</option>
                 </select>
