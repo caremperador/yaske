@@ -19,7 +19,7 @@ class HomeController extends Controller
                     $query->whereIn('name', ['hentai-sin-censura', 'hentai']);
                 });
             })
-            ->orWhereDoesntHave('lista') // Incluye videos que no están asociados a ninguna lista
+            //->orWhereDoesntHave('lista') // Incluye videos que no están asociados a ninguna lista
             ->orderBy('created_at', 'desc')
             ->paginate(32);
 
