@@ -30,6 +30,7 @@ class HomeController extends Controller
 
 
         // Obtener videos por tipo y categoría específicos.
+        $ultimasPeliculasAgregadas = $this->videosPorTipoYCategoria('peliculas');
         $peliculasTerror = $this->videosPorTipoYCategoria('peliculas', ['terror']);
         $comediayromance = $this->videosPorTipoYCategoria('peliculas', ['romance', 'comedia']);
         $peliculasPrimevideo = $this->videosPorTipoYCategoria('peliculas', ['prime-video']);
@@ -65,7 +66,8 @@ class HomeController extends Controller
             'animes',
             'peliculasRecomendadas',
             'peliculasTerror',
-            'comediayromance'
+            'comediayromance',
+            'ultimasPeliculasAgregadas'
         ));
     }
 
