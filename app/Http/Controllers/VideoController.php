@@ -299,7 +299,7 @@ class VideoController extends Controller
         $listas = Lista::all(); // Asegúrate de importar el modelo Lista en la parte superior.
         return view('videos.crear_capitulos', compact('listas'));
     }
-    public function storeCapitulo(Request $request)
+    public function storeCapitulos(Request $request)
     {
         // Validación de los datos recibidos del formulario
         $request->validate([
