@@ -7,7 +7,11 @@
         <h1>Agregar Capítulo a Lista</h1>
         <form action="{{ route('capitulos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
+             {{-- Seleccionar foto --}}
+            <div>
+                <label for="thumbnail">Miniatura:</label>
+                <input type="file" name="thumbnail" id="thumbnail" required>
+            </div>
             {{-- Selector de Lista --}}
             <div class="mb-3">
                 <label for="lista_id" class="form-label">Seleccionar Lista</label>

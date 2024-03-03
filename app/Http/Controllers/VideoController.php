@@ -306,6 +306,7 @@ class VideoController extends Controller
             'lista_id' => 'required|exists:listas,id',
             'titulo' => 'required|string|max:255',
             'url_video' => 'required|url',
+            'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
             'estado' => 'required|boolean',
         ]);
 
@@ -315,6 +316,8 @@ class VideoController extends Controller
         $video->titulo = $request->titulo;
         $video->url_video = $request->url_video;
         $video->estado = $request->estado;
+        $video->thumbnail = $request->thumbnail ?? 'ruta/a/imagen/por/defecto.jpg';
+
 
         // Aquí puedes agregar más campos según necesites
         // Por ejemplo, si tienes campos para diferentes idiomas o calidades
