@@ -306,11 +306,11 @@ class VideoController extends Controller
             'lista_id' => 'required|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
             'titulo' => 'required|string|max:255',
+            'url_video' => 'nullable|url',
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
             'descripcion' => 'nullable|string',
-            'url_video' => 'required|url',
             'thumbnail' => 'nullable|image|max:2048', // Cambia 'sometimes' por 'nullable' y quita 'required'
             'thumbnail_url' => 'nullable|url', // Asegúrate de validar también la URL del thumbnail si se envía
             'estado' => 'required|boolean',
