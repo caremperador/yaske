@@ -56,7 +56,7 @@
         <div class="swiper-button-prev"></div>
     </div>
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Ultimos videos agregados <a href="#"><i
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Ultimos capitulos agregados <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
 
