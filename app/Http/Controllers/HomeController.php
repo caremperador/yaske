@@ -86,14 +86,19 @@ class HomeController extends Controller
             $listasUnicas = $videos->unique('lista_id');
 
             foreach ($listasUnicas as $video) {
-                if (!isset($ultimosVideos[$video->lista->titulo])) {
-                    $ultimosVideos[$video->lista->titulo] = $video;
-                }
+                $ultimosVideos[] = $video; // Cambio aquí: acumulamos todos los videos en un arreglo simple
             }
         }
 
+        // Ordenar globalmente por fecha, si es necesario
+        // Este paso es opcional si ya se garantiza el orden por la consulta
+        usort($ultimosVideos, function ($a, $b) {
+            return $b->created_at <=> $a->created_at; // Orden descendente por fecha
+        });
+
         return $ultimosVideos;
     }
+
 
 
     private function videosPorCategorias(array $nombresCategorias)
