@@ -60,7 +60,7 @@
                 class="fas fa-angle-double-right"></i>
         </a></div>
 
-    @include('home.carusel.ultimos_agregados')
+    @include('home.carusel.ultimos_capitulos')
 
 
     <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">ultimas series agregadas <a href="#"><i

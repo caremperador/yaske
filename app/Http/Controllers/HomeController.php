@@ -23,6 +23,8 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(32);
 
+        $tiposDeListas = ['series', 'animes'];
+        $ultimosVideosPorTipoDeLista = $this->ultimoVideoPorTipoDeLista($tiposDeListas);
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
@@ -67,9 +69,32 @@ class HomeController extends Controller
             'peliculasRecomendadas',
             'peliculasTerror',
             'comediayromance',
-            'ultimasPeliculasAgregadas'
+            'ultimasPeliculasAgregadas',
+            'ultimosVideosPorTipoDeLista'
         ));
     }
+
+    private function ultimoVideoPorTipoDeLista($tipos)
+    {
+        $ultimosVideos = [];
+
+        foreach ($tipos as $tipo) {
+            $videos = Video::whereHas('lista.tipo', function ($query) use ($tipo) {
+                $query->where('name', $tipo);
+            })->with('lista')->latest('videos.created_at')->get();
+
+            $listasUnicas = $videos->unique('lista_id');
+
+            foreach ($listasUnicas as $video) {
+                if (!isset($ultimosVideos[$video->lista->titulo])) {
+                    $ultimosVideos[$video->lista->titulo] = $video;
+                }
+            }
+        }
+
+        return $ultimosVideos;
+    }
+
 
     private function videosPorCategorias(array $nombresCategorias)
     {
