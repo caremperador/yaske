@@ -304,19 +304,30 @@ class VideoController extends Controller
         // Validación de los datos recibidos del formulario
         $request->validate([
             'lista_id' => 'required|exists:listas,id',
+            'tipo_id' => 'required|exists:tipos,id',
             'titulo' => 'required|string|max:255',
             'url_video' => 'required|url',
             'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
             'estado' => 'required|boolean',
         ]);
 
+
+        // Manejo de la carga de la imagen thumbnail
+        $thumbnailPath = 'ruta/a/imagen/por/defecto.jpg'; // Ruta por defecto si no se sube una imagen
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail = $request->file('thumbnail');
+            $thumbnailName = time() . '_' . $thumbnail->getClientOriginalName();
+            $thumbnailPath = $thumbnail->storeAs('thumbnails', $thumbnailName, 'public'); // Guarda en storage/app/public/thumbnails
+        }
+
         // Creación del nuevo capítulo (video)
         $video = new Video;
         $video->lista_id = $request->lista_id;
+        $video->tipo_id = $request->tipo_id;
         $video->titulo = $request->titulo;
         $video->url_video = $request->url_video;
         $video->estado = $request->estado;
-        $video->thumbnail = $request->thumbnail ?? 'ruta/a/imagen/por/defecto.jpg';
+        $video->thumbnail = $thumbnailPath; // Guarda la ruta de la imagen
 
 
         // Aquí puedes agregar más campos según necesites
@@ -324,6 +335,7 @@ class VideoController extends Controller
         // $video->es_titulo = $request->es_titulo;
         // $video->lat_titulo = $request->lat_titulo;
         // $video->descripcion = $request->descripcion;
+        //dd($request);
 
         $video->save(); // Guarda el capítulo en la base de datos
 

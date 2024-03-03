@@ -34,8 +34,8 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
     Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('responseCache:60');
-    Route::get('/capitulos/crear', 'createCapitulos')->name('capitulos.create')->middleware('responseCache:60');
-    Route::post('/capitulos/crear', 'storeCapitulos')->name('capitulos.store')->middleware('responseCache:60');
+    Route::get('/capitulos/crear', 'createCapitulos')->name('capitulos.create');
+    Route::post('/capitulos/crear', 'storeCapitulos')->name('capitulos.store');
 });
 
 Route::controller(ApiTMDBController::class)->group(function () {
