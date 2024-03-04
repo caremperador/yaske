@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @section('title', 'Inicio')
-
+@include('scripts.pa_antiadblock_7142069')
 @section('content')
 
 
