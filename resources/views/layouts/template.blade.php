@@ -467,9 +467,19 @@
 
     @stack('scripts')
     <img src="https://whos.amung.us/widget/yaskeros.png" style="display:none" />
-    <div class="hidden" style="display:none">
-        <script type="text/javascript" src="https://cdn.livetrafficfeed.com/static/v5/live.js?bc=ffffff&tc=000000&brd1=2853a8&lnk=135d9e&hc=ffffff&hfc=2853a8&nc=19ff19&vv=210&tft=10&ro=0&tz=America%2FNew_York&res=0"></script><noscript id="LTF_live_website_visitor"><a href="http://livetrafficfeed.com">Website Traffic Counter</a></noscript>
-    </div>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CSPDXFRZY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-9CSPDXFRZY');
+    </script>
 </body>
 
 </html>
