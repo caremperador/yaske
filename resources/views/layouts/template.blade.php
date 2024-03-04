@@ -469,7 +469,7 @@
     <img src="https://whos.amung.us/widget/yaskeros.png" style="display:none" />
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9CSPDXFRZY"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S6XX7JKWN4"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -478,7 +478,7 @@
         }
         gtag('js', new Date());
 
-        gtag('config', 'G-9CSPDXFRZY');
+        gtag('config', 'G-S6XX7JKWN4');
     </script>
 </body>
 
