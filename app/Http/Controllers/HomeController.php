@@ -51,6 +51,10 @@ class HomeController extends Controller
         // Videos de calidad CAM
         $videosCalidadCam = $this->videosCalidadCam();
 
+          // Verificar el User-Agent para identificar si la solicitud proviene de una WebView de Android
+          $userAgent = request()->header('User-Agent');
+          $isWebView = strpos($userAgent, 'wv') !== false;
+
 
         return view('home.index', compact(
             'videos',
@@ -70,7 +74,8 @@ class HomeController extends Controller
             'peliculasTerror',
             'comediayromance',
             'ultimasPeliculasAgregadas',
-            'ultimosVideosPorTipoDeLista'
+            'ultimosVideosPorTipoDeLista',
+            'isWebView'
         ));
     }
 

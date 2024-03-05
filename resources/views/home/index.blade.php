@@ -199,13 +199,9 @@
         </div>
     </div> --}}
 
-
-    @if (!session('ad_shown') || now()->diffInDays(session('ad_shown')) >= 1)
+    @if (!$isWebView && (!session('ad_shown') || now()->diffInDays(session('ad_shown')) >= 1))
         @include('scripts.pa_antiadblock_7142069')
-        @php
-            // Actualizar la sesión para indicar que el anuncio se ha mostrado.
-            session(['ad_shown' => now()]);
-        @endphp
+        @php session(['ad_shown' => now()]); @endphp
     @endif
 
 @endsection
