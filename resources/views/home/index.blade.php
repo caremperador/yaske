@@ -199,9 +199,27 @@
         </div>
     </div> --}}
 
-    @if (!$isWebView && (!session('ad_shown') || now()->diffInDays(session('ad_shown')) >= 1))
-        @include('scripts.pa_antiadblock_7142069')
-        @php session(['ad_shown' => now()]); @endphp
+    @if (!$isWebView)
+        <script>
+            // Verifica si el anuncio ya se mostró utilizando el almacenamiento local
+            let adShown = localStorage.getItem('ad_shown');
+            let adShownTime = adShown ? new Date(adShown) : null;
+            let now = new Date();
+
+            if (!adShownTime || now - adShownTime >= 86400000) { // 24 horas
+                // No se ha mostrado el anuncio en las últimas 24 horas, o nunca se ha mostrado
+                document.addEventListener('DOMContentLoaded', function() {
+                    @if (!session('ad_shown') || now()->diffInDays(session('ad_shown')) >= 1)
+                        @include('scripts.pa_antiadblock_7142069')
+                        @php
+                            session(['ad_shown' => now()]);
+                        @endphp
+                        localStorage.setItem('ad_shown', now.toISOString());
+                    @endif
+                });
+            }
+        </script>
     @endif
+
 
 @endsection
