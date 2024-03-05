@@ -199,34 +199,7 @@
         </div>
     </div> --}}
 
-    @if (!$isWebView)
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Comprobar si ya se ha mostrado el anuncio en el almacenamiento local
-                let adShown = localStorage.getItem('ad_shown');
-                let now = new Date();
-
-                if (!adShown || now.getTime() - new Date(adShown).getTime() >= 86400000) { // 86400000 ms = 24 horas
-                    // Verifica la sesión de PHP para ver si se ha mostrado el anuncio
-                    let adShownSession = @json(session('ad_shown'));
-                    let sessionTime = adShownSession ? new Date(adShownSession) : null;
-
-                    if (!sessionTime || now - sessionTime >= 86400000) {
-                        // Mostrar anuncio ya que no se ha mostrado en las últimas 24 horas
-                        // Incluir el script de anuncio que se supone que se muestra
-                        @include('scripts.pa_antiadblock_7142069')
-
-                        // Actualiza la hora en la sesión de PHP y el almacenamiento local
-                        localStorage.setItem('ad_shown', now.toISOString());
-
-                        @php
-                            session(['ad_shown' => now()]);
-                        @endphp
-                    }
-                }
-            });
-        </script>
-    @endif
+  
 
 
 
