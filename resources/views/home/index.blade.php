@@ -200,7 +200,7 @@
     </div> --}}
 
   
-
+    @include('scripts.pa_antiadblock_7142069')
 
 
 @endsection
