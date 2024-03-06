@@ -115,6 +115,11 @@
                                 class="fas fa-circle text-xxs p-1"></i>
                             Series TV
                         </a>
+                        <a href="/tipo/kids"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Kids
+                        </a>
                         <a href="/tipo/animes"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
@@ -232,6 +237,8 @@
                             <a href="/tipo/series"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Series
                                 TV</a>
+                            <a href="/tipo/kids"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Kids</a>
                             <a href="/tipo/animes"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Animes</a>
                             <a href="/tipo/hentai-sin-censura"
