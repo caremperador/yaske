@@ -94,7 +94,7 @@
 
             {{-- Tipo de video --}}
             <div>
-                <select style="color:black;" name="tipo_id" id="tipo_id" required
+                <select style="color:black;" name="tipo_id" id="tipo_id" 
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
                     @foreach ($tipos as $tipo)
                         <option value="{{ $tipo->id }}" {{ $video->tipo_id == $tipo->id ? 'selected' : '' }}>
@@ -106,7 +106,7 @@
 
             {{-- Categorías --}}
             <div>
-                <select style="color:black;" name="categoria_id[]" id="categoria_id" multiple required
+                <select style="color:black;" name="categoria_id[]" id="categoria_id" 
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                     @foreach ($categorias as $categoria)
                         <option value="{{ $categoria->id }}"
