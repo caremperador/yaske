@@ -3,7 +3,7 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.template')
-@section('title', 'Yaske - Ver ' . $video->titulo. 'online')
+@section('title', 'Yaske - Ver ' . $video->titulo. ' online')
 @section('background')
 
     <div class="relative w-full">
