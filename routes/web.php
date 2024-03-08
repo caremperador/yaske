@@ -64,8 +64,8 @@ Route::controller(TipoController::class)->group(function () {
     Route::get('/tipos', 'index')->name('tipos.index')->middleware('auth');
     Route::get('/tipos/create', 'create')->name('tipos.create')->middleware('auth');
     Route::post('/tipos', 'store')->name('tipos.store')->middleware('auth');
-    Route::get('/tipos/video/{tipoSlug}', 'show')->name('tipos.show')->middleware('auth');
-    Route::get('/tipo/{tipoSlug}/{categoria?}', 'show_con_listas')->name('tipos.show_con_listas')->middleware('auth');
+    Route::get('/tipos/video/{tipoSlug}', 'show')->name('tipos.show');
+    Route::get('/tipo/{tipoSlug}/{categoria?}', 'show_con_listas')->name('tipos.show_con_listas');
 });
 
 
