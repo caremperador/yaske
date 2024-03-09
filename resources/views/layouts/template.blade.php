@@ -115,6 +115,11 @@
                                 class="fas fa-circle text-xxs p-1"></i>
                             Series TV
                         </a>
+                        <a href="/tipo/novelas"
+                            class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
+                                class="fas fa-circle text-xxs p-1"></i>
+                            Animes
+                        </a>
                         <a href="/tipo/kids"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
@@ -237,6 +242,8 @@
                             <a href="/tipo/series"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Series
                                 TV</a>
+                            <a href="/tipo/novelas"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Novelas</a>
                             <a href="/tipo/kids"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-white hover:bg-gray-800">Kids</a>
                             <a href="/tipo/animes"
