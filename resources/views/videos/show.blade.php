@@ -3,10 +3,11 @@
     use Carbon\Carbon;
 @endphp
 @extends('layouts.template')
-@section('title', 'Yaske - Ver ' . $video->titulo. ' online')
+@section('title', 'Yaske - Ver ' . $video->titulo . ' online')
 @section('background')
 
     <div class="relative w-full">
+        <p class="absolute top-4 right-3">Visitas: {{ $video->views_count }}</p>
         <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
         <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen de portada"
             class="w-full h-auto md:max-h-screen object-cover object-top">
@@ -79,7 +80,7 @@
 
     <p class="block xl:hidden m-2">{{ $video->descripcion }}</p>
 
-    <p>Visitas: {{ $video->views_count }}</p>
+
 @endsection
 @section('content')
 
@@ -88,10 +89,11 @@
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="mx-auto max-w-7xl">
 
-
+            
 
             {{-- ... aqui empieza el div de puntuaciones del video ... --}}
             <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
+                
                 <h3 class="text-xl font-bold mb-4 text-white">Calificaciones para este video</h3>
 
                 {{-- Sección de calificaciones --}}
