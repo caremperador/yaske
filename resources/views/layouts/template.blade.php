@@ -118,7 +118,7 @@
                         <a href="/tipo/novelas"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
                                 class="fas fa-circle text-xxs p-1"></i>
-                            Animes
+                            Novelas
                         </a>
                         <a href="/tipo/kids"
                             class="block px-4 py-2 text-sm text-white hover:bg-gray-600 whitespace-nowrap"><i
