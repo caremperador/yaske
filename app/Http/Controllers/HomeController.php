@@ -24,7 +24,7 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(32);
 
-        $tiposDeListas = ['series', 'animes'];
+        $tiposDeListas = ['series', 'animes','novelas'];
         $ultimosVideosPorTipoDeLista = $this->ultimoVideoPorTipoDeLista($tiposDeListas);
 
         // Obtener los videos más vistos del mes
