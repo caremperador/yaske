@@ -188,10 +188,14 @@ class HomeController extends Controller
     }
     public function videosMasVistosDelMes()
     {
+        $fechaInicio = Carbon::now()->subDays(30); // Fecha de inicio hace 30 días
+        $fechaFin = Carbon::now(); // Fecha actual
+        
+        /* // Obtener el primer y último día del mes actual
         $inicioMes = Carbon::now()->startOfMonth();
-        $finMes = Carbon::now()->endOfMonth();
+        $finMes = Carbon::now()->endOfMonth(); */
 
-        $videosMasVistos = Video::whereBetween('created_at', [$inicioMes, $finMes])
+        $videosMasVistos = Video::whereBetween('created_at', [$fechaInicio, $fechaFin])
             ->whereDoesntHave('lista', function ($query) {
                 $query->whereHas('tipo', function ($query) {
                     $query->whereIn('name', ['hentai-sin-censura', 'hentai']);
