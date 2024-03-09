@@ -79,7 +79,7 @@
 
     <p class="block xl:hidden m-2">{{ $video->descripcion }}</p>
 
-
+    <p>Visitas: {{ $video->views_count }}</p>
 @endsection
 @section('content')
 

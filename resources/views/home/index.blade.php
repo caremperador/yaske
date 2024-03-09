@@ -109,6 +109,11 @@
                 class="fas fa-angle-double-right"></i>
         </a></div>
     @include('home.carusel.ultimos_animes_agregados')
+
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">videos mas vistos del mes <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+    @include('home.carusel.videosMasVistos')
     {{-- 
 
 
@@ -199,7 +204,7 @@
         </div>
     </div> --}}
 
-  
+
     @include('scripts.pa_antiadblock_7142069')
 
 

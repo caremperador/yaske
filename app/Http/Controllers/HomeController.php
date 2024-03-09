@@ -7,6 +7,7 @@ use App\Models\Lista;
 use App\Models\Video;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,9 @@ class HomeController extends Controller
 
         $tiposDeListas = ['series', 'animes'];
         $ultimosVideosPorTipoDeLista = $this->ultimoVideoPorTipoDeLista($tiposDeListas);
+
+        // Obtener los videos más vistos del mes
+        $videosMasVistos = $this->videosMasVistosDelMes();
 
         // mostrar videos por categorias
         $estrenosNetflix = $this->videosPorCategorias(['netflix', 'estrenos']);
@@ -51,9 +55,9 @@ class HomeController extends Controller
         // Videos de calidad CAM
         $videosCalidadCam = $this->videosCalidadCam();
 
-          // Verificar el User-Agent para identificar si la solicitud proviene de una WebView de Android
-          $userAgent = request()->header('User-Agent');
-          $isWebView = strpos($userAgent, 'wv') !== false;
+        // Verificar el User-Agent para identificar si la solicitud proviene de una WebView de Android
+        $userAgent = request()->header('User-Agent');
+        $isWebView = strpos($userAgent, 'wv') !== false;
 
 
         return view('home.index', compact(
@@ -75,7 +79,8 @@ class HomeController extends Controller
             'comediayromance',
             'ultimasPeliculasAgregadas',
             'ultimosVideosPorTipoDeLista',
-            'isWebView'
+            'isWebView',
+            'videosMasVistos'
         ));
     }
 
@@ -180,5 +185,16 @@ class HomeController extends Controller
     {
         $videosCalidadCam = Video::where('es_calidad_cam', true)->orderBy('created_at', 'desc')->get();
         return $videosCalidadCam;
+    }
+    public function videosMasVistosDelMes()
+    {
+        $inicioMes = Carbon::now()->startOfMonth();
+        $finMes = Carbon::now()->endOfMonth();
+
+        $videosMasVistos = Video::whereBetween('created_at', [$inicioMes, $finMes])
+            ->orderBy('views_count', 'desc')
+            ->paginate(12); // Ajusta el número de items por página a tu necesidad
+
+        return $videosMasVistos;
     }
 }

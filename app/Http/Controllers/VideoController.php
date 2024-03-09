@@ -102,6 +102,8 @@ class VideoController extends Controller
     {
         // Carga las relaciones 'lista' y 'comentarios' del video
         $video->load('lista', 'comentarios.user', 'puntuaciones');
+        // Incrementa el contador de visitas
+        $video->increment('views_count');
 
         /* // Verificar el estado del video y el rol del usuario
         if ($video->estado == 0 && !Auth::user()->hasRole('premium')) {
