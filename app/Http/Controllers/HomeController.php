@@ -192,6 +192,11 @@ class HomeController extends Controller
         $finMes = Carbon::now()->endOfMonth();
 
         $videosMasVistos = Video::whereBetween('created_at', [$inicioMes, $finMes])
+            ->whereDoesntHave('lista', function ($query) {
+                $query->whereHas('tipo', function ($query) {
+                    $query->whereIn('name', ['hentai-sin-censura', 'hentai']);
+                });
+            })
             ->orderBy('views_count', 'desc')
             ->paginate(12); // Ajusta el número de items por página a tu necesidad
 
