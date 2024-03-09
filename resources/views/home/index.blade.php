@@ -72,6 +72,12 @@
         </a></div>
     @include('home.carusel.ultimas_peliculas_agregadas')
 
+    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">videos mas vistos en 30 dias <a href="#"><i
+                class="fas fa-angle-double-right"></i>
+        </a></div>
+        
+    @include('home.carusel.videosMasVistos')
+
     <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">Estrenos netflix <a href="#"><i
                 class="fas fa-angle-double-right"></i>
         </a></div>
@@ -110,10 +116,7 @@
         </a></div>
     @include('home.carusel.ultimos_animes_agregados')
 
-    <div class="px-4 pt-5 text-xl md:text-2xl lg:text-3xl">videos mas vistos del mes <a href="#"><i
-                class="fas fa-angle-double-right"></i>
-        </a></div>
-    @include('home.carusel.videosMasVistos')
+
     {{-- 
 
 
