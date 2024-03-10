@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title', 'Listas de tipo ' . $tipo->name)
+@section('title', 'Listas de ' . $tipo->name)
 
 @section('content')
     <div class="flex flex-col justify-center">
