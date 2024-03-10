@@ -1,8 +1,7 @@
 @extends('layouts.template')
-@section('title', 'Inicio')
+@section('title', 'Yaske Videos online en HD')
+@section('meta-descripcion', 'videos totalmente gratis en HD, en varios idiomas, ingles, español, latino, subtitulados')
 @section('content')
-
-
 
     <!-- Swiper -->
     <div class="swiper SwiperPortadas h-auto rounded-lg">
