@@ -4,6 +4,7 @@
 @endphp
 @extends('layouts.template')
 @section('title', 'Yaske - Ver ' . $video->titulo . ' online')
+@section('meta-descripcion', 'Ver gratis ' . $video->titulo . ' completo online en HD. ' . $video->descripcion)
 @section('background')
 
     <div class="relative w-full">
