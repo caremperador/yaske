@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Todas los videos de Peliculas')
+@section('title', 'Todos los videos de Peliculas')
 
 @section('content')
     <div class="flex flex-col justify-center">
