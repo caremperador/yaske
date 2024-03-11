@@ -108,8 +108,7 @@
                                     </p>
                                 </div>
                                 <div class="mt-1">
-                                    <h1 class="text-md font-bold text-gray-300 truncate">{{ formatSeasonEpisode($video->titulo) }}
-                                    </h1>
+                                    <p class="text-md font-bold text-gray-300 truncate">{{ formatSeasonEpisode($video->titulo) }}</p>
                                     <p class="text-gray-400 text-ellipsis truncate">{{ $video->descripcion }}</p>
 
                                     <!-- Idiomas disponibles -->
