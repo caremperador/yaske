@@ -5,6 +5,18 @@
 @extends('layouts.template')
 @section('title', 'Yaske - Ver ' . $video->titulo . ' online')
 @section('meta-descripcion', 'Ver gratis ' . $video->titulo . ' completo online en HD. ' . $video->descripcion)
+@section('metas-wsp-tg-tw')
+<!-- ... otras etiquetas ... -->
+<meta property="og:title" content="{{ $video->titulo }}" />
+<meta property="og:description" content="{{ $video->descripcion }}" />
+<meta property="og:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
+<meta property="og:url" content="https://tusitio.com/pagina-del-post" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="{{ $video->titulo }}" />
+<meta property="twitter:description" content="{{ $video->descripcion }}" />
+<meta property="twitter:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
+@endsection
 @section('background')
 
     <div class="relative w-full">
