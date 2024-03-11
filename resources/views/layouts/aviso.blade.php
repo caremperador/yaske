@@ -10,14 +10,13 @@
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </span>
-                <a href="{{ route('proximamente') }}">
+                <a href="https://t.me/yaskeru">
                     <p class="ml-3 font-medium text-white truncate">
                         <span class="md:hidden">
-                            ¡Leer importante aviso!
+                            ¡Unete a telegram!
                         </span>
                         <span class="hidden md:inline">
-                            Dilo.nu ahora será Yaske.ru. ¡Encuentra series, animes, películas, doramas, novelas y más en
-                            un solo sitio!
+                           Siguenos en telegram para estar al tanto de las novedades
                         </span>
                     </p>
                 </a>
