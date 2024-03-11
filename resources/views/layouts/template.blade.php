@@ -23,7 +23,7 @@
                 class="mx-auto" />
         </div>
     </div>
-    @include('layouts.aviso')
+   
     <header>
         <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
             <div class="flex lg:flex-1 mr-6 text-white">
