@@ -2,10 +2,9 @@
 
 
 function formatSeasonEpisode($title) {
-    // Esta expresión regular busca opcionalmente un año entre paréntesis (que puede o no estar presente),
-    // seguido por "capítulo" o "capitulo" (con o sin tilde) y un número (el episodio),
-    // seguido por "temporada" y un número (la temporada).
-    $pattern = '/(?:\(\d{4}\)\s+)?cap[ií]tulo\s+(\d+)\s+temporada\s+(\d+)/i';
+    // Esta expresión regular busca "capítulo" o "capitulo" (con o sin tilde) seguido de un número (el episodio),
+    // y luego "temporada" seguido de un número (la temporada), independientemente de lo que venga antes o después en el título.
+    $pattern = '/cap[ií]tulo\s+(\d+)\s+temporada\s+(\d+)/i';
     preg_match($pattern, $title, $matches);
     
     if ($matches && count($matches) === 3) {
@@ -13,7 +12,7 @@ function formatSeasonEpisode($title) {
         // [0] => string completa
         // [1] => número de capítulo
         // [2] => número de temporada
-        return $matches[2] . 'x' . $matches[1];
+        return 'S' . $matches[2] . 'E' . $matches[1]; // Formato S{temporada}E{episodio}
     } else {
         // Si no se puede determinar el patrón, devuelve el título original o cualquier otro placeholder que desees
         return $title;
