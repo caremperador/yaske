@@ -6,6 +6,8 @@
             <!-- Slide-->
             <div class="swiper-slide">
                 <div class="aspect-w-20 aspect-h-10  relative">
+                    <p class="absolute bottom-1 right-1  bg-red-800 px-2 py-1 rounded-xl">{{ formatSeasonEpisode($video->titulo) }}
+                    </p>
                     <a href="{{ route('videos.show', $video->id) }}">
                         <img src="{{ asset('storage/' . $video->thumbnail) }}" alt="Imagen 1"
                             class="w-full h-auto object-cover"></a>
@@ -28,7 +30,7 @@
                         <i class="fas fa-gem text-yellow-600 mr-1 my-1 text-xs md:text-base"></i>
                     @endif
 
-                    {{ $video->titulo }}
+                    {{ extractTitleName($video->titulo) }}
                 </p>
             </div>
         @endforeach
