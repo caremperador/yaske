@@ -9,7 +9,7 @@
 
     <div class="relative w-full">
         <!-- La imagen ocupa el ancho completo y su exceso de altura se oculta -->
-        <img src="https://via.placeholder.com/341x192" alt="Imagen de portada"
+        <img src="{{ asset('storage/' . $lista->thumbnail) }}" alt="Imagen de portada"
             class="w-full h-auto md:max-h-screen object-cover object-top">
 
         <!-- Degradado de izquierda a derecha -->
