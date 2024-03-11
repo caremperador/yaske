@@ -2,9 +2,9 @@
 
 
 function formatSeasonEpisode($title) {
-    // Esta expresión regular busca "capítulo" o "capitulo" (con o sin tilde) seguido por un número (el episodio),
-    // y "temporada" seguido por un número (la temporada), independientemente de lo que haya antes o después.
-    $pattern = '/cap[ií]tulo\s+(\d+)\s+temporada\s+(\d+)/i';
+    // Utilizamos el modificador 'u' para tratar la expresión regular como UTF-8
+    // y hacemos que detecte tanto "capítulo" como "capitulo" (con y sin tilde)
+    $pattern = '/cap[ií]tulo\s+(\d+)\s+temporada\s+(\d+)/iu';
     preg_match($pattern, $title, $matches);
     
     if ($matches && count($matches) === 3) {
@@ -17,6 +17,7 @@ function formatSeasonEpisode($title) {
         return $title;
     }
 }
+
 
 
 
