@@ -106,7 +106,12 @@
 
             {{-- ... aqui empieza el div de puntuaciones del video ... --}}
             <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
-                
+                @if (auth()->check())
+                @if (auth()->user()->hasRole('admin'))
+                <a target="blank" href="{{ route('videos.edit', $video->id) }}" class="text-xxs bg-gray-500 px-2 py-1 rounded">Editar</a>
+                @endif
+            @endif
+
                 <h3 class="text-xl font-bold mb-4 text-white">Calificaciones para este video</h3>
 
                 {{-- Sección de calificaciones --}}

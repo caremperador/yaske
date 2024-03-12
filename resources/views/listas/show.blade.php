@@ -26,15 +26,15 @@
             <div class=" text-white p-4 rounded-lg">
                 <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">
                     {{ $lista->titulo }}</p>
-                    <div class="hidden md:inline-flex flex-col text-xs lg:text-base">
-                        <a href="#capitulos"
-                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Ver capitulos</a>
-                    </div>
-                   
+                <div class="hidden md:inline-flex flex-col text-xs lg:text-base">
+                    <a href="#capitulos" class="bg-white text-black rounded-full px-4 py-2 mb-4"><i
+                            class="fa fa-play mr-1"></i>Ver capitulos</a>
+                </div>
+
             </div>
             <p class="hidden xl:block lg:text-2xl  px-4 mb-5">{{ $lista->descripcion }}</p>
         </div>
-        
+
     </div>
     </div>
 
@@ -81,6 +81,11 @@
                     <h2 class="text-xl font-bold mb-4 px-4 pt-4">Videos en esta lista</h2>
 
                     @forelse ($videos as $video)
+                    @if (auth()->check())
+                    @if (auth()->user()->hasRole('admin'))
+                    <a target="blank" href="{{ route('videos.edit', $video->id) }}" class="text-xxs bg-gray-500 px-2 py-1 rounded">Editar  {{ formatSeasonEpisode($video->titulo) }}</a>
+                    @endif
+                @endif
                         <a href="{{ route('videos.show', $video->id) }}"
                             class="hover:bg-gray-700 transition duration-150 ease-in-out block relative">
                             <div class="border-b border-gray-700 flow-root">
@@ -108,9 +113,10 @@
                                     </p>
                                 </div>
                                 <div class="mt-1">
-                                    <p class="text-md font-bold text-gray-300 truncate">{{ formatSeasonEpisode($video->titulo) }}</p>
+                                    <p class="text-md font-bold text-gray-300 truncate">
+                                        {{ formatSeasonEpisode($video->titulo) }}</p>
                                     <p class="text-gray-400 text-ellipsis truncate">{{ $video->descripcion }}</p>
-                                   
+                                  
 
                                     <!-- Idiomas disponibles -->
                                     @if ($video->url_video)
