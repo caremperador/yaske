@@ -110,6 +110,12 @@
                                 <div class="mt-1">
                                     <p class="text-md font-bold text-gray-300 truncate">{{ formatSeasonEpisode($video->titulo) }}</p>
                                     <p class="text-gray-400 text-ellipsis truncate">{{ $video->descripcion }}</p>
+                                    @if (auth()->user()->hasRole('admin'))
+                                    <form action="{{ route('videos.edit', $video->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500">editar</button>
+                                    @endif
 
                                     <!-- Idiomas disponibles -->
                                     @if ($video->url_video)
