@@ -64,7 +64,7 @@
 
             <div class="mb-6">
                 <label for="descripcion" class="block mb-2 text-sm font-medium">Descripción del Capítulo</label>
-                <textarea name="descripcion" id="descripcion" required
+                <textarea name="descripcion" id="descripcion" 
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     rows="4"></textarea>
             </div>
