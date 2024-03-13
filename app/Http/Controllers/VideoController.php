@@ -392,6 +392,12 @@ class VideoController extends Controller
 
         return view('videos.enlaces_caidos', compact('videosConEnlacesCaidos'));
     }
+    public function deleteEnlaceCaido(VideoEnlace $enlace)
+    {
+        $enlace->delete();
+
+        return back()->with('success', 'Enlace eliminado correctamente.');
+    }
 
 
 
@@ -405,11 +411,11 @@ class VideoController extends Controller
             'sub' => $video->sub_url_video_gratis,
             default => null,
         };
-    
+
         if (!$urlColumn) {
             return back()->with('error', 'Tipo de enlace no válido.');
         }
-    
+
         try {
             $response = Http::get($urlColumn);
             if ($response->status() == 404 || str_contains(strtolower($response->body()), 'not found') || str_contains(strtolower($response->body()), 'deleted')) {
@@ -421,17 +427,16 @@ class VideoController extends Controller
             // Considera manejar diferentes tipos de excepciones de manera diferente
             $caido = true;
         }
-    
+
         if ($caido) {
             VideoEnlace::updateOrCreate(
                 ['video_id' => $video->id, 'tipo' => $tipo],
                 ['url' => $urlColumn, 'caido' => true]
             );
-    
+
             return back()->with('success', 'El enlace ha sido reportado como caído. Gracias por tu ayuda.');
         } else {
             return back()->with('info', 'El enlace parece estar funcionando correctamente.');
         }
     }
-    
 }
