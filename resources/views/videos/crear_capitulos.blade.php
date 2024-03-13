@@ -68,7 +68,7 @@
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     rows="4"></textarea>
             </div>
-
+            <h2> links premium</h2>
             <div class="mb-6">
                 <label for="url_video" class="block mb-2 text-sm font-medium">URL del Video (Inglés)</label>
                 <input type="text" name="url_video" id="url_video"
@@ -93,7 +93,7 @@
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             </div>
             {{-- links gratis --}}
-
+            <h2> links gratis</h2>
             <div class="mb-6">
                 <label for="url_video_gratis" class="block mb-2 text-sm font-medium">URL del Video (Inglés) gratis</label>
                 <input type="text" name="url_video_gratis" id="url_vide_gratiso"

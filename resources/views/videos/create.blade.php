@@ -87,6 +87,7 @@
                 @enderror
             </div>
             {{-- aqui empiezan los links de url de idiomas --}}
+            <h2> links premium</h2>
             <div>
                 <input style="color:black;" type="url" id="url_video" name="url_video" placeholder="URL Video (Inglés) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
@@ -113,6 +114,7 @@
             {{-- aqui terminan los links de url de idiomas --}}
 
               {{-- aqui empiezan los links de url de idiomas gratis --}}
+              <h2> links gratis</h2>
               <div>
                 <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis" placeholder="URL Video (Inglés) gratis"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
@@ -137,6 +139,7 @@
                     value="{{ old('sub_url_video_gratis') }}">
             </div>
             {{-- aqui terminan los links de url de idiomas --}}
+            <h2> lista a la que pertenece</h2>
             <div>
                 <select style="color:black;" name="lista_id" id="lista_id"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">

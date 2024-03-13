@@ -126,7 +126,7 @@
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ $video->sub_url_video_gratis }}">
             </div>
-
+            <h2> lista a la que pertenece</h2>
             {{-- Lista --}}
             <div>
                 {{-- Asumo que tienes una colección de listas disponibles como $listas --}}
@@ -140,7 +140,7 @@
                     @endforeach
                 </select>
             </div>
-
+            <h2> selecciona tipo de video</h2>
             {{-- Tipo de video --}}
             <div>
                 <select style="color:black;" name="tipo_id" id="tipo_id" 
@@ -154,6 +154,7 @@
             </div>
 
             {{-- Categorías "categoria_id[]--}}
+            <h2> categorias</h2>
             <div>
                 <select id="categoria_id" name="categoria_id[]" multiple class="block w-full rounded-md bg-white border border-gray-600 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="color:black;">
                     @foreach ($categorias as $categoria)
