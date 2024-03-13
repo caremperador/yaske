@@ -5,6 +5,19 @@
 @section('content')
 
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
+        @if ($errors->any())
+        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+            Errores
+        </div>
+        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
         <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Editar Video</h3>
         <form action="{{ route('videos.update', $video->id) }}" method="post" class="space-y-4" enctype="multipart/form-data">
             @csrf
@@ -138,18 +151,18 @@
                 </select>
             </div>
 
-            {{-- Categorías --}}
+            {{-- Categorías "categoria_id[]--}}
             <div>
-                <select style="color:black;" name="categoria_id[]" id="categoria_id" 
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                <select id="categoria_id" name="categoria_id[]" multiple class="block w-full rounded-md bg-white border border-gray-600 text-white leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="color:black;">
                     @foreach ($categorias as $categoria)
-                        <option value="{{ $categoria->id }}"
-                            {{ in_array($categoria->id, $video->categorias->pluck('id')->toArray()) ? 'selected' : '' }}>
+                        <option value="{{ $categoria->id }}" {{ in_array($categoria->id, $video->categorias->pluck('id')->toArray()) ? 'selected' : '' }}>
                             {{ $categoria->name }}
                         </option>
                     @endforeach
                 </select>
             </div>
+
+        
 
             {{-- Estado del video --}}
             <div>
