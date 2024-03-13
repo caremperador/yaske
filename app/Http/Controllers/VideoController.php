@@ -405,33 +405,33 @@ class VideoController extends Controller
             'sub' => $video->sub_url_video_gratis,
             default => null,
         };
-
+    
         if (!$urlColumn) {
             return back()->with('error', 'Tipo de enlace no válido.');
         }
-
+    
         try {
             $response = Http::get($urlColumn);
-            $body = strtolower($response->body());
-            // Comprueba si el cuerpo de la respuesta contiene alguna de las cadenas indicativas de un enlace caído.
-            if (!$response->successful() || str_contains($body, 'not found') || str_contains($body, '404') || str_contains($body, 'deleted')) {
+            if ($response->status() == 404 || str_contains(strtolower($response->body()), 'not found') || str_contains(strtolower($response->body()), 'deleted')) {
                 $caido = true;
             } else {
                 $caido = false;
             }
         } catch (\Exception $e) {
+            // Considera manejar diferentes tipos de excepciones de manera diferente
             $caido = true;
         }
-
+    
         if ($caido) {
             VideoEnlace::updateOrCreate(
                 ['video_id' => $video->id, 'tipo' => $tipo],
                 ['url' => $urlColumn, 'caido' => true]
             );
-
+    
             return back()->with('success', 'El enlace ha sido reportado como caído. Gracias por tu ayuda.');
         } else {
             return back()->with('info', 'El enlace parece estar funcionando correctamente.');
         }
     }
+    
 }
