@@ -37,7 +37,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/capitulos/crear', 'createCapitulos')->name('capitulos.create');
     Route::post('/capitulos/crear', 'storeCapitulos')->name('capitulos.store');
     Route::post('/videos/reportar-enlace/{video}', 'reportarEnlaceCaido')->name('reportar.enlace');
-    Route::get('/videos/enlaces-caidos', 'mostrarVideosConEnlacesCaidos')->name('videos.enlaces_caidos');
+    Route::get('/videos/enlaces-caidos', 'mostrarVideosConEnlacesCaidos')->name('videos.enlaces_caidos')->middleware('auth');
 });
 
 
