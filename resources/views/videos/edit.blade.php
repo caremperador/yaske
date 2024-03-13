@@ -121,8 +121,8 @@
             <div>
                 <select style="color:black;" name="estado" id="estado"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                    <option value="0" {{ $video->estado == '0' ? 'selected' : '' }}>Premium</option>
-                    <option value="1" {{ $video->estado == '1' ? 'selected' : '' }}>Gratis</option>
+                    <option value="0" {{ $video->estado == '0' ? 'selected' : '' }}>Gratis</option>
+                    <option value="1" {{ $video->estado == '1' ? 'selected' : '' }}>Premium</option>
                 </select>
             </div>
             {{-- Checkbox para calidad "cam" --}}
