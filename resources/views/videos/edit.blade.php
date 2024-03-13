@@ -59,6 +59,7 @@
                 <textarea style="color:black;" id="descripcion" name="descripcion" rows="4" placeholder="Descripción"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">{{ $video->descripcion }}</textarea>
             </div>
+            <h2> links premium</h2>
 
             {{-- URL de video en inglés --}}
             <div>
@@ -92,6 +93,7 @@
             </div>
 
             {{-- links gratis --}}
+            <h2> links gratis</h2>
 
 
                {{-- URL de video en inglés gratis --}}
