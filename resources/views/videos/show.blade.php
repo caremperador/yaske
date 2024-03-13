@@ -151,6 +151,16 @@
             {{-- ... aqui empieza el div de puntuaciones del video ... --}}
             <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
 
+                <!-- mensaje de exito o error en envio de formulario -->
+                @if (session('success'))
+                    <div class="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+                        Éxito
+                    </div>
+                    <div class="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 @if ($video->estado == '0')
 
                     <h3 class="text-xl font-bold mb-1 text-white">¿Deseas Reportar un enlace caido?</h3>
