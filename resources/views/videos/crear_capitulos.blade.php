@@ -112,7 +112,7 @@
             <div class="mb-6">
                 <label for="lat_url_video_gratis" class="block mb-2 text-sm font-medium">URL del Video (Latino)
                     gratis</label>
-                <input type="text" name="lat_url_video" id="lat_url_video_gratis"
+                <input type="text" name="lat_url_video_gratis" id="lat_url_video_gratis"
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             </div>
 
