@@ -98,7 +98,7 @@
             <hr><br>
             <div class="mb-6">
                 <label for="url_video_gratis" class="block mb-2 text-sm font-medium">URL del Video (Inglés) gratis</label>
-                <input type="text" name="url_video_gratis" id="url_vide_gratiso"
+                <input type="text" name="url_video_gratis" id="url_vide_gratis"
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
             </div>
 

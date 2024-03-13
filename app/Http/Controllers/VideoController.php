@@ -375,6 +375,10 @@ class VideoController extends Controller
         $video->es_url_video = $request->input('es_url_video');
         $video->lat_url_video = $request->input('lat_url_video');
         $video->sub_url_video = $request->input('sub_url_video');
+        $video->url_video_gratis = $request->url_video_gratis;
+        $video->es_url_video_gratis = $request->input('es_url_video_gratis');
+        $video->lat_url_video_gratis = $request->input('lat_url_video_gratis');
+        $video->sub_url_video_gratis = $request->input('sub_url_video_gratis');
         $video->estado = $request->estado;
         $video->thumbnail = $thumbnailPath; // Guarda la ruta de la imagen
 
