@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('es_url_video')->nullable();
             $table->string('lat_url_video')->nullable();
             $table->string('sub_url_video')->nullable();
-            $table->boolean('estado'); // 0: inactivo, 1: activo
+            $table->boolean('estado'); // 0: gratis, 1: premium
             $table->boolean('es_calidad_cam')->default(false); // Añade esta línea
             $table->timestamps();
         });

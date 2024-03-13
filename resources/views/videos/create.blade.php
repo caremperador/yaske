@@ -55,7 +55,7 @@
             </div>
             <div>
                 <input style="color:black;" type="text" name="titulo" id="titulo" placeholder="Titulo original"
-                    required
+                    
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('titulo') }}">
                 @error('titulo')
@@ -88,27 +88,53 @@
             </div>
             {{-- aqui empiezan los links de url de idiomas --}}
             <div>
-                <input style="color:black;" type="url" id="url_video" name="url_video" placeholder="URL Video (Inglés)"
+                <input style="color:black;" type="url" id="url_video" name="url_video" placeholder="URL Video (Inglés) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('url_video') }}">
             </div>
             <div>
                 <input style="color:black;" type="url" id="es_url_video" name="es_url_video"
-                    placeholder="URL Video (Español)"
+                    placeholder="URL Video (Español) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('es_url_video') }}">
             </div>
             <div>
                 <input style="color:black;" type="url" id="lat_url_video" name="lat_url_video"
-                    placeholder="URL Video (Latino)"
+                    placeholder="URL Video (Latino) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('lat_url_video') }}">
             </div>
             <div>
                 <input style="color:black;" type="url" id="sub_url_video" name="sub_url_video"
-                    placeholder="URL Video (Subtitulado)"
+                    placeholder="URL Video (Subtitulado) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('sub_url_video') }}">
+            </div>
+            {{-- aqui terminan los links de url de idiomas --}}
+
+              {{-- aqui empiezan los links de url de idiomas gratis --}}
+              <div>
+                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis" placeholder="URL Video (Inglés) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('url_video_gratis') }}">
+            </div>
+            <div>
+                <input style="color:black;" type="url" id="es_url_video_gratis" name="es_url_video_gratis"
+                    placeholder="URL Video (Español) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('es_url_video_gratis') }}">
+            </div>
+            <div>
+                <input style="color:black;" type="url" id="lat_url_video_gratis" name="lat_url_video_gratis"
+                    placeholder="URL Video (Latino) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('lat_url_video_gratis') }}">
+            </div>
+            <div>
+                <input style="color:black;" type="url" id="sub_url_video_gratis" name="sub_url_video_gratis"
+                    placeholder="URL Video (Subtitulado) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ old('sub_url_video_gratis') }}">
             </div>
             {{-- aqui terminan los links de url de idiomas --}}
             <div>

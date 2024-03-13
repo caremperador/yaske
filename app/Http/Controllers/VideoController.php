@@ -40,7 +40,7 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'titulo' => 'required',
+            'titulo' => 'nullable',
             'es_titulo' => 'nullable',
             'lat_titulo' => 'nullable',
             'descripcion' => 'nullable',
@@ -50,6 +50,10 @@ class VideoController extends Controller
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
+            'url_video_gratis' => 'nullable|url',
+            'es_url_video_gratis' => 'nullable|url',
+            'lat_url_video_gratis' => 'nullable|url',
+            'sub_url_video_gratis' => 'nullable|url',
             'tmdb_id' => 'nullable|unique:videos,tmdb_id', // Asegura que el ID de TMDB sea único en la tabla videos
             'thumbnail' => 'sometimes|image|max:2048', // Uso de sometimes para permitir archivos no subidos
             'thumbnailUrl' => 'nullable|url',
@@ -170,6 +174,18 @@ class VideoController extends Controller
             case 'eng':
                 $videoUrl = $video->url_video;
                 break;
+            case 'sub-gratis':
+                $videoUrl = $video->sub_url_video_gratis;
+                break;
+            case 'es-gratis':
+                $videoUrl = $video->es_url_video_gratis;
+                break;
+            case 'lat-gratis':
+                $videoUrl = $video->lat_url_video_gratis;
+                break;
+            case 'eng-gratis':
+                $videoUrl = $video->url_video_gratis;
+                break;
             default:
                 abort(404); // O manejar de otra manera si el idioma no es válido
         }
@@ -251,6 +267,10 @@ class VideoController extends Controller
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
+            'url_video_gratis' => 'nullable|url',
+            'es_url_video_gratis' => 'nullable|url',
+            'lat_url_video_gratis' => 'nullable|url',
+            'sub_url_video_gratis' => 'nullable|url',
             'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
             'lista_id' => 'nullable|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
@@ -274,6 +294,10 @@ class VideoController extends Controller
         $video->es_url_video = $validatedData['es_url_video'];
         $video->lat_url_video = $validatedData['lat_url_video'];
         $video->sub_url_video = $validatedData['sub_url_video'];
+        $video->url_video_gratis = $validatedData['url_video_gratis'];
+        $video->es_url_video_gratis = $validatedData['es_url_video_gratis'];
+        $video->lat_url_video_gratis = $validatedData['lat_url_video_gratis'];
+        $video->sub_url_video_gratis = $validatedData['sub_url_video_gratis'];
         $video->tipo_id = $validatedData['tipo_id'];
 
         if (isset($validatedData['lista_id'])) {
@@ -313,6 +337,10 @@ class VideoController extends Controller
             'es_url_video' => 'nullable|url',
             'lat_url_video' => 'nullable|url',
             'sub_url_video' => 'nullable|url',
+            'url_video_gratis' => 'nullable|url',
+            'es_url_video_gratis' => 'nullable|url',
+            'lat_url_video_gratis' => 'nullable|url',
+            'sub_url_video_gratis' => 'nullable|url',
             'descripcion' => 'nullable|string',
             'thumbnail' => 'nullable|image|max:2048', // Cambia 'sometimes' por 'nullable' y quita 'required'
             'thumbnail_url' => 'nullable|url', // Asegúrate de validar también la URL del thumbnail si se envía
@@ -367,63 +395,15 @@ class VideoController extends Controller
 
 
 
-
-    /*  public function reportarEnlaceCaido(Request $request, Video $video)
-    {
-        $enlaceCaido = false; // Inicialmente, marcamos el video como no caído.
-    
-        // Definir las URLs a verificar basadas en las columnas del video.
-        $urls = [
-            'default' => $video->url_video,
-            'es' => $video->es_url_video,
-            'lat' => $video->lat_url_video,
-            'sub' => $video->sub_url_video,
-        ];
-    
-        foreach ($urls as $idioma => $url) {
-            if (empty($url)) {
-                continue; // Salta la iteración si la URL está vacía.
-            }
-    
-            try {
-                // Realizar una petición GET para verificar la URL.
-                $response = Http::get($url);
-    
-                // Verificar si el cuerpo de la respuesta contiene "Not Found".
-                if ($response->successful() && str_contains(strtolower($response->body()), 'not found')) {
-                    $enlaceCaido = true;
-                    // Actualizar el estado del enlace a caído en la base de datos.
-                    // Aquí puedes agregar la lógica para actualizar la base de datos si es necesario.
-                    break; // Salir del bucle si se encuentra un enlace caído.
-                }
-            } catch (\Exception $e) {
-                // Si ocurre una excepción durante la verificación, consideramos que el enlace podría estar caído.
-                $enlaceCaido = true;
-                break; // Salir del bucle si se encuentra un enlace caído.
-            }
-        }
-    
-        // Acción basada en el resultado de la verificación.
-        if ($enlaceCaido) {
-            // Si se encuentra que el enlace está caído, actualiza el estado en la base de datos.
-            $video->enlace_caido = true;
-            $video->save();
-            return back()->with('success', 'El enlace ha sido reportado como caído. ¡Gracias por tu ayuda!');
-        } else {
-            return back()->with('info', 'El enlace parece estar funcionando correctamente.');
-        }
-    } */
-
-
     public function reportarEnlaceCaido(Request $request, Video $video)
     {
         $tipo = $request->input('tipo');
         // Determinar el enlace a verificar basado en el tipo.
         $urlColumn = match ($tipo) {
-            'default' => $video->url_video,
-            'es' => $video->es_url_video,
-            'lat' => $video->lat_url_video,
-            'sub' => $video->sub_url_video,
+            'default' => $video->url_video_gratis,
+            'es' => $video->es_url_video_gratis,
+            'lat' => $video->lat_url_video_gratis,
+            'sub' => $video->sub_url_video_gratis,
             default => null,
         };
     

@@ -78,6 +78,40 @@
                     value="{{ $video->sub_url_video }}">
             </div>
 
+            {{-- links gratis --}}
+
+
+               {{-- URL de video en inglés gratis --}}
+               <div>
+                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis" placeholder="URL Video (Inglés) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ $video->url_video_gratis }}">
+            </div>
+
+            {{-- URL de video en español gratis --}}
+            <div>
+                <input style="color:black;" type="url" id="es_url_video_gratis" name="es_url_video_gratis"
+                    placeholder="URL Video (Español) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ $video->es_url_video_gratis }}">
+            </div>
+
+            {{-- URL de video en latino gratis --}}
+            <div>
+                <input style="color:black;" type="url" id="lat_url_video_gratis" name="lat_url_video_gratis"
+                    placeholder="URL Video (Latino) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ $video->lat_url_video_gratis }}">
+            </div>
+
+            {{-- URL de video subtitulado gratis --}}
+            <div>
+                <input style="color:black;" type="url" id="sub_url_video_gratis" name="sub_url_video_gratis"
+                    placeholder="URL Video (Subtitulado) gratis"
+                    class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
+                    value="{{ $video->sub_url_video_gratis }}">
+            </div>
+
             {{-- Lista --}}
             <div>
                 {{-- Asumo que tienes una colección de listas disponibles como $listas --}}
