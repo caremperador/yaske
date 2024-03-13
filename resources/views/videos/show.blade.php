@@ -114,6 +114,8 @@
                     <div class="inline-flex rounded-md shadow-sm bg-gray-500 border border-gray-700">
                         <select name="tipo"
                             class="appearance-none w-full bg-gray-500 text-white border-none py-2 pl-4 pr-8 rounded-l focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                            <!-- Opción predeterminada -->
+                            <option value="" disabled selected>Selecciona un idioma</option>
                             @if ($video->url_video)
                                 <option value="default">Inglés</option>
                             @endif
