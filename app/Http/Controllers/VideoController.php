@@ -274,7 +274,7 @@ class VideoController extends Controller
             'thumbnail' => 'sometimes|image|max:2048', // 'sometimes' para que sea opcional
             'lista_id' => 'nullable|exists:listas,id',
             'tipo_id' => 'required|exists:tipos,id',
-            'categoria_id' => 'required|array',
+            'categoria_id' => 'sometimes|array',
             'categoria_id.*' => 'exists:categorias,id',
         ]);
 
