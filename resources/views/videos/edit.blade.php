@@ -1,6 +1,6 @@
 @extends('layouts.template-configuracion')
 
-@section('title', 'Editar Video')
+@section('title', 'Editar '.$video->titulo)
 
 @section('content')
 
