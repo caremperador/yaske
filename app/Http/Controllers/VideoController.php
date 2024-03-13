@@ -398,7 +398,6 @@ class VideoController extends Controller
     public function reportarEnlaceCaido(Request $request, Video $video)
     {
         $tipo = $request->input('tipo');
-        // Determinar el enlace a verificar basado en el tipo.
         $urlColumn = match ($tipo) {
             'default' => $video->url_video_gratis,
             'es' => $video->es_url_video_gratis,
@@ -406,33 +405,30 @@ class VideoController extends Controller
             'sub' => $video->sub_url_video_gratis,
             default => null,
         };
-    
-        // Comprobar si el enlace existe.
+
         if (!$urlColumn) {
             return back()->with('error', 'Tipo de enlace no válido.');
         }
-    
-        // Intentar realizar una petición GET al enlace.
+
         try {
             $response = Http::get($urlColumn);
-            if (!$response->successful() || str_contains(strtolower($response->body()), 'not found')) {
-                // Si la petición no es exitosa, o contiene 'not found', consideramos el enlace como caído.
+            $body = strtolower($response->body());
+            // Comprueba si el cuerpo de la respuesta contiene alguna de las cadenas indicativas de un enlace caído.
+            if (!$response->successful() || str_contains($body, 'not found') || str_contains($body, '404') || str_contains($body, 'deleted')) {
                 $caido = true;
             } else {
                 $caido = false;
             }
         } catch (\Exception $e) {
-            // Si ocurre una excepción al hacer la petición, consideramos el enlace como caído.
             $caido = true;
         }
-    
+
         if ($caido) {
-            // Si el enlace está caído, crear o actualizar un registro en la tabla `video_enlaces`.
             VideoEnlace::updateOrCreate(
-                ['video_id' => $video->id, 'tipo' => $tipo], // Claves para buscar.
-                ['url' => $urlColumn, 'caido' => true] // Datos para crear o actualizar.
+                ['video_id' => $video->id, 'tipo' => $tipo],
+                ['url' => $urlColumn, 'caido' => true]
             );
-    
+
             return back()->with('success', 'El enlace ha sido reportado como caído. Gracias por tu ayuda.');
         } else {
             return back()->with('info', 'El enlace parece estar funcionando correctamente.');
