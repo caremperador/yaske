@@ -7,6 +7,7 @@ use App\Models\Lista;
 use App\Models\Categoria;
 use App\Models\Comentario;
 use App\Models\Puntuacion;
+use App\Models\VideoEnlace;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -45,5 +46,9 @@ class Video extends Model
     public function puntuacionPromedio()
     {
         return $this->puntuaciones()->avg('puntuacion');
+    }
+    public function enlaces()
+    {
+        return $this->hasMany(VideoEnlace::class);
     }
 }

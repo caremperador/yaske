@@ -156,6 +156,10 @@
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-film mr-1"></i> Todos videos
                         </a>
+                        <a href="{{ route('videos.enlaces_caidos') }}"
+                            class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
+                            <i class="fas fa-flag mr-1"></i> Enlaces caidos
+                        </a>
                         <a href="{{ route('videos.create') }}"
                             class="bg-[#1F2937]  w-full  mb-1 text-[#F0F6F6] py-2 px-4 rounded transition duration-300 ease-in-out hover:bg-[#374151]">
                             <i class="fas fa-users mr-1"></i> Todos los Usuarios

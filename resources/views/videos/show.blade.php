@@ -6,16 +6,16 @@
 @section('title', 'Yaske - Ver ' . $video->titulo . ' online')
 @section('meta-descripcion', 'Ver gratis ' . $video->titulo . ' completo online en HD. ' . $video->descripcion)
 @section('metas-wsp-tg-tw')
-<!-- ... otras etiquetas ... -->
-<meta property="og:title" content="{{ $video->titulo }}" />
-<meta property="og:description" content="{{ $video->descripcion }}" />
-<meta property="og:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
-<meta property="og:url" content="https://tusitio.com/pagina-del-post" />
+    <!-- ... otras etiquetas ... -->
+    <meta property="og:title" content="{{ $video->titulo }}" />
+    <meta property="og:description" content="{{ $video->descripcion }}" />
+    <meta property="og:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
+    <meta property="og:url" content="https://tusitio.com/pagina-del-post" />
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="{{ $video->titulo }}" />
-<meta property="twitter:description" content="{{ $video->descripcion }}" />
-<meta property="twitter:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="{{ $video->titulo }}" />
+    <meta property="twitter:description" content="{{ $video->descripcion }}" />
+    <meta property="twitter:image" content="{{ asset('storage/' . $video->thumbnail) }}" />
 @endsection
 @section('background')
 
@@ -102,17 +102,50 @@
         <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
         <div class="mx-auto max-w-7xl">
 
-            
+
 
             {{-- ... aqui empieza el div de puntuaciones del video ... --}}
             <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">
-                @if (auth()->check())
-                @if (auth()->user()->hasRole('admin'))
-                <a target="blank" href="{{ route('videos.edit', $video->id) }}" class="text-xxs bg-gray-500 px-2 py-1 rounded">Editar</a>
-                @endif
-            @endif
 
-                <h3 class="text-xl font-bold mb-4 text-white">Calificaciones para este video</h3>
+                <h3 class="text-xl font-bold mb-1 text-white">¿Deseas Reportar un enlace caido?</h3>
+
+                <form action="{{ route('reportar.enlace', $video->id) }}" method="POST" class="py-4">
+                    @csrf
+                    <div class="inline-flex rounded-md shadow-sm bg-gray-500 border border-gray-700">
+                        <select name="tipo"
+                            class="appearance-none w-full bg-gray-500 text-white border-none py-2 pl-4 pr-8 rounded-l focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                            @if ($video->url_video)
+                                <option value="default">Inglés</option>
+                            @endif
+                            @if ($video->es_url_video)
+                                <option value="es">Español (España)</option>
+                            @endif
+                            @if ($video->lat_url_video)
+                                <option value="lat">Español (Latinoamérica)</option>
+                            @endif
+                            @if ($video->sub_url_video)
+                                <option value="sub">Inglés Subtitulado</option>
+                            @endif
+                        </select>
+                        <button type="submit"
+                            class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-r">
+                            <i class="fas fa-flag mr-2"></i> Reportar
+                        </button>
+                    </div>
+                </form>
+
+
+
+
+
+                @if (auth()->check())
+                    @if (auth()->user()->hasRole('admin'))
+                        <a target="blank" href="{{ route('videos.edit', $video->id) }}"
+                            class="text-xxs bg-gray-500 px-2 py-1 rounded">Editar</a>
+                    @endif
+                @endif
+
+                <h3 class="text-xl font-bold mb-4 mt-2 text-white">Calificaciones para este video</h3>
 
                 {{-- Sección de calificaciones --}}
                 <div class="mt-8 bg-gray-800 p-6 rounded-lg shadow-lg">

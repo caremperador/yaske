@@ -7,6 +7,7 @@ use App\Models\Tipo;
 use App\Models\Lista;
 use App\Models\Video;
 use App\Models\Categoria;
+use App\Models\VideoEnlace;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -353,5 +354,108 @@ class VideoController extends Controller
 
         // Redirecciona a la página que prefieras con un mensaje de éxito
         return redirect()->route('capitulos.create')->with('success', 'Capítulo añadido con éxito.');
+    }
+    public function mostrarVideosConEnlacesCaidos()
+    {
+        // Obtener todos los videos que tienen al menos un enlace marcado como caído
+        $videosConEnlacesCaidos = Video::whereHas('enlaces', function ($query) {
+            $query->where('caido', true);
+        })->paginate(10);
+
+        return view('videos.enlaces_caidos', compact('videosConEnlacesCaidos'));
+    }
+
+
+
+
+    /*  public function reportarEnlaceCaido(Request $request, Video $video)
+    {
+        $enlaceCaido = false; // Inicialmente, marcamos el video como no caído.
+    
+        // Definir las URLs a verificar basadas en las columnas del video.
+        $urls = [
+            'default' => $video->url_video,
+            'es' => $video->es_url_video,
+            'lat' => $video->lat_url_video,
+            'sub' => $video->sub_url_video,
+        ];
+    
+        foreach ($urls as $idioma => $url) {
+            if (empty($url)) {
+                continue; // Salta la iteración si la URL está vacía.
+            }
+    
+            try {
+                // Realizar una petición GET para verificar la URL.
+                $response = Http::get($url);
+    
+                // Verificar si el cuerpo de la respuesta contiene "Not Found".
+                if ($response->successful() && str_contains(strtolower($response->body()), 'not found')) {
+                    $enlaceCaido = true;
+                    // Actualizar el estado del enlace a caído en la base de datos.
+                    // Aquí puedes agregar la lógica para actualizar la base de datos si es necesario.
+                    break; // Salir del bucle si se encuentra un enlace caído.
+                }
+            } catch (\Exception $e) {
+                // Si ocurre una excepción durante la verificación, consideramos que el enlace podría estar caído.
+                $enlaceCaido = true;
+                break; // Salir del bucle si se encuentra un enlace caído.
+            }
+        }
+    
+        // Acción basada en el resultado de la verificación.
+        if ($enlaceCaido) {
+            // Si se encuentra que el enlace está caído, actualiza el estado en la base de datos.
+            $video->enlace_caido = true;
+            $video->save();
+            return back()->with('success', 'El enlace ha sido reportado como caído. ¡Gracias por tu ayuda!');
+        } else {
+            return back()->with('info', 'El enlace parece estar funcionando correctamente.');
+        }
+    } */
+
+
+    public function reportarEnlaceCaido(Request $request, Video $video)
+    {
+        $tipo = $request->input('tipo');
+        // Determinar el enlace a verificar basado en el tipo.
+        $urlColumn = match ($tipo) {
+            'default' => $video->url_video,
+            'es' => $video->es_url_video,
+            'lat' => $video->lat_url_video,
+            'sub' => $video->sub_url_video,
+            default => null,
+        };
+    
+        // Comprobar si el enlace existe.
+        if (!$urlColumn) {
+            return back()->with('error', 'Tipo de enlace no válido.');
+        }
+    
+        // Intentar realizar una petición GET al enlace.
+        try {
+            $response = Http::get($urlColumn);
+            if (!$response->successful() || str_contains(strtolower($response->body()), 'not found')) {
+                // Si la petición no es exitosa, o contiene 'not found', consideramos el enlace como caído.
+                $caido = true;
+            } else {
+                $caido = false;
+            }
+        } catch (\Exception $e) {
+            // Si ocurre una excepción al hacer la petición, consideramos el enlace como caído.
+            $caido = true;
+        }
+    
+        if ($caido) {
+            // Si el enlace está caído, crear o actualizar un registro en la tabla `video_enlaces`.
+            VideoEnlace::updateOrCreate(
+                ['video_id' => $video->id, 'tipo' => $tipo], // Claves para buscar.
+                ['url' => $urlColumn, 'caido' => true] // Datos para crear o actualizar.
+            );
+    
+            return back()->with('success', 'El enlace ha sido reportado como caído. Gracias por tu ayuda.');
+        } else {
+            return back()->with('info', 'El enlace parece estar funcionando correctamente.');
+        }
     }
 }
