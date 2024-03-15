@@ -31,10 +31,10 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');
     Route::get('/videos/create', 'create')->name('videos.create')->middleware('auth');
     Route::post('/videos', 'store')->name('videos.store')->middleware('auth');
-    Route::get('/video/{video}', 'show')->name('videos.show');
+    Route::get('/video/{video}', 'show')->name('videos.show')->middleware('responseCache:60');
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
-    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo');
+    Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('responseCache:60');
     Route::get('/capitulos/crear', 'createCapitulos')->name('capitulos.create');
     Route::post('/capitulos/crear', 'storeCapitulos')->name('capitulos.store');
     Route::post('/videos/reportar-enlace/{video}', 'reportarEnlaceCaido')->name('reportar.enlace');
