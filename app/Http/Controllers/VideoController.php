@@ -9,6 +9,7 @@ use App\Models\Video;
 use App\Models\Categoria;
 use App\Models\VideoEnlace;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -159,48 +160,58 @@ class VideoController extends Controller
     public function mostrarVideo($videoId, $idioma)
     {
         $video = Video::findOrFail($videoId);
+        $usuarioPremium = Auth::check() && Auth::user()->hasRole('premium');
+    
+        // Determinar si el video solicitado es premium o gratis
+        $esVideoPremium = !Str::endsWith($idioma, '-gratis');
+    
+        // URL por defecto para usuarios no premium que intentan acceder a contenido premium
+        // Asegúrate de tener esta ruta definida en tu archivo de rutas.
+        $urlPorDefectoParaNoPremium = url('/premium'); // Cambia esto por tu URL o ruta de suscripción premium
+    
         $videoUrl = '';
-
+    
         switch ($idioma) {
             case 'sub':
-                $videoUrl = $video->sub_url_video;
-                break;
             case 'es':
-                $videoUrl = $video->es_url_video;
-                break;
             case 'lat':
-                $videoUrl = $video->lat_url_video;
-                break;
             case 'eng':
-                $videoUrl = $video->url_video;
+                if ($esVideoPremium && !$usuarioPremium) {
+                    // Si el usuario no es premium y trata de acceder a un video premium,
+                    // redirige a la página de suscripción premium o muestra una vista específica.
+                    $videoUrl = $urlPorDefectoParaNoPremium;
+                } else {
+                    // Acceso permitido, sea porque es un usuario premium o porque el video no es premium
+                    $propiedadUrl = $idioma . '_url_video';
+                    $videoUrl = $video->$propiedadUrl;
+                }
                 break;
             case 'sub-gratis':
-                $videoUrl = $video->sub_url_video_gratis;
-                break;
             case 'es-gratis':
-                $videoUrl = $video->es_url_video_gratis;
-                break;
             case 'lat-gratis':
-                $videoUrl = $video->lat_url_video_gratis;
-                break;
             case 'eng-gratis':
-                $videoUrl = $video->url_video_gratis;
+                // Para videos gratis, no es necesario verificar si el usuario es premium
+                $propiedadUrl = str_replace('-gratis', '_url_video_gratis', $idioma);
+                $videoUrl = $video->$propiedadUrl;
                 break;
             default:
                 abort(404); // O manejar de otra manera si el idioma no es válido
         }
-
+    
         if (empty($videoUrl)) {
+            // Si por alguna razón el videoUrl está vacío, incluso para contenido gratis, maneja el error.
+            // Puedes decidir redirigir al usuario con un mensaje o mostrar una página de error específica.
             return redirect()->back()->withErrors(['message' => 'URL del video no disponible.']);
         }
-
+    
         // Verificar el User-Agent para identificar si la solicitud proviene de una WebView de Android
         $userAgent = request()->header('User-Agent');
         $isWebView = strpos($userAgent, 'wv') !== false;
-
-        // Pasar la variable $isWebView a la vista
+    
+        // Pasar la variable $isWebView y $videoUrl a la vista
         return view('videos.mostrarVideo', compact('videoUrl', 'isWebView'));
     }
+    
 
 
 
@@ -442,5 +453,9 @@ class VideoController extends Controller
         } else {
             return back()->with('info', 'El enlace parece estar funcionando correctamente.');
         }
+    }
+    public function vistapremium()
+    {
+        return view('videos.premium');
     }
 }
