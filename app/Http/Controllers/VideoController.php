@@ -161,10 +161,15 @@ class VideoController extends Controller
     public function mostrarVideo($videoId, $idioma)
     {
         // Cachear el objeto video completo podría no ser ideal si este cambia frecuentemente
-        $video = Cache::remember("videos:{$videoId}", 60 * 60, function () use ($videoId) {
+        $video = Cache::remember("videos:{$videoId}", 3600, function () use ($videoId) {
             return Video::findOrFail($videoId);
         });
-        $usuarioPremium = Auth::check() && Auth::user()->hasRole('premium');
+        $userId = Auth::id(); // Obtener el ID del usuario autenticado
+        // Utilizamos el ID del usuario como parte de la clave del caché para que sea único para cada usuario
+        $usuarioPremium = Cache::remember("usuarios:{$userId}:esPremium", 3600, function () {
+            return Auth::check() && Auth::user()->hasRole('premium');
+        });
+
 
         // Determinar si el video solicitado es premium o gratis
         $esVideoPremium = !Str::endsWith($idioma, '-gratis');
