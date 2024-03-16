@@ -88,7 +88,7 @@ Route::get('/todos-los-videos', [VideoController::class, 'admin_todos_los_videos
 Route::post('/video/{video}', [VideoController::class, 'destroy'])->name('admin.video_delete');
 
 // token premium
-Route::get('/generar-token', [TokenPremiumController::class, 'index'])->name('generar.token')->middleware('isRevendedor');
+Route::get('/generar-token', [TokenPremiumController::class, 'index'])->name('generar.token.index')->middleware('isRevendedor');
 Route::post('/generar-token', [TokenPremiumController::class, 'store'])->name('generar.token')->middleware('isRevendedor');
 
 // activar gasto de dias premium
