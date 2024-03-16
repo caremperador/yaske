@@ -20,6 +20,7 @@ use App\Http\Controllers\TransaccionesP2pController;
 use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
+
 Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('responseCache:60');
 Route::get('/proximamente', function () {
     return view('paginaProximamente');

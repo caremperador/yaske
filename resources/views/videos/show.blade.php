@@ -170,39 +170,39 @@
 
 
 
+                @if (auth()->check())
+                    @if ($video->estado == '0')
 
-                @if ($video->estado == '0')
+                        <h3 class="text-xl font-bold mb-1 text-white">¿Deseas Reportar un enlace caido?</h3>
 
-                    <h3 class="text-xl font-bold mb-1 text-white">¿Deseas Reportar un enlace caido?</h3>
-
-                    <form action="{{ route('reportar.enlace', $video->id) }}" method="POST" class="py-4">
-                        @csrf
-                        <div class="inline-flex rounded-md shadow-sm bg-gray-500 border border-gray-700">
-                            <select name="tipo"
-                                class="appearance-none w-full bg-gray-500 text-white border-none py-2 pl-4 pr-8 rounded-l focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
-                                <!-- Opción predeterminada -->
-                                <option value="" disabled selected>Selecciona un idioma</option>
-                                @if ($video->url_video_gratis)
-                                    <option value="default">Inglés</option>
-                                @endif
-                                @if ($video->es_url_video_gratis)
-                                    <option value="es">Español (España)</option>
-                                @endif
-                                @if ($video->lat_url_video_gratis)
-                                    <option value="lat">Español (Latinoamérica)</option>
-                                @endif
-                                @if ($video->sub_url_video_gratis)
-                                    <option value="sub">Inglés Subtitulado</option>
-                                @endif
-                            </select>
-                            <button type="submit"
-                                class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-r">
-                                <i class="fas fa-flag mr-2"></i> Reportar
-                            </button>
-                        </div>
-                    </form>
+                        <form action="{{ route('reportar.enlace', $video->id) }}" method="POST" class="py-4">
+                            @csrf
+                            <div class="inline-flex rounded-md shadow-sm bg-gray-500 border border-gray-700">
+                                <select name="tipo"
+                                    class="appearance-none w-full bg-gray-500 text-white border-none py-2 pl-4 pr-8 rounded-l focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                                    <!-- Opción predeterminada -->
+                                    <option value="" disabled selected>Selecciona un idioma</option>
+                                    @if ($video->url_video_gratis)
+                                        <option value="default">Inglés</option>
+                                    @endif
+                                    @if ($video->es_url_video_gratis)
+                                        <option value="es">Español (España)</option>
+                                    @endif
+                                    @if ($video->lat_url_video_gratis)
+                                        <option value="lat">Español (Latinoamérica)</option>
+                                    @endif
+                                    @if ($video->sub_url_video_gratis)
+                                        <option value="sub">Inglés Subtitulado</option>
+                                    @endif
+                                </select>
+                                <button type="submit"
+                                    class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-r">
+                                    <i class="fas fa-flag mr-2"></i> Reportar
+                                </button>
+                            </div>
+                        </form>
+                    @endif
                 @endif
-
 
 
                 @if (auth()->check())
