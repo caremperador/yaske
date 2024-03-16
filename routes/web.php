@@ -37,10 +37,10 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('responseCache:60');
     Route::get('/capitulos/crear', 'createCapitulos')->name('capitulos.create');
     Route::post('/capitulos/crear', 'storeCapitulos')->name('capitulos.store');
-    Route::post('/videos/reportar-enlace/{video}', 'reportarEnlaceCaido')->name('reportar.enlace');
+    Route::post('/videos/reportar-enlace/{video}', 'reportarEnlaceCaido')->name('reportar.enlace')->middleware('auth');
     Route::get('/videos/enlaces-caidos', 'mostrarVideosConEnlacesCaidos')->name('videos.enlaces_caidos')->middleware('auth');
     Route::delete('/enlace-caido/{enlace}', 'deleteEnlaceCaido')->name('delete.enlaceCaido')->middleware('auth');
-    Route::get('/premium', 'vistapremium')->name('premium');
+    Route::get('/premium', 'vistapremium')->name('premium')->middleware('responseCache:60');
 });
 
 
