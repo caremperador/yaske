@@ -35,7 +35,7 @@
             <!-- Vista previa del Thumbnail, inicialmente oculta -->
             <div id="thumbnailPreviewContainer" style="display: none;">
                 <label class="block text-sm font-medium text-gray-300">Vista previa del Thumbnail:</label>
-                <img id="thumbnailPreview" src="" alt="Vista previa del thumbnail" class="w-32 h-48 object-cover">
+                <img id="thumbnailPreview" src="" alt="Vista previa del thumbnail" class="w-full max-w-xs mx-auto rounded-lg object-cover">
             </div>
 
 
