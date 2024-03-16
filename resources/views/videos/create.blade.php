@@ -5,7 +5,7 @@
 @section('content')
 
 
-  <!-- mostrar errores en el formulario -->
+    <!-- mostrar errores en el formulario -->
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         @if ($errors->any())
             <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
@@ -41,7 +41,7 @@
 
             <!-- Campo oculto para la URL del thumbnail (opcional) -->
             <input type="hidden" id="thumbnailUrl" name="thumbnailUrl">
-           
+
             <!-- Corregido para que coincida con la validación y manejo en el controlador -->
             <input type="hidden" id="tmdb_id" name="tmdb_id">
 
@@ -55,7 +55,6 @@
             </div>
             <div>
                 <input style="color:black;" type="text" name="titulo" id="titulo" placeholder="Titulo original"
-                    
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('titulo') }}">
                 @error('titulo')
@@ -89,7 +88,8 @@
             {{-- aqui empiezan los links de url de idiomas --}}
             <h2> links premium</h2>
             <div>
-                <input style="color:black;" type="url" id="url_video" name="url_video" placeholder="URL Video (Inglés) premium"
+                <input style="color:black;" type="url" id="url_video" name="url_video"
+                    placeholder="URL Video (Inglés) premium"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('url_video') }}">
             </div>
@@ -113,10 +113,11 @@
             </div>
             {{-- aqui terminan los links de url de idiomas --}}
 
-              {{-- aqui empiezan los links de url de idiomas gratis --}}
-              <h2> links gratis</h2>
-              <div>
-                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis" placeholder="URL Video (Inglés) gratis"
+            {{-- aqui empiezan los links de url de idiomas gratis --}}
+            <h2> links gratis</h2>
+            <div>
+                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis"
+                    placeholder="URL Video (Inglés) gratis"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ old('url_video_gratis') }}">
             </div>
@@ -253,13 +254,22 @@
                     document.getElementById('lat_titulo').value = `${movieLat.title}${yearLat}` || '';
 
                     // Actualizar la vista previa del thumbnail utilizando el póster de la película en español (movieEs)
-                    if (movieEn.poster_path) {
-                        const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${movieEn.backdrop_path}`;
+                    if (movieEn.poster_path && movieEn.backdrop_path) {
+                        const imageUrl = `https://image.tmdb.org/t/p/w780${movieEn.backdrop_path}`;
                         document.getElementById('thumbnailPreview').src = imageUrl;
                         document.getElementById('thumbnailPreviewContainer').style.display =
-                            'block'; // Muestra el contenedor
+                        'block'; // Muestra el contenedor
                         document.getElementById('thumbnailUrl').value = imageUrl;
+                    } else {
+                        console.log("La película no tiene una imagen de fondo disponible.");
+                        // Puedes optar por establecer una imagen por defecto o manejar la ausencia de la imagen de alguna otra manera
+                        document.getElementById('thumbnailPreview').src =
+                        '/path/to/default/image.jpg'; // Ejemplo de ruta a una imagen por defecto
+                        document.getElementById('thumbnailUrl').value = '/path/to/default/image.jpg';
+                        // Dependiendo de tu diseño, quizás quieras ocultar el contenedor de vista previa o mostrar un mensaje
+                        // document.getElementById('thumbnailPreviewContainer').style.display = 'none';
                     }
+
 
                 } catch (error) {
                     console.error('Error al buscar la película:', error);
