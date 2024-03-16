@@ -55,7 +55,7 @@ Route::controller(ListaController::class)->group(function () {
     Route::get('/listas', 'index')->name('listas.index');
     Route::get('/listas/create', 'create')->name('listas.create')->middleware('auth');
     Route::post('/listas', 'store')->name('listas.store')->middleware('auth');
-    Route::get('/listas/{lista}', 'show')->name('listas.show');
+    Route::get('/listas/{lista}', 'show')->name('listas.show')->middleware('responseCache:60');
 });
 
 
@@ -71,8 +71,8 @@ Route::controller(TipoController::class)->group(function () {
     Route::get('/tipos', 'index')->name('tipos.index')->middleware('auth');
     Route::get('/tipos/create', 'create')->name('tipos.create')->middleware('auth');
     Route::post('/tipos', 'store')->name('tipos.store')->middleware('auth');
-    Route::get('/tipos/video/{tipoSlug}', 'show')->name('tipos.show');
-    Route::get('/tipo/{tipoSlug}/{categoria?}', 'show_con_listas')->name('tipos.show_con_listas');
+    Route::get('/tipos/video/{tipoSlug}', 'show')->name('tipos.show')->middleware('responseCache:60');
+    Route::get('/tipo/{tipoSlug}/{categoria?}', 'show_con_listas')->name('tipos.show_con_listas')->middleware('responseCache:60');
 });
 
 
@@ -112,7 +112,7 @@ Route::post('/vender-dias-premium', [DiasPremiumController::class, 'store_vender
 // transacciones p2p
 
 Route::get('/seleccionar-revendedor', [TransaccionesP2pController::class, 'seleccionarRevendedor'])
-    ->name('seleccionarRevendedor')->middleware('auth');
+    ->name('seleccionarRevendedor')->middleware('auth')->middleware('responseCache:60');
 
 Route::get('/seleccionar-revendedor/filtrar', [TransaccionesP2pController::class, 'seleccionarRevendedorFiltrado'])->name('seleccionarRevendedorFiltrado');
 Route::get('/enviar-comprobante/{seller_id?}', [TransaccionesP2pController::class, 'index_envio_comprobante'])->name('envio_comprobante.index')->middleware('auth');
