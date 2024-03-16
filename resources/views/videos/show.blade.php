@@ -40,27 +40,40 @@
                 <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">
                     {{ $video->titulo }}</p>
                 <div class="hidden md:inline-flex flex-col text-xs lg:text-base">
-                    @if ($video->sub_url_video)
-                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) }}"
-                            class="bg-white text-black rounded-full px-4 py-2 mb-4">
-                            <i class="fa fa-play mr-1"></i>Play Subtitulado Premium
-                        </a>
-                    @endif
-                    @if ($video->es_url_video)
-                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) }}"
-                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                            Español (España) Premium</a>
-                    @endif
-                    @if ($video->lat_url_video)
-                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) }}"
-                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                            Español (Latinoamérica) Premium</a>
-                    @endif
-                    @if ($video->url_video)
-                        <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) }}"
-                            class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                            Inglés Premium</a>
-                    @endif
+                    @php
+                    $isPremium = auth()->check() && auth()->user()->hasRole('premium');
+                    $premiumRoute = route('premium');
+                @endphp
+                
+                @if ($video->sub_url_video)
+                    <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) : $premiumRoute }}"
+                        class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                        <i class="fa fa-play mr-1"></i>Play Subtitulado Premium
+                    </a>
+                @endif
+                
+                @if ($video->es_url_video)
+                    <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) : $premiumRoute }}"
+                        class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                        <i class="fa fa-play mr-1"></i>Play Español (España) Premium
+                    </a>
+                @endif
+                
+                @if ($video->lat_url_video)
+                    <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) : $premiumRoute }}"
+                        class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                        <i class="fa fa-play mr-1"></i>Play Español (Latinoamérica) Premium
+                    </a>
+                @endif
+                
+                @if ($video->url_video)
+                    <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) : $premiumRoute }}"
+                        class="bg-white text-black rounded-full px-4 py-2 mb-4">
+                        <i class="fa fa-play mr-1"></i>Play Inglés Premium
+                    </a>
+                @endif
+                
+                
                     {{-- links gratis --}}
                     @if ($video->sub_url_video_gratis)
                         <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub-gratis']) }}"
@@ -90,27 +103,36 @@
     </div>
 
     <div class="md:hidden flex flex-col mx-2 text-center">
-        @if ($video->sub_url_video)
-            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) }}"
-                class="bg-white text-black rounded-full px-4 py-2 mb-4">
-                <i class="fa fa-play mr-1"></i>Play Subtitulado Premium
-            </a>
-        @endif
-        @if ($video->es_url_video)
-            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) }}"
-                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Español (España) Premium</a>
-        @endif
-        @if ($video->lat_url_video)
-            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) }}"
-                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Español (Latinoamérica) Premium</a>
-        @endif
-        @if ($video->url_video)
-            <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) }}"
-                class="bg-white text-black rounded-full px-4 py-2 mb-4"><i class="fa fa-play mr-1"></i>Play
-                Inglés Premium</a>
-        @endif
+    
+    @if ($video->sub_url_video)
+        <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub']) : $premiumRoute }}"
+            class="bg-white text-black rounded-full px-4 py-2 mb-4">
+            <i class="fa fa-play mr-1"></i>Play Subtitulado Premium
+        </a>
+    @endif
+    
+    @if ($video->es_url_video)
+        <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'es']) : $premiumRoute }}"
+            class="bg-white text-black rounded-full px-4 py-2 mb-4">
+            <i class="fa fa-play mr-1"></i>Play Español (España) Premium
+        </a>
+    @endif
+    
+    @if ($video->lat_url_video)
+        <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'lat']) : $premiumRoute }}"
+            class="bg-white text-black rounded-full px-4 py-2 mb-4">
+            <i class="fa fa-play mr-1"></i>Play Español (Latinoamérica) Premium
+        </a>
+    @endif
+    
+    @if ($video->url_video)
+        <a href="{{ $isPremium ? route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'eng']) : $premiumRoute }}"
+            class="bg-white text-black rounded-full px-4 py-2 mb-4">
+            <i class="fa fa-play mr-1"></i>Play Inglés Premium
+        </a>
+    @endif
+    
+    
         {{-- links gratis --}}
         @if ($video->sub_url_video_gratis)
             <a href="{{ route('videos.mostrarVideo', ['video' => $video->id, 'idioma' => 'sub-gratis']) }}"

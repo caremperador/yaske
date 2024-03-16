@@ -41,7 +41,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::post('/videos/reportar-enlace/{video}', 'reportarEnlaceCaido')->name('reportar.enlace')->middleware('auth');
     Route::get('/videos/enlaces-caidos', 'mostrarVideosConEnlacesCaidos')->name('videos.enlaces_caidos')->middleware('auth');
     Route::delete('/enlace-caido/{enlace}', 'deleteEnlaceCaido')->name('delete.enlaceCaido')->middleware('auth');
-    Route::get('/premium', 'vistapremium')->name('premium')->middleware('auth')->middleware('responseCache:60');
+    Route::get('/premium', 'vistapremium')->name('premium')->middleware('responseCache:60');
 });
 
 
