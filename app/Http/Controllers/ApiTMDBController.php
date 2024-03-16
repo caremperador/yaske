@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Http;
 
 class ApiTMDBController extends Controller
 {
+    // Define la clave API directamente en el controlador como una constante (no recomendado para producción)
+    private const TMDB_API_KEY = 'f412d3e39460dae1a70eb007668c4e3b';
 
     // En VideoController.php
     public function buscarPeliculaTMDB(Request $request, $id)
-    {
-        $apiKey = env('TMDB_API_KEY');
+    { // Usar la clave API desde la constante del controlador
+        $apiKey = self::TMDB_API_KEY;
         $language = $request->input('language', 'en'); // Default a inglés si no se especifica
         $region = $request->input('region', ''); // Sin región por defecto
 
@@ -32,7 +34,9 @@ class ApiTMDBController extends Controller
     }
     public function buscarSerieTMDB(Request $request, $id)
     {
-        $apiKey = env('TMDB_API_KEY');
+         // Usar la clave API desde la constante del controlador
+         $apiKey = self::TMDB_API_KEY;
+         
         $language = $request->input('language', 'en'); // Idioma por defecto es inglés
         $region = $request->input('region', ''); // Región opcional
 
