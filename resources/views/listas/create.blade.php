@@ -83,16 +83,16 @@
                         @foreach ($categorias as $categoria)
                             <div class="category-checkbox">
                                 <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
-                                    value="{{ $categoria->id }}" class="hidden"
+                                    value="{{ $categoria->id }}" class="hidden peer"
                                     @if (is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id', []))) checked @endif />
                                 <label for="cat-{{ $categoria->id }}"
-                                    class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                    class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 peer-checked:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                                     {{ $categoria->name }}
                                 </label>
                             </div>
                         @endforeach
                     </div>
-
+                    
 
 
                     <div>
