@@ -21,7 +21,7 @@ use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('responseCache:3600');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('responseCache:300');
 Route::get('/proximamente', function () {
     return view('paginaProximamente');
 })->name('proximamente');
