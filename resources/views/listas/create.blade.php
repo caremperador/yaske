@@ -153,22 +153,7 @@
                         }
                     });
                 </script>
-                <script>
-                 document.addEventListener('DOMContentLoaded', function () {
-    // Script para manejar el estado activo de las categorías
-    document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
-        const label = checkbox.nextElementSibling;
-        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-        
-        label.addEventListener('click', () => {
-            setTimeout(() => {
-                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-            }, 10);
-        });
-    });
-});
-
-                </script>
+             
             @endpush
 
 
