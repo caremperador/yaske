@@ -342,7 +342,7 @@ class VideoController extends Controller
             $video->categorias()->sync($validatedData['categoria_id']);
         }
 
-        return redirect()->route('admin.todos_los_videos')->with('success', 'Video actualizado con éxito.');
+        return redirect()->back()->with('success', 'Video actualizado con éxito.');
     }
     public function estrenosGratis()
     {
