@@ -86,6 +86,7 @@ Route::put('/criticas/{comentario}', [ComentarioController::class, 'update'])->n
 
 Route::get('/videos/search', [VideoController::class, 'search'])->name('videos.search');
 Route::get('/todos-los-videos', [VideoController::class, 'admin_todos_los_videos'])->name('admin.todos_los_videos');
+Route::get('/videos/premium', [VideoController::class, 'all_videos_premium'])->name('all.videos.premium');
 Route::post('/video/{video}', [VideoController::class, 'destroy'])->name('admin.video_delete');
 
 // token premium

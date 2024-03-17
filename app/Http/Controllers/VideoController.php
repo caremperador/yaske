@@ -250,6 +250,17 @@ class VideoController extends Controller
 
         return view('admin.admin_todos_los_videos', compact('videos'));
     }
+    public function all_videos_premium()
+    {
+        // Obtener todos los videos con estado = 1
+        $videosPremium = Video::where('estado', 1)
+            ->orderBy('created_at', 'desc')
+            ->paginate(32);
+
+        // Pasar los videos a la vista
+        return view('videos.all-video-premium', compact('videosPremium'));
+    }
+
     public function destroy(Video $video)
     {
 
