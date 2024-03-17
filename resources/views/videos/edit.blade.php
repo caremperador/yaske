@@ -1,23 +1,23 @@
 @extends('layouts.template-configuracion')
 
-@section('title', 'Editar '.$video->titulo)
+@section('title', 'Editar ' . $video->titulo)
 
 @section('content')
 
     <div class="bg-gray-800 p-4 rounded-lg shadow-lg">
         @if ($errors->any())
-        <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-            Errores
-        </div>
-        <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    
+            <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                Errores
+            </div>
+            <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <h3 class="font-semibold border-b border-gray-700 pb-2 text-white">Editar Video</h3>
         <form action="{{ route('videos.update', $video->id) }}" method="post" class="space-y-4" enctype="multipart/form-data">
             @csrf
@@ -96,9 +96,10 @@
             <h2> links gratis</h2>
 
 
-               {{-- URL de video en inglés gratis --}}
-               <div>
-                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis" placeholder="URL Video (Inglés) gratis"
+            {{-- URL de video en inglés gratis --}}
+            <div>
+                <input style="color:black;" type="url" id="url_video_gratis" name="url_video_gratis"
+                    placeholder="URL Video (Inglés) gratis"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                     value="{{ $video->url_video_gratis }}">
             </div>
@@ -143,7 +144,7 @@
             <h2> selecciona tipo de video</h2>
             {{-- Tipo de video --}}
             <div>
-                <select style="color:black;" name="tipo_id" id="tipo_id" 
+                <select style="color:black;" name="tipo_id" id="tipo_id"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
                     @foreach ($tipos as $tipo)
                         <option value="{{ $tipo->id }}" {{ $video->tipo_id == $tipo->id ? 'selected' : '' }}>
@@ -153,13 +154,14 @@
                 </select>
             </div>
 
-            {{-- Categorías "categoria_id[]--}}
+            {{-- Categorías "categoria_id[] --}}
             <h2> categorias</h2>
             <div class="flex flex-wrap gap-2 mt-4">
                 @foreach ($categorias as $categoria)
                     <div class="category-checkbox">
-                        <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]" value="{{ $categoria->id }}"
-                            class="hidden" @if(in_array($categoria->id, $video->categorias->pluck('id')->toArray())) checked @endif />
+                        <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
+                            value="{{ $categoria->id }}" class="hidden"
+                            @if (in_array($categoria->id, $video->categorias->pluck('id')->toArray())) checked @endif />
                         <label for="cat-{{ $categoria->id }}"
                             class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                             {{ $categoria->name }}
@@ -167,7 +169,7 @@
                     </div>
                 @endforeach
             </div>
-        
+
 
             {{-- Estado del video --}}
             <div>
@@ -194,18 +196,21 @@
     </div>
 
     @push('scripts')
-<script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
     // Script para manejar el estado activo de las categorías
     document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
         const label = checkbox.nextElementSibling;
         checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-
+        
         label.addEventListener('click', () => {
             setTimeout(() => {
                 checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
             }, 10);
         });
     });
-</script>
-@endpush
+});
+
+        </script>
+    @endpush
 @endsection

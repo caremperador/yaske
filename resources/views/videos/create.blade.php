@@ -35,7 +35,8 @@
             <!-- Vista previa del Thumbnail, inicialmente oculta -->
             <div id="thumbnailPreviewContainer" style="display: none;">
                 <label class="block text-sm font-medium text-gray-300">Vista previa del Thumbnail:</label>
-                <img id="thumbnailPreview" src="" alt="Vista previa del thumbnail" class="w-full max-w-xs mx-auto rounded-lg object-cover">
+                <img id="thumbnailPreview" src="" alt="Vista previa del thumbnail"
+                    class="w-full max-w-xs mx-auto rounded-lg object-cover">
             </div>
 
 
@@ -174,14 +175,15 @@
                 @enderror
             </div>
 
-           
+
 
 
             <div class="flex flex-wrap gap-2 mt-4">
                 @foreach ($categorias->sortBy('name') as $categoria)
                     <div class="category-checkbox">
-                        <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]" value="{{ $categoria->id }}"
-                            class="hidden" @if(is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id'))) checked @endif />
+                        <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
+                            value="{{ $categoria->id }}" class="hidden"
+                            @if (is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id'))) checked @endif />
                         <label for="cat-{{ $categoria->id }}"
                             class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                             {{ $categoria->name }}
@@ -189,8 +191,8 @@
                     </div>
                 @endforeach
                 @error('categoria_id')
-                <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-            @enderror
+                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+                @enderror
             </div>
 
             <div>
@@ -257,13 +259,13 @@
                         const imageUrl = `https://image.tmdb.org/t/p/w780${movieEn.backdrop_path}`;
                         document.getElementById('thumbnailPreview').src = imageUrl;
                         document.getElementById('thumbnailPreviewContainer').style.display =
-                        'block'; // Muestra el contenedor
+                            'block'; // Muestra el contenedor
                         document.getElementById('thumbnailUrl').value = imageUrl;
                     } else {
                         console.log("La película no tiene una imagen de fondo disponible.");
                         // Puedes optar por establecer una imagen por defecto o manejar la ausencia de la imagen de alguna otra manera
                         document.getElementById('thumbnailPreview').src =
-                        '/path/to/default/image.jpg'; // Ejemplo de ruta a una imagen por defecto
+                            '/path/to/default/image.jpg'; // Ejemplo de ruta a una imagen por defecto
                         document.getElementById('thumbnailUrl').value = '/path/to/default/image.jpg';
                         // Dependiendo de tu diseño, quizás quieras ocultar el contenedor de vista previa o mostrar un mensaje
                         // document.getElementById('thumbnailPreviewContainer').style.display = 'none';
@@ -276,17 +278,20 @@
             });
         </script>
         <script>
-            // Script para manejar el estado activo de las categorías
-            document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
-                const label = checkbox.nextElementSibling;
-                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
+         document.addEventListener('DOMContentLoaded', function () {
+    // Script para manejar el estado activo de las categorías
+    document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
+        const label = checkbox.nextElementSibling;
+        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
         
-                label.addEventListener('click', () => {
-                    setTimeout(() => {
-                        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-                    }, 10);
-                });
-            });
+        label.addEventListener('click', () => {
+            setTimeout(() => {
+                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
+            }, 10);
+        });
+    });
+});
+
         </script>
     @endpush
 
