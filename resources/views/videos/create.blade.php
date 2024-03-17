@@ -182,10 +182,10 @@
                 @foreach ($categorias->sortBy('name') as $categoria)
                     <div class="category-checkbox">
                         <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
-                            value="{{ $categoria->id }}" class="hidden"
+                            value="{{ $categoria->id }}" class="hidden peer"
                             @if (is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id'))) checked @endif />
                         <label for="cat-{{ $categoria->id }}"
-                            class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 peer-checked:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                             {{ $categoria->name }}
                         </label>
                     </div>
@@ -194,14 +194,15 @@
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
                 @enderror
             </div>
+            
 
             <div>
                 <label for="estado" class="block text-sm font-medium text-gray-300">Estado del
                     Video</label>
                 <select style="color:black;" name="estado" id="estado"
                     class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200">
-                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Premium</option>
                     <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>Gratis</option>
+                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>Premium</option>
                 </select>
                 @error('estado')
                     <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
@@ -277,22 +278,7 @@
                 }
             });
         </script>
-        <script>
-         document.addEventListener('DOMContentLoaded', function () {
-    // Script para manejar el estado activo de las categorías
-    document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
-        const label = checkbox.nextElementSibling;
-        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-        
-        label.addEventListener('click', () => {
-            setTimeout(() => {
-                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-            }, 10);
-        });
-    });
-});
-
-        </script>
+   
     @endpush
 
 @endsection

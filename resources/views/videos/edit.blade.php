@@ -158,19 +158,17 @@
             <h2> categorias</h2>
             <div class="flex flex-wrap gap-2 mt-4">
                 @foreach ($categorias as $categoria)
-                    <div class="category-checkbox">
+                    <div class="group">
                         <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
-                            value="{{ $categoria->id }}" class="hidden"
-                            @if (in_array($categoria->id, $video->categorias->pluck('id')->toArray())) checked @endif />
+                            value="{{ $categoria->id }}" class="peer hidden"
+                            @if (in_array($categoria->id, old('categoria_id', $video->categorias->pluck('id')->toArray()))) checked @endif />
                         <label for="cat-{{ $categoria->id }}"
-                            class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300 peer-checked:bg-blue-700">
                             {{ $categoria->name }}
                         </label>
                     </div>
                 @endforeach
-            </div>
-
-
+            </div>        
             {{-- Estado del video --}}
             <div>
                 <select style="color:black;" name="estado" id="estado"
@@ -196,21 +194,6 @@
     </div>
 
     @push('scripts')
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    // Script para manejar el estado activo de las categorías
-    document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
-        const label = checkbox.nextElementSibling;
-        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-        
-        label.addEventListener('click', () => {
-            setTimeout(() => {
-                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
-            }, 10);
-        });
-    });
-});
-
-        </script>
+    
     @endpush
 @endsection

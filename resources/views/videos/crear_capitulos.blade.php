@@ -129,8 +129,8 @@
                 <label for="estado" class="block mb-2 text-sm font-medium">Estado</label>
                 <select name="estado" id="estado"
                     class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="1">Premium</option>
                     <option value="0">Gratis</option>
+                    <option value="1">Premium</option>
                 </select>
             </div>
 
