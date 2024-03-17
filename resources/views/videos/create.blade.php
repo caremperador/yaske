@@ -174,24 +174,23 @@
                 @enderror
             </div>
 
-            <div>
-                <label for="categoria_id" class="block text-sm font-medium text-gray-300">Categorías</label>
-                <select style="color:black;" name="categoria_id[]" id="categoria_id" multiple required
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 h-40">
+           
 
-                    <option value="" disabled {{ old('categoria_id') ? '' : 'selected' }}>
-                        Seleccione categorías</option>
-                    @foreach ($categorias->sortBy('name') as $categoria)
-                        <option value="{{ $categoria->id }}"
-                            {{ in_array($categoria->id, old('categoria_id', [])) ? 'selected' : '' }}>
-                            {{ $categoria->name }}</option>
-                    @endforeach
-                </select>
+
+            <div class="flex flex-wrap gap-2 mt-4">
+                @foreach ($categorias->sortBy('name') as $categoria)
+                    <div class="category-checkbox">
+                        <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]" value="{{ $categoria->id }}"
+                            class="hidden" @if(is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id'))) checked @endif />
+                        <label for="cat-{{ $categoria->id }}"
+                            class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                            {{ $categoria->name }}
+                        </label>
+                    </div>
+                @endforeach
                 @error('categoria_id')
-                    <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                @enderror
-                <p class="mt-2 text-sm text-gray-300">Mantén presionada la tecla 'Ctrl' (Windows/Linux)
-                    o 'Command' (Mac) para seleccionar múltiples opciones.</p>
+                <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
+            @enderror
             </div>
 
             <div>
@@ -274,6 +273,19 @@
                 } catch (error) {
                     console.error('Error al buscar la película:', error);
                 }
+            });
+        </script>
+        <script>
+            // Script para manejar el estado activo de las categorías
+            document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
+                const label = checkbox.nextElementSibling;
+                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
+        
+                label.addEventListener('click', () => {
+                    setTimeout(() => {
+                        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
+                    }, 10);
+                });
             });
         </script>
     @endpush

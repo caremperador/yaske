@@ -76,26 +76,24 @@
                             class="block w-full px-4 py-3 bg-white border rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200"></textarea>
                     </div>
 
-                    <div>
+
+
+                    <div class="flex flex-wrap gap-2 mt-4">
                         <label for="categoria_id" class="block text-sm font-medium text-gray-300">Categorías</label>
-                        <select style="color:black;" name="categoria_id[]" id="categoria_id" multiple required
-                            class="h-40 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option value="" disabled {{ old('categoria_id') ? '' : 'selected' }}>Seleccione
-                                categorías
-                            </option>
-                            @foreach ($categorias->sortBy('name') as $categoria)
-                                <option value="{{ $categoria->id }}"
-                                    {{ in_array($categoria->id, old('categoria_id', [])) ? 'selected' : '' }}>
+                        @foreach ($categorias as $categoria)
+                            <div class="category-checkbox">
+                                <input type="checkbox" id="cat-{{ $categoria->id }}" name="categoria_id[]"
+                                    value="{{ $categoria->id }}" class="hidden"
+                                    @if (is_array(old('categoria_id')) && in_array($categoria->id, old('categoria_id', []))) checked @endif />
+                                <label for="cat-{{ $categoria->id }}"
+                                    class="px-3 py-1 bg-gray-600 text-white text-sm font-medium rounded-full cursor-pointer hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
                                     {{ $categoria->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('categoria_id')
-                            <p class="text-red-500 text-xs italic mt-1">{{ $message }}</p>
-                        @enderror
-                        <p class="mt-2 text-sm text-gray-300">Mantén presionada la tecla 'Ctrl' (Windows/Linux) o 'Command'
-                            (Mac) para seleccionar múltiples opciones.</p>
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
+
+
 
                     <div>
                         <select style="color:black;" name="tipo_id" id="tipo_id"
@@ -115,46 +113,58 @@
 
             @push('scripts')
                 <script>
-                  document.getElementById('tmdbSearch').addEventListener('input', async function() {
-    const tmdbId = this.value;
-    if (tmdbId.length === 0) return; // Evita búsquedas vacías
+                    document.getElementById('tmdbSearch').addEventListener('input', async function() {
+                        const tmdbId = this.value;
+                        if (tmdbId.length === 0) return; // Evita búsquedas vacías
 
-    // Actualiza el campo oculto con el ID de TMDB
-    document.getElementById('tmdb_id').value = tmdbId;
+                        // Actualiza el campo oculto con el ID de TMDB
+                        document.getElementById('tmdb_id').value = tmdbId;
 
-    try {
-        // Obtener detalles de la serie en inglés (título original)
-        const responseEn = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=en`);
-        const serieEn = await responseEn.json();
-        document.getElementById('titulo').value = serieEn.name || '';
+                        try {
+                            // Obtener detalles de la serie en inglés (título original)
+                            const responseEn = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=en`);
+                            const serieEn = await responseEn.json();
+                            document.getElementById('titulo').value = serieEn.name || '';
 
-        // Vista previa del thumbnail y actualización del campo oculto para la imagen
-        if (serieEn.poster_path) {
-            const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${serieEn.backdrop_path}`;
-            document.getElementById('thumbnailPreview').src = imageUrl;
-            document.getElementById('thumbnailPreviewContainer').style.display = 'block';
-            document.getElementById('thumbnailUrl').value = imageUrl;
-        }
+                            // Vista previa del thumbnail y actualización del campo oculto para la imagen
+                            if (serieEn.poster_path) {
+                                const imageUrl = `https://image.tmdb.org/t/p/w533_and_h300_bestv2${serieEn.backdrop_path}`;
+                                document.getElementById('thumbnailPreview').src = imageUrl;
+                                document.getElementById('thumbnailPreviewContainer').style.display = 'block';
+                                document.getElementById('thumbnailUrl').value = imageUrl;
+                            }
 
-        // Obtener detalles en español de España
-        const responseEs = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=es-ES`);
-        if (responseEs.ok) {
-            const serieEs = await responseEs.json();
-            document.getElementById('es_titulo').value = serieEs.name || '';
-            document.getElementById('descripcion').value = serieEs.overview || '';
-        }
+                            // Obtener detalles en español de España
+                            const responseEs = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=es-ES`);
+                            if (responseEs.ok) {
+                                const serieEs = await responseEs.json();
+                                document.getElementById('es_titulo').value = serieEs.name || '';
+                                document.getElementById('descripcion').value = serieEs.overview || '';
+                            }
 
-        // Detalles en español de Latinoamérica
-        const responseLat = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=es-MX`);
-        if (responseLat.ok) {
-            const serieLat = await responseLat.json();
-            document.getElementById('lat_titulo').value = serieLat.name || '';
-        }
-    } catch (error) {
-        console.error('Error al buscar la serie:', error);
-    }
-});
+                            // Detalles en español de Latinoamérica
+                            const responseLat = await fetch(`/buscar-serie-tmdb/${tmdbId}?language=es-MX`);
+                            if (responseLat.ok) {
+                                const serieLat = await responseLat.json();
+                                document.getElementById('lat_titulo').value = serieLat.name || '';
+                            }
+                        } catch (error) {
+                            console.error('Error al buscar la serie:', error);
+                        }
+                    });
+                </script>
+                <script>
+                    document.querySelectorAll('.category-checkbox input').forEach(checkbox => {
+                        const label = checkbox.nextElementSibling;
+                        checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove('bg-blue-700');
 
+                        label.addEventListener('click', () => {
+                            setTimeout(() => {
+                                checkbox.checked ? label.classList.add('bg-blue-700') : label.classList.remove(
+                                    'bg-blue-700');
+                            }, 10);
+                        });
+                    });
                 </script>
             @endpush
 
