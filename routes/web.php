@@ -21,7 +21,7 @@ use App\Http\Controllers\UsuariosCompradoresController;
 use App\Http\Controllers\AdminConfiguracionPaisController;
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('responseCache:300');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('responseCache:600');
 Route::get('/proximamente', function () {
     return view('paginaProximamente');
 })->name('proximamente');
@@ -32,7 +32,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/videos', 'index')->name('videos.index');
     Route::get('/videos/create', 'create')->name('videos.create')->middleware('auth');
     Route::post('/videos', 'store')->name('videos.store')->middleware('auth');
-    Route::get('/video/{video}', 'show')->name('videos.show')->middleware('responseCache:3600');
+    Route::get('/video/{video}', 'show')->name('videos.show')->middleware('responseCache:60');
     Route::get('/videos/{video}/edit', 'edit')->name('videos.edit')->middleware('auth');
     Route::put('/videos/{video}', 'update')->name('videos.update')->middleware('auth');
     Route::get('/video/mostrar/{video}/{idioma}', 'mostrarVideo')->name('videos.mostrarVideo')->middleware('responseCache:3600');
