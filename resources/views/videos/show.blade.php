@@ -6,6 +6,7 @@
 @section('title', 'Yaske - Ver ' . $video->titulo . ' online')
 @section('meta-descripcion', 'Ver gratis ' . $video->titulo . ' completo online en HD. ' . $video->descripcion)
 @section('metas-wsp-tg-tw')
+<link rel="canonical" href="{{ url()->current() }}" />
     <!-- ... otras etiquetas ... -->
     <meta property="og:title" content="{{ $video->titulo }}" />
     <meta property="og:description" content="{{ $video->descripcion }}" />
