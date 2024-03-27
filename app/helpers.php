@@ -36,17 +36,16 @@ function extractTitleName($title) {
     }
 }
 
-function spanishTitle($titles) {
-    // Comprueba si el título en español existe y no está vacío
-    if (isset($titles['es_titulo']) && !empty($titles['es_titulo'])) {
-        return $titles['es_titulo'];
+function spanishTitle($video) {
+    // Asegura que se acceda correctamente a las propiedades del objeto
+    if (isset($video->es_titulo) && !empty($video->es_titulo)) {
+        return $video->es_titulo;
     }
-    // Si no, comprueba si el título latino existe y no está vacío
-    else if (isset($titles['lat_titulo']) && !empty($titles['lat_titulo'])) {
-        return $titles['lat_titulo'];
+    else if (isset($video->lat_titulo) && !empty($video->lat_titulo)) {
+        return $video->lat_titulo;
     }
-    // Si no, devuelve el título en inglés (o el título por defecto)
     else {
-        return $titles['titulo'];
+        return $video->titulo;
     }
 }
+
