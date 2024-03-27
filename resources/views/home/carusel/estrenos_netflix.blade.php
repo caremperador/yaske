@@ -28,7 +28,7 @@
                            <i class="fas fa-gem text-yellow-600 mr-1 my-1 text-xs md:text-base"></i>
                        @endif
 
-                       {{ $video->titulo }}
+                       {{ spanishTitle($video) }}
                    </p>
                </div>
            @endforeach

@@ -27,7 +27,6 @@
                     @if ($video->estado == 1)
                         <i class="fas fa-gem text-yellow-600 mr-1 my-1 text-xs md:text-base"></i>
                     @endif
-
                     {{  spanishTitle($video) }}
                 </p>
             </div>
