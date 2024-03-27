@@ -38,8 +38,8 @@
         <div class="absolute bottom-0 left-0 p-4 w-full md:w-[85%] lg:w-[75%] xl:w-[60] xl:mb-20">
             <!-- Otros elementos del contenido... -->
             <div class=" text-white p-4 rounded-lg">
-                <p class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">
-                    {{ $video->titulo }}</p>
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4 text-center md:text-left">
+                    {{ $video->titulo }}</h1>
                 <div class="hidden md:inline-flex flex-col text-xs lg:text-base">
                     @php
                     $isPremium = auth()->check() && auth()->user()->hasRole('premium');
