@@ -35,3 +35,18 @@ function extractTitleName($title) {
         return $title;
     }
 }
+
+function spanishTitle($titles) {
+    // Comprueba si el título en español existe y no está vacío
+    if (isset($titles['es_titulo']) && !empty($titles['es_titulo'])) {
+        return $titles['es_titulo'];
+    }
+    // Si no, comprueba si el título latino existe y no está vacío
+    else if (isset($titles['lat_titulo']) && !empty($titles['lat_titulo'])) {
+        return $titles['lat_titulo'];
+    }
+    // Si no, devuelve el título en inglés (o el título por defecto)
+    else {
+        return $titles['titulo'];
+    }
+}
